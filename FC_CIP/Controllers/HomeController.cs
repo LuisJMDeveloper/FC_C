@@ -13,10 +13,8 @@ namespace FC_CIP.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult Registrar()
         {
-            ViewBag.Message = "Your application description page.";
-
             return View();
         }
     }
