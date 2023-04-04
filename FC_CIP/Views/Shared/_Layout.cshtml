@@ -1,32 +1,33 @@
 ﻿<!DOCTYPE html>
 <html lang="es">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    <link rel="stylesheet" href="~/CSS/_Login.css"/>
+    <link rel="stylesheet" href="~/CSS/Login_.css" />
 </head>
-<body>
+<body >
 
-    <header>
+    <header class="">
         <nav class="navbar navbar-expand-lg _navbar">
             <div class="container-fluid d-flex justify-content-between">
                 @Html.ActionLink("Formación complementaria CIP", "index", "Home", null, new { @class = "_title nav-link" })
 
                 <button class="navbar-toggler text-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                    
+                    <i class="navbar-toggler-icon navbar-text text-light"></i>
                 </button>
 
                 <div class="collapse navbar-collapse _navbarNav" id="navbarNav">
                     <ul class="navbar-nav">
-                        <li class="nav-item ">
-                            @Html.ActionLink("Iniciar sesión", "index", "Home", null, new { @class = "_subTitle nav-link" })
+                        <li class="nav-item link-light">
+                            @Html.ActionLink("Iniciar sesión", "index", "Home", null, new { @class = "_subTitle nav-link " })
                         </li>
-                        <li class="nav-item">
-                            @Html.ActionLink("Registrese aquí", "Registrar", "Home", null, new { @class = "_subTitle nav-link" })
+                        <li class="nav-item link-light">
+                            @Html.ActionLink("Registrese aquí", "Registrar", "Home", null, new { @class = "_subTitle nav-link " })
                         </li>
                     </ul>
                 </div>
@@ -40,7 +41,19 @@
 
     </main>
     <footer>
-        <p>&copy; @DateTime.Now.Year - Formación complementaria CIP</p>
+        <div class="container text-center">
+
+            <ul class="navbar-nav _ulFooter">
+                <li class="nav-item link-dark _liFooter">
+                    @Html.ActionLink("Iniciar sesión", "index", "Home", null, new { @class = "_subTitle _subTitle-footer nav-link" })
+                </li>
+                <li class="nav-item link-dark _liFooter">
+                    @Html.ActionLink("Registrese aquí", "Registrar", "Home", null, new { @class = "_subTitle _subTitle-footer nav-link" })
+                </li>
+            </ul>
+            <br />
+            <p>&copy; @DateTime.Now.Year - Formación complementaria CIP</p>
+        </div>
     </footer>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
