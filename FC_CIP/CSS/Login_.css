@@ -49,6 +49,31 @@ header {
     display:flex;
     flex-direction:column;
     align-items:center;
-    padding:10px;
+    padding-top:30px;
     gap:5px;
+    height:80vh;
+}
+
+.contenedor-formulario {
+    height: 50vh;
+}
+
+.formulario-registro {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.text-formulario {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.grupo-formulario-botones{
+    display:flex;
+    justify-content:end;
+    
+    margin-top:20px;
+    gap:10px;
 }

@@ -4,5 +4,59 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Registrar</h2>
+<div class="container _inicioSesion">
 
+    <div class="tab-content">
+        <div id="formInicioSesion" class="container">
+
+            <div class="row mt-4">
+
+                <div class="text-formulario">
+                    <h3 class="form-label mb-4 row">
+                        Registro de usuario
+                    </h3>
+                    
+                </div>
+
+                <div class="contenedor-formulario">
+                    <form id="formInicioRegistro" class="col-md formulario-registro">
+
+                        <div class="grupo-formulario">
+                            <label for="txtente">Número de identificación:</label>
+                            <input type="text" class="form-control border-success" id="txtLoginClave" name="txtLoginClave">
+                        </div>
+
+                        <div class="grupo-formulario">
+                            <label for="txtente">Nombre:</label>
+                            <input type="text" class="form-control border-success" id="txtLoginClave" name="txtLoginClave">
+                        </div>
+
+                        <div class="grupo-formulario">
+                            <label for="txtente">Apellido:</label>
+                            <input type="text" class="form-control border-success" id="txtLoginClave" name="txtLoginClave">
+                        </div>
+
+                        <div class="grupo-formulario">
+                            <label for="txtente">Correo electrónico:</label>
+                            <input type="text" class="form-control border-success" id="txtLoginClave" name="txtLoginClave">
+                        </div>
+
+                        <div class="grupo-formulario">
+                            <label for="txtente">Telefono:</label>
+                            <input type="text" class="form-control border-success" id="txtLoginClave" name="txtLoginClave">
+                        </div>
+
+                    </form>
+                    <div class="container-fluid grupo-formulario grupo-formulario-botones">
+                        <button id="btnRegistrar" form="formInicioRegistro" type="submit" class="btn btn-outline-success btn-sm">
+                            <i class="bi bi-file-earmark-check"></i> Registrar
+                        </button>
+                        <button id="btnCancelar" type="button" class="btn btn-outline-danger btn-sm">
+                            <i class="bi bi-trash"></i> Cancelar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
