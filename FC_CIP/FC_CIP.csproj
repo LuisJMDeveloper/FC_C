@@ -66,6 +66,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -132,15 +133,54 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ACTIVIDAD.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AMBIENTE.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\COORDINADORA.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CURSO.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\INSTRUCTOR.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LOCACION.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Modelo.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Modelo.Context.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Modelo.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Modelo.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Modelo.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PROGRAMA_ESPECIAL.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PROGRAMA_FORMACION.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\REPORTE.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SOLICITUD.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TablasCombinadas\UsuarioInstructor.cs" />
+    <Compile Include="Models\USUARIO.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -168,6 +208,12 @@
     <Content Include="Models\Modelo.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Modelo.Context.cs</LastGenOutput>
+      <DependentUpon>Modelo.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\Modelo.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Modelo.edmx</DependentUpon>
+      <LastGenOutput>Modelo.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -201,9 +247,9 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Modelo.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Models\Modelo.edmx.diagram">
+    <Content Include="Models\Modelo.edmx.diagram">
       <DependentUpon>Modelo.edmx</DependentUpon>
-    </None>
+    </Content>
     <None Include="Scripts\jquery-3.6.4.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.4.js" />
     <Content Include="Scripts\jquery-3.6.4.min.js" />

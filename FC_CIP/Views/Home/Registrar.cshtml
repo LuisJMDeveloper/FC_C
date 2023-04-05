@@ -23,32 +23,32 @@
 
                         <div class="grupo-formulario">
                             <label for="txtente">Número de identificación:</label>
-                            <input type="text" class="form-control border-success" id="txtLoginClave" name="txtLoginClave">
+                            <input type="text" class="form-control border-success" id="txtNid" name="txtNid">
                         </div>
 
                         <div class="grupo-formulario">
                             <label for="txtente">Nombre:</label>
-                            <input type="text" class="form-control border-success" id="txtLoginClave" name="txtLoginClave">
+                            <input type="text" class="form-control border-success" id="txtName" name="txtName">
                         </div>
 
                         <div class="grupo-formulario">
                             <label for="txtente">Apellido:</label>
-                            <input type="text" class="form-control border-success" id="txtLoginClave" name="txtLoginClave">
+                            <input type="text" class="form-control border-success" id="txtLastName" name="txtLastName">
                         </div>
 
                         <div class="grupo-formulario">
                             <label for="txtente">Correo electrónico:</label>
-                            <input type="text" class="form-control border-success" id="txtLoginClave" name="txtLoginClave">
+                            <input type="text" class="form-control border-success" id="txtEmail" name="txtEmail">
                         </div>
 
                         <div class="grupo-formulario">
                             <label for="txtente">Telefono:</label>
-                            <input type="text" class="form-control border-success" id="txtLoginClave" name="txtLoginClave">
+                            <input type="text" class="form-control border-success" id="txtPhone" name="txtPhone">
                         </div>
 
                     </form>
                     <div class="container-fluid grupo-formulario grupo-formulario-botones">
-                        <button id="btnRegistrar" form="formInicioRegistro" type="submit" class="btn btn-outline-success btn-sm">
+                        <button id="btnRegistrar" form="formInicioRegistro" type="button" onclick="Registrar()" class="btn btn-outline-success btn-sm">
                             <i class="bi bi-file-earmark-check"></i> Registrar
                         </button>
                         <button id="btnCancelar" type="button" class="btn btn-outline-danger btn-sm">
@@ -70,15 +70,17 @@
 
             var $data = {
                 oUsuario:{
-                    us_nid: parseInt($("").val()),
-                    us_password: $("").val(),
-                    us_name: $("").val(),
-                    us_lastname: $("").val(),
-                    us_email: $("").val(),
-                    us_phone: parseInt($("").val()),
+                    us_nid: parseInt($("#txtNid").val()),
+                    us_password: $("#txtNid").val(),
+                    us_name: $("#txtName").val(),
+                    us_lastname: $("#txtLastName").val(),
+                    us_email: $("#txtEmail").val(),
+                    us_phone: parseInt($("#txtPhone").val()),
                 }
 
             }
+
+            console.log($data);
 
             jQuery.ajax({
                 url: "@Url.Action("RegistrarInstructor", "Home")",
