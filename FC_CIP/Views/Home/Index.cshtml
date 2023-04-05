@@ -2,30 +2,86 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+<div class="container _inicioSesion">
+
+    <div class="tab-content">
+        <div id="formInicioSesion" class="container">
+
+            <div class="row mt-4">
+
+                <form id="formInicioSesion" class="col-md formulario">
+
+                    <h3 class="form-label mb-4 row">
+                        Inicio de sesión
+                    </h3>
+
+                    <div class="form-outline">
+                        <label for="txtUser">Usuario:</label>
+                        <input type="text" class="form-control border-success" id="txtUser" name="txtUser" required>
+                    </div>
+
+                    <div class="form-outline">
+                        <label for="txtClave">Contraseña:</label>
+                        <input type="text" class="form-control border-success" id="txtClave" name="txtClave" required>
+                    </div>
+
+
+                    <button type="button" onclick="IniciarSesion()" form="formInicioSesion" class="btn btn-outline-primary btn-sm m-2 ">
+                        <i class="bi bi-house-door"></i> Iniciar sesión
+                    </button>
+
+                    <button class="btn btn-outline-dark btn-sm">
+                        <i class="bi bi-key"></i> Restableser contraseña
+                    </button>
+
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+@section scripts{
+
+    <script>
+
+        function IniciarSesion() {
+
+            var $data = {
+                oUsuario:{
+                    us_nid: parseInt($("#txtUser").val()),
+                    us_password: $("#txtClave").val(),
+                }
+
+            }
+
+            jQuery.ajax({
+                url: "@Url.Action("GetUserCredenciales", "Home")",
+                type: "POST",
+                data: JSON.stringify($data),
+                dataType: "json",
+                contentType: "application/json; charset=utf- 8",
+                success: function (data) {
+                    if (data.oPersona== null) {
+                        alert("Ha ocurrido un error. Puede que el usuario o la contraseña sean incorrectas");
+                    }
+                    else if (data.oPersona.us_typeuser == "Coordinador") {
+                        alert("Bienvenido(a) Coordinador(a)");
+                    } else {
+
+                        alert("Bienvenido(a) Instructor(a)");
+                         
+                    }
+                }
+            })
+
+            Clear();
+        }
+
+        function Clear() {
+            $("#txtUser").val("");
+            $("#txtClave").val("");    
+        }
+
+    </script>
+
+}

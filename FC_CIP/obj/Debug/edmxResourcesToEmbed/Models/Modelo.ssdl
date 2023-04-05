@@ -1,0 +1,314 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FC_CIP_BDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="ACTIVIDAD">
+    <Key>
+      <PropertyRef Name="ac_id" />
+    </Key>
+    <Property Name="ac_id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="cu_id" Type="numeric" Precision="18" Scale="0" />
+    <Property Name="ac_code" Type="int" />
+    <Property Name="ac_name" Type="varchar" MaxLength="200" />
+    <Property Name="ac_daytotal" Type="int" />
+    <Property Name="ac_timetable" Type="varchar" MaxLength="100" />
+    <Property Name="ac_timetable1" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="AMBIENTE">
+    <Key>
+      <PropertyRef Name="am_id" />
+    </Key>
+    <Property Name="am_id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="lo_id" Type="numeric" Precision="18" Scale="0" />
+    <Property Name="am_code" Type="int" />
+    <Property Name="am_name" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="COORDINADORA">
+    <Key>
+      <PropertyRef Name="co_id" />
+    </Key>
+    <Property Name="co_id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CURSO">
+    <Key>
+      <PropertyRef Name="cu_id" />
+    </Key>
+    <Property Name="cu_id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="am_id" Type="numeric" Precision="18" Scale="0" />
+    <Property Name="pf_id" Type="numeric" Precision="18" Scale="0" />
+    <Property Name="pe_id" Type="numeric" Precision="18" Scale="0" />
+    <Property Name="so_id" Type="numeric" Precision="18" Scale="0" />
+    <Property Name="cu_code" Type="int" />
+    <Property Name="cu_name" Type="varchar" MaxLength="100" />
+    <Property Name="cu_duration" Type="int" />
+    <Property Name="cu_startDate" Type="date" />
+    <Property Name="cu_endDate" Type="date" />
+    <Property Name="cu_note" Type="varchar" MaxLength="255" />
+    <Property Name="cu_days" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="INSTRUCTOR">
+    <Key>
+      <PropertyRef Name="in_id" />
+    </Key>
+    <Property Name="in_id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LOCACION">
+    <Key>
+      <PropertyRef Name="lo_id" />
+    </Key>
+    <Property Name="lo_id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="lo_code" Type="int" />
+    <Property Name="lo_name" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="PROGRAMA_ESPECIAL">
+    <Key>
+      <PropertyRef Name="pe_id" />
+    </Key>
+    <Property Name="pe_id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="pe_code" Type="int" />
+    <Property Name="pe_name" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="PROGRAMA_FORMACION">
+    <Key>
+      <PropertyRef Name="pe_id" />
+    </Key>
+    <Property Name="pe_id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="pe_code" Type="int" />
+    <Property Name="pe_name" Type="varchar" MaxLength="200" />
+    <Property Name="pf_version" Type="float" />
+  </EntityType>
+  <EntityType Name="REPORTE">
+    <Key>
+      <PropertyRef Name="re_id" />
+    </Key>
+    <Property Name="re_id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="cu_id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="re_date" Type="date" />
+  </EntityType>
+  <EntityType Name="SOLICITUD">
+    <Key>
+      <PropertyRef Name="so_id" />
+    </Key>
+    <Property Name="so_id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="co_id" Type="numeric" Precision="18" Scale="0" />
+    <Property Name="in_id" Type="numeric" Precision="18" Scale="0" />
+    <Property Name="so_status" Type="varchar" MaxLength="15" />
+    <Property Name="so_type" Type="varchar" MaxLength="15" />
+    <Property Name="so_ente" Type="varchar" MaxLength="100" />
+    <Property Name="so_date" Type="date" />
+  </EntityType>
+  <EntityType Name="USUARIO">
+    <Key>
+      <PropertyRef Name="us_id" />
+    </Key>
+    <Property Name="us_id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="us_nid" Type="numeric" Precision="18" Scale="0" />
+    <Property Name="us_password" Type="varchar" MaxLength="250" />
+    <Property Name="us_typeuser" Type="varchar" MaxLength="15" />
+    <Property Name="us_name" Type="varchar" MaxLength="100" />
+    <Property Name="us_lastname" Type="varchar" MaxLength="100" />
+    <Property Name="us_email" Type="varchar" MaxLength="100" />
+    <Property Name="us_phone" Type="numeric" Precision="18" Scale="0" />
+    <Property Name="us_reestablecer" Type="bit" />
+    <Property Name="us_date" Type="date" />
+  </EntityType>
+  <Association Name="FK__ACTIVIDAD__cu_id__44FF419A">
+    <End Role="CURSO" Type="Self.CURSO" Multiplicity="0..1" />
+    <End Role="ACTIVIDAD" Type="Self.ACTIVIDAD" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CURSO">
+        <PropertyRef Name="cu_id" />
+      </Principal>
+      <Dependent Role="ACTIVIDAD">
+        <PropertyRef Name="cu_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__AMBIENTE__lo_id__34C8D9D1">
+    <End Role="LOCACION" Type="Self.LOCACION" Multiplicity="0..1" />
+    <End Role="AMBIENTE" Type="Self.AMBIENTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LOCACION">
+        <PropertyRef Name="lo_id" />
+      </Principal>
+      <Dependent Role="AMBIENTE">
+        <PropertyRef Name="lo_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__COORDINAD__co_id__286302EC">
+    <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
+    <End Role="COORDINADORA" Type="Self.COORDINADORA" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="USUARIO">
+        <PropertyRef Name="us_id" />
+      </Principal>
+      <Dependent Role="COORDINADORA">
+        <PropertyRef Name="co_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CURSO__am_id__3B75D760">
+    <End Role="AMBIENTE" Type="Self.AMBIENTE" Multiplicity="0..1" />
+    <End Role="CURSO" Type="Self.CURSO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AMBIENTE">
+        <PropertyRef Name="am_id" />
+      </Principal>
+      <Dependent Role="CURSO">
+        <PropertyRef Name="am_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CURSO__pe_id__3D5E1FD2">
+    <End Role="PROGRAMA_ESPECIAL" Type="Self.PROGRAMA_ESPECIAL" Multiplicity="0..1" />
+    <End Role="CURSO" Type="Self.CURSO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PROGRAMA_ESPECIAL">
+        <PropertyRef Name="pe_id" />
+      </Principal>
+      <Dependent Role="CURSO">
+        <PropertyRef Name="pe_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CURSO__pf_id__3C69FB99">
+    <End Role="PROGRAMA_FORMACION" Type="Self.PROGRAMA_FORMACION" Multiplicity="0..1" />
+    <End Role="CURSO" Type="Self.CURSO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PROGRAMA_FORMACION">
+        <PropertyRef Name="pe_id" />
+      </Principal>
+      <Dependent Role="CURSO">
+        <PropertyRef Name="pf_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CURSO__so_id__3E52440B">
+    <End Role="SOLICITUD" Type="Self.SOLICITUD" Multiplicity="0..1" />
+    <End Role="CURSO" Type="Self.CURSO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SOLICITUD">
+        <PropertyRef Name="so_id" />
+      </Principal>
+      <Dependent Role="CURSO">
+        <PropertyRef Name="so_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__INSTRUCTO__in_id__2B3F6F97">
+    <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
+    <End Role="INSTRUCTOR" Type="Self.INSTRUCTOR" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="USUARIO">
+        <PropertyRef Name="us_id" />
+      </Principal>
+      <Dependent Role="INSTRUCTOR">
+        <PropertyRef Name="in_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__REPORTE__cu_id__412EB0B6">
+    <End Role="CURSO" Type="Self.CURSO" Multiplicity="1" />
+    <End Role="REPORTE" Type="Self.REPORTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CURSO">
+        <PropertyRef Name="cu_id" />
+      </Principal>
+      <Dependent Role="REPORTE">
+        <PropertyRef Name="cu_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SOLICITUD__co_id__2E1BDC42">
+    <End Role="COORDINADORA" Type="Self.COORDINADORA" Multiplicity="0..1" />
+    <End Role="SOLICITUD" Type="Self.SOLICITUD" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="COORDINADORA">
+        <PropertyRef Name="co_id" />
+      </Principal>
+      <Dependent Role="SOLICITUD">
+        <PropertyRef Name="co_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SOLICITUD__in_id__2F10007B">
+    <End Role="INSTRUCTOR" Type="Self.INSTRUCTOR" Multiplicity="0..1" />
+    <End Role="SOLICITUD" Type="Self.SOLICITUD" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="INSTRUCTOR">
+        <PropertyRef Name="in_id" />
+      </Principal>
+      <Dependent Role="SOLICITUD">
+        <PropertyRef Name="in_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="GetUserType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="us_nid" Type="numeric" Mode="In" />
+    <Parameter Name="us_password" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="saveUserValidation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="us_nid" Type="numeric" Mode="In" />
+    <Parameter Name="us_password" Type="varchar" Mode="In" />
+    <Parameter Name="us_name" Type="varchar" Mode="In" />
+    <Parameter Name="us_lastname" Type="varchar" Mode="In" />
+    <Parameter Name="us_email" Type="varchar" Mode="In" />
+    <Parameter Name="us_phone" Type="numeric" Mode="In" />
+  </Function>
+  <EntityContainer Name="FC_CIP_BDModelStoreContainer">
+    <EntitySet Name="ACTIVIDAD" EntityType="Self.ACTIVIDAD" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AMBIENTE" EntityType="Self.AMBIENTE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="COORDINADORA" EntityType="Self.COORDINADORA" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CURSO" EntityType="Self.CURSO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="INSTRUCTOR" EntityType="Self.INSTRUCTOR" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LOCACION" EntityType="Self.LOCACION" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PROGRAMA_ESPECIAL" EntityType="Self.PROGRAMA_ESPECIAL" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PROGRAMA_FORMACION" EntityType="Self.PROGRAMA_FORMACION" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="REPORTE" EntityType="Self.REPORTE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SOLICITUD" EntityType="Self.SOLICITUD" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="USUARIO" EntityType="Self.USUARIO" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__ACTIVIDAD__cu_id__44FF419A" Association="Self.FK__ACTIVIDAD__cu_id__44FF419A">
+      <End Role="CURSO" EntitySet="CURSO" />
+      <End Role="ACTIVIDAD" EntitySet="ACTIVIDAD" />
+    </AssociationSet>
+    <AssociationSet Name="FK__AMBIENTE__lo_id__34C8D9D1" Association="Self.FK__AMBIENTE__lo_id__34C8D9D1">
+      <End Role="LOCACION" EntitySet="LOCACION" />
+      <End Role="AMBIENTE" EntitySet="AMBIENTE" />
+    </AssociationSet>
+    <AssociationSet Name="FK__COORDINAD__co_id__286302EC" Association="Self.FK__COORDINAD__co_id__286302EC">
+      <End Role="USUARIO" EntitySet="USUARIO" />
+      <End Role="COORDINADORA" EntitySet="COORDINADORA" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CURSO__am_id__3B75D760" Association="Self.FK__CURSO__am_id__3B75D760">
+      <End Role="AMBIENTE" EntitySet="AMBIENTE" />
+      <End Role="CURSO" EntitySet="CURSO" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CURSO__pe_id__3D5E1FD2" Association="Self.FK__CURSO__pe_id__3D5E1FD2">
+      <End Role="PROGRAMA_ESPECIAL" EntitySet="PROGRAMA_ESPECIAL" />
+      <End Role="CURSO" EntitySet="CURSO" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CURSO__pf_id__3C69FB99" Association="Self.FK__CURSO__pf_id__3C69FB99">
+      <End Role="PROGRAMA_FORMACION" EntitySet="PROGRAMA_FORMACION" />
+      <End Role="CURSO" EntitySet="CURSO" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CURSO__so_id__3E52440B" Association="Self.FK__CURSO__so_id__3E52440B">
+      <End Role="SOLICITUD" EntitySet="SOLICITUD" />
+      <End Role="CURSO" EntitySet="CURSO" />
+    </AssociationSet>
+    <AssociationSet Name="FK__INSTRUCTO__in_id__2B3F6F97" Association="Self.FK__INSTRUCTO__in_id__2B3F6F97">
+      <End Role="USUARIO" EntitySet="USUARIO" />
+      <End Role="INSTRUCTOR" EntitySet="INSTRUCTOR" />
+    </AssociationSet>
+    <AssociationSet Name="FK__REPORTE__cu_id__412EB0B6" Association="Self.FK__REPORTE__cu_id__412EB0B6">
+      <End Role="CURSO" EntitySet="CURSO" />
+      <End Role="REPORTE" EntitySet="REPORTE" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SOLICITUD__co_id__2E1BDC42" Association="Self.FK__SOLICITUD__co_id__2E1BDC42">
+      <End Role="COORDINADORA" EntitySet="COORDINADORA" />
+      <End Role="SOLICITUD" EntitySet="SOLICITUD" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SOLICITUD__in_id__2F10007B" Association="Self.FK__SOLICITUD__in_id__2F10007B">
+      <End Role="INSTRUCTOR" EntitySet="INSTRUCTOR" />
+      <End Role="SOLICITUD" EntitySet="SOLICITUD" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
