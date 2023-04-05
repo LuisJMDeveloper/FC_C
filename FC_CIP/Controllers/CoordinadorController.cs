@@ -13,5 +13,16 @@ namespace FC_CIP.Controllers
         {
             return View();
         }
+
+        /*[HttpGet]
+        public JsonResult getSolicitudesRecibidas()
+        {
+
+            using (var db = new FC_DB())
+            {
+                var oLista = db.Database.SqlQuery<getSolicitudesRecibidas>("EXEC getSolicitudesRecibidas").ToList();
+                return Json(new { data = oLista }, JsonRequestBehavior.AllowGet);
+            }
+        }*/
     }
 }
