@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="FC_CIP_BDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="FC_CIP_BDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ACTIVIDAD">
           <Key>
             <PropertyRef Name="ac_id" />
@@ -316,8 +316,7 @@
             <End Role="SOLICITUD" EntitySet="SOLICITUD" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="FC_CIP_BDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -641,10 +640,6 @@
             <End Role="INSTRUCTOR" EntitySet="INSTRUCTOR" />
             <End Role="SOLICITUD" EntitySet="SOLICITUD" />
           </AssociationSet>
-          <FunctionImport Name="GetUserType" ReturnType="Collection(String)">
-            <Parameter Name="us_nid" Mode="In" Type="Decimal" />
-            <Parameter Name="us_password" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="saveUserValidation" ReturnType="Collection(Int32)">
             <Parameter Name="us_nid" Mode="In" Type="Decimal" />
             <Parameter Name="us_password" Mode="In" Type="String" />
@@ -653,7 +648,23 @@
             <Parameter Name="us_email" Mode="In" Type="String" />
             <Parameter Name="us_phone" Mode="In" Type="Decimal" />
           </FunctionImport>
+          <FunctionImport Name="GetUserType" ReturnType="Collection(FC_CIP_BDModel.GetUserType_Result)">
+            <Parameter Name="us_nid" Mode="In" Type="Decimal" />
+            <Parameter Name="us_password" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="GetUserType_Result">
+          <Property Type="Decimal" Name="us_id" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="us_nid" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="us_password" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="us_typeuser" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="us_name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="us_lastname" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="us_email" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="us_phone" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Boolean" Name="us_reestablecer" Nullable="true" />
+          <Property Type="DateTime" Name="us_date" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -781,8 +792,23 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="GetUserType" FunctionName="FC_CIP_BDModel.Store.GetUserType" />
           <FunctionImportMapping FunctionImportName="saveUserValidation" FunctionName="FC_CIP_BDModel.Store.saveUserValidation" />
+          <FunctionImportMapping FunctionImportName="GetUserType" FunctionName="FC_CIP_BDModel.Store.GetUserType">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FC_CIP_BDModel.GetUserType_Result">
+                <ScalarProperty Name="us_id" ColumnName="us_id" />
+                <ScalarProperty Name="us_nid" ColumnName="us_nid" />
+                <ScalarProperty Name="us_password" ColumnName="us_password" />
+                <ScalarProperty Name="us_typeuser" ColumnName="us_typeuser" />
+                <ScalarProperty Name="us_name" ColumnName="us_name" />
+                <ScalarProperty Name="us_lastname" ColumnName="us_lastname" />
+                <ScalarProperty Name="us_email" ColumnName="us_email" />
+                <ScalarProperty Name="us_phone" ColumnName="us_phone" />
+                <ScalarProperty Name="us_reestablecer" ColumnName="us_reestablecer" />
+                <ScalarProperty Name="us_date" ColumnName="us_date" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

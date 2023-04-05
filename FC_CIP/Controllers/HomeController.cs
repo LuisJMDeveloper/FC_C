@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Services.Description;
@@ -26,14 +28,22 @@ namespace FC_CIP.Controllers
         [HttpPost]
         public JsonResult RegistrarInstructor(UsuarioInstructor oUsuario)
         {
-            bool respuesta = true;
+            bool respuesta = false;
+            List<USUARIO> oList = new List<USUARIO>();
 
-            try
+            using (FC_CIP_BDEntities db = new FC_CIP_BDEntities())
             {
-                using (FC_CIP_BDEntities db = new FC_CIP_BDEntities())
-                {
+                oList = (from P in db.USUARIO
+                         where P.us_nid == oUsuario.us_nid
+                         select P).ToList();
 
-                    db.saveUserValidation(
+                if (oList.Count > 0)
+                {
+                    respuesta = false;
+                }
+                else
+                {
+                    var resultado = db.saveUserValidation(
                         oUsuario.us_nid,
                         oUsuario.us_password,
                         oUsuario.us_name,
@@ -41,17 +51,31 @@ namespace FC_CIP.Controllers
                         oUsuario.us_email,
                         oUsuario.us_phone
                         );
-                    
+
                     db.SaveChanges();
+                    respuesta = true;
                 }
-            }catch(SqlException ex)
-            {
-                MessageBox.Show(ex.Message);
-                respuesta = false;
             }
+           
 
             return Json( new {resultado = respuesta}, JsonRequestBehavior.AllowGet);
 
+        }
+
+        [HttpPost]
+        public JsonResult GetUserCredenciales(USUARIO oUsuario)
+        {
+            USUARIO oPersona = new USUARIO();
+            using(FC_CIP_BDEntities db = new FC_CIP_BDEntities())
+            {
+                oPersona = db.Database.SqlQuery<USUARIO>(
+                    "exec GetUserType "
+                    + oUsuario.us_nid + ","
+                    + oUsuario.us_password ).FirstOrDefault();
+                
+
+                return Json(new { oPersona }, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

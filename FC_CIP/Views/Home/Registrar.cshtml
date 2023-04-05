@@ -51,7 +51,7 @@
                         <button id="btnRegistrar" form="formInicioRegistro" type="button" onclick="Registrar()" class="btn btn-outline-success btn-sm">
                             <i class="bi bi-file-earmark-check"></i> Registrar
                         </button>
-                        <button id="btnCancelar" type="button" class="btn btn-outline-danger btn-sm">
+                        <button id="btnCancelar" type="button" onclick="Clear()" class="btn btn-outline-danger btn-sm">
                             <i class="bi bi-trash"></i> Cancelar
                         </button>
                     </div>
@@ -80,8 +80,6 @@
 
             }
 
-            console.log($data);
-
             jQuery.ajax({
                 url: "@Url.Action("RegistrarInstructor", "Home")",
                 type: "POST",
@@ -90,12 +88,22 @@
                 contentType: "application/json; charset=utf- 8",
                 success: function (data) {
                     if (data.resultado) {
-                        alert("Registro Exitoso")
+                        alert("Registro Exitoso");
+                        Clear();
                     } else {
-                        alert("No se pudo guardar los cambios")
+                        alert("Ha ocurrido un error. Puede que el usuario ya exista");
                     }
                 }
             })
+        }
+
+        function Clear() {
+            $("#txtNid").val("");
+            $("#txtNid").val("");
+            $("#txtName").val("");
+            $("#txtLastName").val("");
+            $("#txtEmail").val("");
+            $("#txtPhone").val("");
         }
 
     </script>

@@ -122,7 +122,22 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <FunctionImportMapping FunctionImportName="GetUserType" FunctionName="FC_CIP_BDModel.Store.GetUserType" />
     <FunctionImportMapping FunctionImportName="saveUserValidation" FunctionName="FC_CIP_BDModel.Store.saveUserValidation" />
+    <FunctionImportMapping FunctionImportName="GetUserType" FunctionName="FC_CIP_BDModel.Store.GetUserType">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FC_CIP_BDModel.GetUserType_Result">
+          <ScalarProperty Name="us_id" ColumnName="us_id" />
+          <ScalarProperty Name="us_nid" ColumnName="us_nid" />
+          <ScalarProperty Name="us_password" ColumnName="us_password" />
+          <ScalarProperty Name="us_typeuser" ColumnName="us_typeuser" />
+          <ScalarProperty Name="us_name" ColumnName="us_name" />
+          <ScalarProperty Name="us_lastname" ColumnName="us_lastname" />
+          <ScalarProperty Name="us_email" ColumnName="us_email" />
+          <ScalarProperty Name="us_phone" ColumnName="us_phone" />
+          <ScalarProperty Name="us_reestablecer" ColumnName="us_reestablecer" />
+          <ScalarProperty Name="us_date" ColumnName="us_date" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

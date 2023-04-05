@@ -16,17 +16,17 @@
                     </h3>
 
                     <div class="form-outline">
-                        <label for="txtente">Usuario:</label>
-                        <input type="text" class="form-control border-success" id="txtLoginUser" name="txtLoginUser">
+                        <label for="txtUser">Usuario:</label>
+                        <input type="text" class="form-control border-success" id="txtUser" name="txtUser" required>
                     </div>
 
                     <div class="form-outline">
-                        <label for="txtente">Contraseña:</label>
-                        <input type="text" class="form-control border-success" id="txtLoginClave" name="txtLoginClave">
+                        <label for="txtClave">Contraseña:</label>
+                        <input type="text" class="form-control border-success" id="txtClave" name="txtClave" required>
                     </div>
 
 
-                    <button class="btn btn-outline-primary btn-sm m-2 ">
+                    <button type="button" onclick="IniciarSesion()" form="formInicioSesion" class="btn btn-outline-primary btn-sm m-2 ">
                         <i class="bi bi-house-door"></i> Iniciar sesión
                     </button>
 
@@ -39,3 +39,49 @@
         </div>
     </div>
 </div>
+
+@section scripts{
+
+    <script>
+
+        function IniciarSesion() {
+
+            var $data = {
+                oUsuario:{
+                    us_nid: parseInt($("#txtUser").val()),
+                    us_password: $("#txtClave").val(),
+                }
+
+            }
+
+            jQuery.ajax({
+                url: "@Url.Action("GetUserCredenciales", "Home")",
+                type: "POST",
+                data: JSON.stringify($data),
+                dataType: "json",
+                contentType: "application/json; charset=utf- 8",
+                success: function (data) {
+                    if (data.oPersona== null) {
+                        alert("Ha ocurrido un error. Puede que el usuario o la contraseña sean incorrectas");
+                    }
+                    else if (data.oPersona.us_typeuser == "Coordinador") {
+                        alert("Bienvenido(a) Coordinador(a)");
+                    } else {
+
+                        alert("Bienvenido(a) Instructor(a)");
+                         
+                    }
+                }
+            })
+
+            Clear();
+        }
+
+        function Clear() {
+            $("#txtUser").val("");
+            $("#txtClave").val("");    
+        }
+
+    </script>
+
+}

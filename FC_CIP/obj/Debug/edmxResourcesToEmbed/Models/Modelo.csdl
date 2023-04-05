@@ -320,10 +320,6 @@
       <End Role="INSTRUCTOR" EntitySet="INSTRUCTOR" />
       <End Role="SOLICITUD" EntitySet="SOLICITUD" />
     </AssociationSet>
-    <FunctionImport Name="GetUserType" ReturnType="Collection(String)">
-      <Parameter Name="us_nid" Mode="In" Type="Decimal" />
-      <Parameter Name="us_password" Mode="In" Type="String" />
-    </FunctionImport>
     <FunctionImport Name="saveUserValidation" ReturnType="Collection(Int32)">
       <Parameter Name="us_nid" Mode="In" Type="Decimal" />
       <Parameter Name="us_password" Mode="In" Type="String" />
@@ -332,5 +328,21 @@
       <Parameter Name="us_email" Mode="In" Type="String" />
       <Parameter Name="us_phone" Mode="In" Type="Decimal" />
     </FunctionImport>
+    <FunctionImport Name="GetUserType" ReturnType="Collection(FC_CIP_BDModel.GetUserType_Result)">
+      <Parameter Name="us_nid" Mode="In" Type="Decimal" />
+      <Parameter Name="us_password" Mode="In" Type="String" />
+    </FunctionImport>
   </EntityContainer>
+  <ComplexType Name="GetUserType_Result">
+    <Property Type="Decimal" Name="us_id" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="us_nid" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="String" Name="us_password" Nullable="true" MaxLength="250" />
+    <Property Type="String" Name="us_typeuser" Nullable="true" MaxLength="15" />
+    <Property Type="String" Name="us_name" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="us_lastname" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="us_email" Nullable="true" MaxLength="100" />
+    <Property Type="Decimal" Name="us_phone" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Boolean" Name="us_reestablecer" Nullable="true" />
+    <Property Type="DateTime" Name="us_date" Nullable="true" />
+  </ComplexType>
 </Schema>
