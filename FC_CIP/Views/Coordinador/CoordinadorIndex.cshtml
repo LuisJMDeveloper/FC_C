@@ -1,0 +1,269 @@
+﻿
+@{
+    ViewBag.Title = "CoordinadorIndex";
+    Layout = "~/Views/Shared/_Coordinador.cshtml";
+}
+
+
+@*  Este div es donde se encuentra la tabla de consulta de solicitudes
+    Es de tipo carta *@
+<div class="card mt-5">
+
+    @*Mensajes que se muestran al dar clic sobre el botón cargar
+
+        Mensaje nuevo regsitro a la tabla *@
+    <div id="alert-registros-nuevos" class="toast align-items-center text-light bg-success" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
+        <div class="d-flex">
+            <div class="toast-body">
+                ¡Nuevos registros cargados!
+            </div>
+            <button type="button" class="btn-close text-light me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+    @*  Mensaje el número de registros se el mismo *@
+    <div id="alert-registros-iguales" class="toast align-items-center text-light bg-dark" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
+        <div class="d-flex">
+            <div class="toast-body">
+                ¡No hay nueos registros!
+            </div>
+            <button type="button" class="btn-close text-light me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+
+    @*  Cabecera de la carta donde se encuentra la tabla de consulta de solicitudes *@
+    <section class="card-header d-flex justify-content-between gap-1 flex-wrap">
+        <h4>
+            Lista De Solicitudes
+            <span>
+                <button id="cargarTabla" class="btn btn-outline-dark btn-sm">
+                    Cargar tabla
+                </button>
+            </span>
+        </h4>
+        @*  Esta etiqueta abre una nueva pestaña en la que se muestra el JSON que contiene la información donde
+            se encuentra la información de la consulta de solicitudes *@
+        <a target="_blank" class="btn btn-outline-danger btn-sm" href="@Url.Action("getSolicitudesRecibidas", "Reporte")">IndexReporte Json</a>
+    </section>
+
+    @*  Inicio del contenido de la carta *@
+    <section class="card-body">
+
+        @*  Esta tabla es la que muesta la informacion del JSON getSolicidesRecibidas*@
+        <table id="tabla" class="table display">
+            <thead>
+                <tr>
+                    <th>Nombre Instructor</th>
+                    <th>Apellido Instructor</th>
+                    <th>Nombre Curso</th>
+                    <th>Fecha Solicitud</th>
+                    <th>Tipo Solicitud</th>
+                    <th>Programa Formacion</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </section>
+
+</div>
+
+@*  Este modal se va a usar para confirmar que se desea aplicar los cambios.
+    Cambios de actualización del estado de la solicitud*@
+<div class="modal fade " id="formModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <form id="formConfirmacionCambios" class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-light">
+                <h5 class="modal-title" id="titleModal">
+                    Confirmación de cambios
+                </h5>
+                <button type="button" class="btn-close text-light" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @*  En este input se almacena el "id" para luego hacer la operación*@
+                <input id="txtIdSolicitud" hidden />
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label for="txtInstructor" class="form-label">
+                            Instructor
+                        </label>
+                        <input id="txtInstructor" name="txtInstructor" form="formConfirmacionCambios" type="text" class="form-control" />
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label for="txtFechaSolicitud" class="form-label">
+                            Fecha de la solicitud
+                        </label>
+                        <input id="txtFechaSolicitud" name="txtFechaSolicitud" form="formConfirmacionCambios" type="text" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label for="txtNombreCurso" class="form-label">
+                            Nombre del curso
+                        </label>
+                        <input type="text" class="form-control" id="txtNombreCurso" name="txtNombreCurso" />
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label for="txtProgramaFormacion" class="form-label">
+                            Programa de formación
+                        </label>
+                        <input type="text" class="form-control" id="txtProgramaFormacion" name="txtProgramaFormacion" />
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button id="btnAprobar" name="btnAprobar" form="formConfirmacionCambios" onclick="ActualizaSolicitud(1)" value="Aprobar" type="button" class="btn btn-success" data-bs-dismiss="modal">
+                    Aprobar
+                </button>
+                <button id="btnRechazar" name="btnRechazar" form="formConfirmacionCambios" onclick="ActualizaSolicitud(2)" value="Rechazar" type="submit" class="btn btn-danger" data-bs-dismiss="modal">
+                    Rechazar
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section scripts{
+    <script>
+
+        var numRegistros = 0;
+        var tabladata;
+        var filaSelecionada;
+        var getDataTabledata;
+
+        @*  Es aquí donde se carga con las solicitudes
+        tabladata = $("#tabla").DataTable({
+            responsive: true,
+            orderign: false,
+            "ajax": {
+                url: '@Url.Action("getSolicitudesRecibidas", "Reporte")',
+                type: "GET",
+                dataType: "json",
+            },
+            "columns": [
+
+                { "data": "us_name" },
+                { "data": "us_lastname" },
+                { "data": "cu_name" },
+                {
+                    "data": "so_date",
+                    "render": function (data) {
+                        var date = new Date(parseInt(data.substr(6)));
+                        var day = date.getDate().toString().padStart(2, '0');
+                        var month = (date.getMonth() + 1).toString().padStart(2, '0');
+                        var year = date.getFullYear().toString();
+                        return day + "/" + month + "/" + year;
+                    }
+                },
+                { "data": "so_type" },
+                { "data": "pf_name" },
+                {
+                    "defaultContent":
+                        '<div class="d-flex gap-1"> '
+                        +'<button id="Aprobar" type="button" class="btn btn-outline-primary btn-sm"> <i class="bi bi-pencil-fill"></i> </button>'
+                        + '<button id="OpenFile" type="button" class="btn btn-outline-success btn-sm"> <i class="bi bi-folder-symlink"></i> </button>'
+                        + '</div>',
+                    "orderable": false,
+                    "searchable": false,
+                }
+            ],
+            language: {
+                "url": "https://cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
+            }
+        });
+
+        @*   Obtiene el JSON de la fila 
+        $("#tabla tbody").on("click", '#Aprobar', function () {
+
+            filaSelecionada = $(this).closest("tr")
+            getDataTabledata = tabladata.row(filaSelecionada).data();
+
+            if (getDataTabledata != undefined) {
+                ShowModal(getDataTabledata);
+            } else {
+                getDataTabledata = tabladata.row(this).data();
+                ShowModal(getDataTabledata);
+            }
+            console.log(getDataTabledata);
+
+        })
+
+        @*  Actualiza la tabla
+        function LoadTable() {
+            let numRegistrosAntes = numRegistros;
+            tabladata.ajax.reload(function () {
+                numRegistros = tabladata.rows().count();
+                if (numRegistros > numRegistrosAntes) {
+                    $('#alert-registros-nuevos').show();
+                    setTimeout(function () {
+                        $('#alert-registros-nuevos').hide();
+                    }, 3000);
+                }
+
+                else if (numRegistros < numRegistrosAntes) {
+
+                }
+
+                else
+                {
+                    $('#alert-registros-iguales').show();
+                     setTimeout(function ()
+                     {
+                         $('#alert-registros-iguales').hide();
+                     }, 3000);
+                }
+            });
+        }
+
+        function ShowModal(json) {
+
+            $("#txtIdSolicitud").val(0);
+            $("#txtInstructor").val("");
+            $("#txtFechaSolicitud").val("");
+            $("#txtNombreCurso").val("");
+            $("#txtProgramaFormacion").val("");
+
+            if (json != null) {
+                $("#txtIdSolicitud").val(json.so_id);
+
+                var fecha = json.so_date;
+
+                const timestamp = Number(fecha.match(/\d+/)[0]);
+                const date = new Date(timestamp);
+                const day = date.getDate().toString().padStart(2, '0');
+                const month = (date.getMonth() + 1).toString().padStart(2, '0');
+                const year = date.getFullYear().toString();
+                const formattedDate = `${day}/${month}/${year}`;
+                console.log(formattedDate);
+
+                console.log(json.so_id);
+
+                $("#txtInstructor").val(json.us_name);
+                $("#txtFechaSolicitud").val(formattedDate);
+                $("#txtNombreCurso").val(json.cu_name);
+                $("#txtProgramaFormacion").val(json.pf_name);
+                $("#formModal").modal("show");
+            } else {
+                alert("A ocurrido un erro, intenta recargar la página")
+            }
+
+        }
+
+        function ActualizaSolicitud(btn) {
+            var so_id = $("#txtIdSolicitud").val();
+            var status = btn;
+            console.log(so_id + "-" + status)
+
+
+        }*@
+    </script>
+
+    <script src="~/Scripts/JS/Tabla.js"></script>
+}
+
+
