@@ -42,7 +42,7 @@
         </h4>
         @*  Esta etiqueta abre una nueva pestaña en la que se muestra el JSON que contiene la información donde
             se encuentra la información de la consulta de solicitudes *@
-        <a target="_blank" class="btn btn-outline-danger btn-sm" href="@Url.Action("getSolicitudesRecibidas", "Reporte")">IndexReporte Json</a>
+        <a target="_blank" class="btn btn-outline-danger btn-sm" href="@Url.Action("getSolicitudesRecibidas", "Coordinador")">IndexReporte Json</a>
     </section>
 
     @*  Inicio del contenido de la carta *@
@@ -136,12 +136,12 @@
         var filaSelecionada;
         var getDataTabledata;
 
-        @*  Es aquí donde se carga con las solicitudes
+        @*Es aquí donde se carga con las solicitudes*@
         tabladata = $("#tabla").DataTable({
             responsive: true,
             orderign: false,
             "ajax": {
-                url: '@Url.Action("getSolicitudesRecibidas", "Reporte")',
+                url: '@Url.Action("getSolicitudesRecibidas", "Coordinador")',
                 type: "GET",
                 dataType: "json",
             },
@@ -262,8 +262,6 @@
 
         }*@
     </script>
-
-    <script src="~/Scripts/JS/Tabla.js"></script>
 }
 
 

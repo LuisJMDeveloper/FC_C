@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -63,19 +64,58 @@ namespace FC_CIP.Controllers
         }
 
         [HttpPost]
-        public JsonResult GetUserCredenciales(USUARIO oUsuario)
+        public ActionResult ValidarIngreso(USUARIO oUsuario)
         {
             USUARIO oPersona = new USUARIO();
-            using(FC_CIP_BDEntities db = new FC_CIP_BDEntities())
+            string resultado = string.Empty;
+            using (FC_CIP_BDEntities db = new FC_CIP_BDEntities())
             {
-                oPersona = db.Database.SqlQuery<USUARIO>(
-                    "exec GetUserType "
-                    + oUsuario.us_nid + ","
-                    + oUsuario.us_password ).FirstOrDefault();
                 
+                var lst = from d in db.USUARIO
+                          where d.us_email == oUsuario.us_email
+                          && d.us_password == oUsuario.us_password
+                          select d;
 
-                return Json(new { oPersona }, JsonRequestBehavior.AllowGet);
+                if (lst.Count() > 0)
+                {
+                    USUARIO oUser = lst.First();
+                    Session["User"] = oUser;
+
+                    if(oUser.us_typeuser == "Instructor")
+                    {
+                        resultado = "1";
+                    }else if (oUser.us_typeuser == "Coordinador")
+                    {
+                        resultado = "2";
+                    }
+                    return Content(resultado);
+                }
+                else
+                {
+                    return Content(resultado);
+                }
             }
+
+            /*oPersona = db.Database.SqlQuery<USUARIO>(
+                    "exec GetUserType "
+                    + oUsuario.us_email + ","
+                    + oUsuario.us_password).FirstOrDefault();
+            if (oPersona.us_typeuser != null)
+            {
+                switch (oPersona.us_typeuser)
+                {
+                    case "Instructor":
+                        resultado = 1;
+                        break;
+                    case "Coordinador":
+                        resultado =2;
+                        break;
+                }
+            }
+
+            return Json(new { resultado }, JsonRequestBehavior.AllowGet);*/
         }
+
+
     }
 }

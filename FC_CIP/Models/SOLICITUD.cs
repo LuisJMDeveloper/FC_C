@@ -18,6 +18,7 @@ namespace FC_CIP.Models
         public SOLICITUD()
         {
             this.CURSO = new HashSet<CURSO>();
+            this.CURSO2 = new HashSet<CURSO2>();
         }
     
         public decimal so_id { get; set; }
@@ -29,8 +30,10 @@ namespace FC_CIP.Models
         public Nullable<System.DateTime> so_date { get; set; }
     
         public virtual COORDINADORA COORDINADORA { get; set; }
+        public virtual INSTRUCTOR INSTRUCTOR { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CURSO> CURSO { get; set; }
-        public virtual INSTRUCTOR INSTRUCTOR { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CURSO2> CURSO2 { get; set; }
     }
 }
