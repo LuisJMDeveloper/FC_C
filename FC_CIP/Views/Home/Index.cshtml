@@ -2,7 +2,7 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="container _inicioSesion">
+<div id="divMain" class="container _inicioSesion">
 
     <div class="tab-content">
         <div id="formInicioSesion" class="container">
@@ -22,11 +22,11 @@
 
                     <div class="form-outline">
                         <label for="txtClave">Contraseña:</label>
-                        <input type="text" class="form-control border-success" id="txtClave" name="clave" autocomplete="off" required>
+                        <input type="password" class="form-control border-success" id="txtClave" name="clave" autocomplete="off" required>
                     </div>
 
 
-                    <button type="button" onclick="IniciarSesion()" class="btn btn-outline-primary btn-sm m-2 ">
+                    <button type="submit" onclick="IniciarSesion()" class="btn btn-outline-primary btn-sm m-2" form="#formInicioSesion">
                         <i class="bi bi-house-door"></i> Iniciar sesión
                     </button>
 
@@ -65,6 +65,7 @@
                 dataType: "json",
                 contentType: "application/json; charset=utf- 8",
                 success: function (data) {
+                    $("#divMain").LoadingOverlay("hide");
 
                     switch (data) {
                         case 1:
@@ -74,7 +75,23 @@
                             document.location.href = "@Url.Content("~/Coordinador/CoordinadorIndex")"
                             break
                     }
+                }, 
+                error: function (error) {
+                    $("#divMain").LoadingOverlay("hide");
+                    swal("Error ajax!");
+
+                },
+                beforeSend: function () {
+                    // Let's call it 2 times just for fun...
+                    $("#divMain").LoadingOverlay("show", {
+                        background: "rgba(165, 190, 100, 0.5)",
+                        imageResizeFactor: 2,
+                        text: "Cargando...",
+                        size:14
+                    });
+                    
                 }
+                
             })
 
             Clear();

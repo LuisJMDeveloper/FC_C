@@ -9,7 +9,7 @@
     @Scripts.Render("~/bundles/modernizr")
     <link rel="stylesheet" href="~/CSS/Login_.css" />
 </head>
-<body >
+<body>
 
     <header class="">
         <nav class="navbar navbar-expand-lg _navbar">
@@ -17,7 +17,7 @@
                 @Html.ActionLink("Formación complementaria CIP", "index", "Home", null, new { @class = "_title nav-link" })
 
                 <button class="navbar-toggler text-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    
+
                     <i class="navbar-toggler-icon navbar-text text-light"></i>
                 </button>
 
@@ -57,6 +57,7 @@
     </footer>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/complementos")
     @RenderSection("scripts", required: false)
 </body>
 </html>

@@ -24,13 +24,17 @@ namespace FC_CIP
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css",
+                      "~/Content/sweetalert.css",
                       "~/Content/DataTables/css/jquery.dataTables.css",
-                      "~/Content/DataTables/css/responsive.dataTables.css"));
+                      "~/Content/DataTables/css/responsive.dataTables.css",
+                      "~/Content/site.css"));
 
             bundles.Add(new Bundle("~/bundles/complementos").Include(
                 "~/Scripts/DataTables/jquery.dataTables.js",
-                "~/Scripts/DataTables/dataTables.responsive.js"
+                "~/Scripts/DataTables/dataTables.responsive.js",
+                "~/Scripts/loadingoverlay/loadingoverlay.min.js",
+                "~/Scripts/sweetalert.min.js",
+                "~/Scripts/Scripts.js"
                  ));
         }
     }
