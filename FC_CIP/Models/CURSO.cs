@@ -33,6 +33,7 @@ namespace FC_CIP.Models
         public Nullable<System.DateTime> cu_endDate { get; set; }
         public string cu_note { get; set; }
         public string cu_days { get; set; }
+        public Nullable<int> cu_cupoMax { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ACTIVIDAD> ACTIVIDAD { get; set; }

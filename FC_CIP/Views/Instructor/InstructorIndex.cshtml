@@ -4,7 +4,6 @@
     Layout = "~/Views/Shared/_Instructor.cshtml";
 }
 
-
 <h2>Bienvenido Instructor</h2>
 
 
@@ -23,7 +22,7 @@
                 <section class="card-header d-flex justify-content-between gap-5 flex-wrap">
                     <h5>Formulario de solicitud</h5>
                     <div class="d-flex justify-content-end gap-3">
-                        <button form="formSolicitud" class="btn btn-success btn-sm">
+                        <button form="formSolicitud" onclick="Guardar()" type="button" class="btn btn-success btn-sm">
                             <i class="bi bi-file-earmark-check"></i> Guardar
                         </button>
                         <button form="formSolicitud" class="btn btn-danger btn-sm">
@@ -37,7 +36,7 @@
 
                 <section class="card-body">
                     <div class="container">
-                        <form id="formSolicitud" class="container-fluid">
+                        <form id="formSolicitud" name="formSolicitud" class="container-fluid">
 
                             <div class="row mt-2">
                                 @*Informacion de SOLICITUD*@
@@ -48,19 +47,19 @@
                                         </div>
                                         <div class="card-body d-flex justify-content-start gap-2 flex-wrap">
 
-                                            <div class="form-group">
-                                                <label for="txtnombre">Nombre:</label>
-                                                <input type="text" class="form-control border-success" id="txtnombre" name="txtnombre">
-                                            </div>
+                                            @*<div class="form-group">
+                                                    <label for="txtnombre">Nombre:</label>
+                                                    <input type="text" class="form-control border-success" id="txtnombre" name="txtnombre">
+                                                </div>*@
 
                                             <div class="form-group">
                                                 <label for="tipo">Tipo:</label>
-                                                <select class="form-select border-success" aria-label="Default select example" id="cmbTipoSolicitud" name="cmbTipoSolicitud">
-                                                    <option value="Abierta">
+                                                <select id="cmbTipoSolicitud" name="cmbTipoSolicitud" class="form-select border-success" aria-label="Default select example">
+                                                    <option id="opcAbierta" value="Abierta">
                                                         Abierta
                                                     </option>
 
-                                                    <option value="Cerrada">
+                                                    <option id="opcCerrada" value="Cerrada">
                                                         Cerrada
                                                     </option>
                                                 </select>
@@ -68,7 +67,7 @@
 
                                             <div class="form-group">
                                                 <label for="txtente">Empresa:</label>
-                                                <input type="text" class="form-control border-success" id="txtente" name="txtente">
+                                                <input id="txtempresa" name="empresa" type="text" class="form-control border-success" disabled>
                                             </div>
 
                                         </div>
@@ -85,17 +84,17 @@
 
                                             <div class="form-group">
                                                 <label for="txtnombre">Código:</label>
-                                                <input type="number" class="form-control border-success" id="txtPF_id" name="txtCodigoPF">
+                                                <input id="txtPf_codigo" name="pfCodigo" type="number" class="form-control border-success">
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="txtente">Nombre:</label>
-                                                <input type="text" class="form-control border-success" id="txtente" name="txtente">
+                                                <input id="txtPf_nombre" name="pfNombre" type="text" class="form-control border-success">
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="tipo">Especial:</label>
-                                                <select class="form-select border-success" aria-label="Default select example" id="cmbTipoSolicitud" name="cmbTipoSolicitud">
+                                                <label for="tipo">Programa especial:</label>
+                                                <select class="form-select border-success" aria-label="Default select example" id="cmbProgramaEspecial" name="cmbTipoSolicitud">
 
                                                     <option selected>
                                                     </option>
@@ -134,20 +133,23 @@
 
                                             <div class="form-group">
                                                 <label for="tipo">Centro de formación:</label>
-                                                <select class="form-select border-success" aria-label="Default select example" id="cmbTipoSolicitud" name="cmbTipoSolicitud">
-                                                    <option>
+                                                <select id="cmbLugar" name="cmbLugar" class="form-select border-success" aria-label="Default select example">
+
+                                                    @* Se deben asignar los valores correspondientes a los id
+                                                        que esten en las base de datos*@
+                                                    <option value="">
                                                         Centro para la industria petroquímica
                                                     </option>
 
-                                                    <option>
-                                                        Cerrada
+                                                    <option value="">
+                                                        Centro de comercio y servicios
                                                     </option>
                                                 </select>
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="txtente">Empresa:</label>
-                                                <input type="text" class="form-control border-success" id="txtente" name="txtente">
+                                                <label for="txtente">Ambiente:</label>
+                                                <input id="txtAmbiente" name="amName" placeholder="este debe ser un select" type="text" class="form-control border-success">
                                             </div>
 
                                         </div>
@@ -165,51 +167,51 @@
                                         </div>
                                         <div class="card-body d-flex justify-content-start gap-2 flex-wrap">
 
-                                            @*Código de PF y version*@
+                                            @*Código de Curso y version (parese que no tiene)*@
                                             <div class="form-group d-flex gap-2">
                                                 <div class="form-group">
-                                                    <label for="codigo">Código:</label>
-                                                    <input type="text" class="form-control border-success" id="codigo" name="codigo">
+                                                    <label for="cuCode">Código:</label>
+                                                    <input id="txtCu_code" name="cuCode" type="number" class="form-control border-success">
                                                 </div>
 
-                                                <div class="form-group">
-                                                    <label for="txtPF_version">Versión:</label>
-                                                    <input type="text" class="form-control border-success" id="txtPF_version" name="txtPF_version">
-                                                </div>
+                                                @*<div class="form-group">
+                                                        <label for="txtPF_version">Versión:</label>
+                                                        <input id="txtCu_version" name="txtCu_version" type="number" class="form-control border-success">
+                                                    </div>*@
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="txtNombreCurso">Nombre del curso:</label>
-                                                <input type="text" class="form-control border-success" id="txtNombreCurso" name="txtNombreCurso">
+                                                <input id="txtCu_name" name="cuName" type="text" class="form-control border-success">
                                             </div>
 
                                             @*Duracion y Cupos maximos*@
                                             <div class="form-group d-flex gap-2 ">
                                                 <div>
                                                     <label for="txtCupoMax">Cupo Máximo:</label>
-                                                    <input type="number" class="form-control _txtNumber border-success" id="txtCupoMax" name="txtCupoMax">
+                                                    <input id="txtCu_cupoMax" name="cuCupoMax" type="number" class="form-control _txtNumber border-success">
                                                 </div>
                                                 <div>
                                                     <label for="txtDuracion">Duración:</label>
-                                                    <input type="number" class="form-control _txtNumber border-success" id="txtDuracion" name="txtDuracion">
+                                                    <input id="txtCu_Duracion" name="cuDuracion" type="number" class="form-control _txtNumber border-success">
                                                 </div>
                                             </div>
 
-                                            @*Fechas*@
+                                            @*  Fechas  *@
                                             <div class="form-group d-flex gap-2">
                                                 <div>
                                                     <label for="fecha_inicio">Fecha de inicio:</label>
-                                                    <input type="date" class="form-control border-success" id="fecha_inicio" name="fecha_inicio">
+                                                    <input id="txtCu_fechaInicio" name="cuFechaInicio" type="date" class="form-control border-success">
                                                 </div>
                                                 <div>
                                                     <label for="fecha_fin">Fecha de fin:</label>
-                                                    <input type="date" class="form-control border-success" id="fecha_fin" name="fecha_fin">
+                                                    <input id="txtCu_fechaFin" name="cuFechaFin" type="date" class="form-control border-success">
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="observacion">Observación:</label>
-                                                <textarea class="form-control border-success" id="observacion" name="observacion"></textarea>
+                                                <textarea id="txtCu_observacion" name="cuObservacion" class="form-control border-success"></textarea>
                                             </div>
 
 
@@ -218,40 +220,40 @@
                                                 <label class="form-label">Días de ejecución del programa:</label>
 
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" name="cheLunes" id="cheLunes" checked>
+                                                    <input name="inputsDias" id="cheLunes" value="Lunes" class="form-check-input" type="checkbox" checked>
                                                     <label class="form-check-label" for="flexRadioDefault1">
                                                         Lunes
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" name="cheMartes" id="cheMartes" checked>
+                                                    <input name="inputsDias" id="cheMartes" value="Martes" class="form-check-input" type="checkbox" checked>
                                                     <label class="form-check-label" for="flexRadioDefault2">
                                                         Martes
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" name="cheMiercoles" id="cheMiercoles" checked>
+                                                    <input name="inputsDias" id="cheMiercoles" value="Miercoles" class="form-check-input" type="checkbox" checked>
                                                     <label class="form-check-label" for="flexRadioDefault2">
                                                         Miercoles
                                                     </label>
                                                 </div>
 
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" name="cheJueves" id="cheJueves" checked>
+                                                    <input name="inputsDias" id="cheJueves" value="Jueves" class="form-check-input" type="checkbox" checked>
                                                     <label class="form-check-label" for="flexRadioDefault2">
                                                         Jueves
                                                     </label>
                                                 </div>
 
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" name="cheViernes" id="cheVirnes" checked>
+                                                    <input name="inputsDias" id="cheVirnes" value="Viernes" class="form-check-input" type="checkbox" checked>
                                                     <label class="form-check-label" for="flexRadioDefault2">
                                                         Viernes
                                                     </label>
                                                 </div>
 
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" name="cheSabdo" id="cheSabado" checked>
+                                                    <input name="inputsDias" id="cheSabado" value="Sabado" class="form-check-input" type="checkbox" checked>
                                                     <label class="form-check-label" for="flexRadioDefault2">
                                                         Sabado
                                                     </label>
@@ -356,7 +358,71 @@
 
 </div>
 
+@section scripts{
+
+    <script>
+
+        function Guardar() {
+
+            /*
+             * Con este codigo se obtienen los dias seleccionados y se pasan a string separados
+             * por el caracter - (guion medio)
+            */
+            let inputsDias = [];
+            $("input[type='checkbox'][name='inputsDias']:checked").each(function () {
+                inputsDias.push($(this).val());
+            })
+
+            let cuDias = inputsDias.join('-')
+
+            /*
+             * Este es el objeto que se mandará a la accion del constructor
+            */
+            var oGuardado = {
+                so_type: $("#cmbTipoSolicitud").val(),
+                so_ente: $("#txtempresa").val(),
+
+                pf_code: parseInt($("#txtPf_codigo").val()),
+                pf_name: $("#txtPf_nombre").val(),
+                pf_version: parseFloat($("#txtPf_codigo").val()),
+                pe_code: parseInt($("#cmbProgramaEspecial").val()),
+
+                lu_id: parseInt($("#cmbLugar").val()),
+                am_id: parseInt($("#txtAmbiente").val()),
+
+                cu_code: parseInt($("#txtCu_code").val()),
+                cu_name: $("#txtCu_name").val(),
+                pf_cupoMax: parseInt($("#txtCu_cupoMax").val()),
+                cu_duration: parseInt($("#txtCu_Duracion").val()),
+                cu_startdate: $("#txtCu_fechaInicio").val(),
+                cu_enddate: $("#txtCu_fechaFin").val(),
+                cu_note: $("#txtCu_observacion").val(),
+                cu_days: cuDias,
+            };
+
+            console.log(oGuardado);
+
+            jQuery.ajax({
+                url: "@Url.Action("RegistrarSolicitudCurso", "Instructor")",
+                type: "POST",
+                data: JSON.stringify($data),
+                dataType: "json",
+                contentType: "application/json; charset=utf- 8",
+                success: function (data) {
+                    if (data.resultado) {
+                        alert("Registro Exitoso");
+                        Clear();
+                    } else {
+                        alert("Ha ocurrido un error. Puede que el usuario ya exista");
+                    }
+                }
+            })
+
+        }
 
 
+    </script>
 
+
+}
 

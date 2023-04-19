@@ -19,7 +19,24 @@ namespace FC_CIP.Filtros
                 {
                     filterContext.HttpContext.Response.Redirect("~/Home/Index");
                 }
+
             }
+            else if (oUser.us_typeuser == "Instructor")
+            {
+                if (filterContext.Controller is InstructorController == false)
+                {
+                    filterContext.HttpContext.Response.Redirect("~/Instructor/InstructorIndex");
+                }
+            }
+            else if (oUser.us_typeuser == "Coordinador")
+            {
+                if (filterContext.Controller is CoordinadorController == false)
+                {
+                    filterContext.HttpContext.Response.Redirect("~/Coordinador/CoordinadorIndex");
+                }
+            }
+
+
 
             base.OnActionExecuting(filterContext);
         }

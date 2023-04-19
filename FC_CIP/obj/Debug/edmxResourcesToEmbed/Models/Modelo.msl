@@ -111,24 +111,6 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <EntitySetMapping Name="CURSO">
-      <EntityTypeMapping TypeName="FC_CIP_BDModel.CURSO">
-        <MappingFragment StoreEntitySet="CURSO">
-          <ScalarProperty Name="cu_days" ColumnName="cu_days" />
-          <ScalarProperty Name="cu_note" ColumnName="cu_note" />
-          <ScalarProperty Name="cu_endDate" ColumnName="cu_endDate" />
-          <ScalarProperty Name="cu_startDate" ColumnName="cu_startDate" />
-          <ScalarProperty Name="cu_duration" ColumnName="cu_duration" />
-          <ScalarProperty Name="cu_name" ColumnName="cu_name" />
-          <ScalarProperty Name="cu_code" ColumnName="cu_code" />
-          <ScalarProperty Name="so_id" ColumnName="so_id" />
-          <ScalarProperty Name="pe_id" ColumnName="pe_id" />
-          <ScalarProperty Name="pf_id" ColumnName="pf_id" />
-          <ScalarProperty Name="am_id" ColumnName="am_id" />
-          <ScalarProperty Name="cu_id" ColumnName="cu_id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="PROGRAMA_FORMACION">
       <EntityTypeMapping TypeName="FC_CIP_BDModel.PROGRAMA_FORMACION">
         <MappingFragment StoreEntitySet="PROGRAMA_FORMACION">
@@ -250,5 +232,26 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <EntitySetMapping Name="CURSO">
+      <EntityTypeMapping TypeName="FC_CIP_BDModel.CURSO">
+        <MappingFragment StoreEntitySet="CURSO">
+          <ScalarProperty Name="cu_cupoMax" ColumnName="cu_cupoMax" />
+          <ScalarProperty Name="cu_days" ColumnName="cu_days" />
+          <ScalarProperty Name="cu_note" ColumnName="cu_note" />
+          <ScalarProperty Name="cu_endDate" ColumnName="cu_endDate" />
+          <ScalarProperty Name="cu_startDate" ColumnName="cu_startDate" />
+          <ScalarProperty Name="cu_duration" ColumnName="cu_duration" />
+          <ScalarProperty Name="cu_name" ColumnName="cu_name" />
+          <ScalarProperty Name="cu_code" ColumnName="cu_code" />
+          <ScalarProperty Name="so_id" ColumnName="so_id" />
+          <ScalarProperty Name="pe_id" ColumnName="pe_id" />
+          <ScalarProperty Name="pf_id" ColumnName="pf_id" />
+          <ScalarProperty Name="am_id" ColumnName="am_id" />
+          <ScalarProperty Name="cu_id" ColumnName="cu_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="RegistrarUsuario" FunctionName="FC_CIP_BDModel.Store.RegistrarUsuario" />
+    <FunctionImportMapping FunctionImportName="SaveSolicitudCurso" FunctionName="FC_CIP_BDModel.Store.SaveSolicitudCurso" />
   </EntityContainerMapping>
 </Mapping>

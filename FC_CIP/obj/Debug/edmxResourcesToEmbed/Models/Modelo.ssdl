@@ -55,6 +55,7 @@
     <Property Name="cu_endDate" Type="date" />
     <Property Name="cu_note" Type="varchar" MaxLength="255" />
     <Property Name="cu_days" Type="varchar" MaxLength="200" />
+    <Property Name="cu_cupoMax" Type="int" />
   </EntityType>
   <EntityType Name="CURSO2">
     <Key>
@@ -302,6 +303,34 @@
   <Function Name="GetUserType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="us_nid" Type="numeric" Mode="In" />
     <Parameter Name="us_password" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="RegistrarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="us_nid" Type="numeric" Mode="In" />
+    <Parameter Name="us_password" Type="varchar" Mode="In" />
+    <Parameter Name="us_name" Type="varchar" Mode="In" />
+    <Parameter Name="us_lastname" Type="varchar" Mode="In" />
+    <Parameter Name="us_email" Type="varchar" Mode="In" />
+    <Parameter Name="us_phone" Type="numeric" Mode="In" />
+    <Parameter Name="mensaje" Type="varchar" Mode="InOut" />
+    <Parameter Name="resultado" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="SaveSolicitudCurso" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="co_id" Type="numeric" Mode="In" />
+    <Parameter Name="in_id" Type="numeric" Mode="In" />
+    <Parameter Name="so_type" Type="varchar" Mode="In" />
+    <Parameter Name="so_ente" Type="varchar" Mode="In" />
+    <Parameter Name="pf_id" Type="numeric" Mode="In" />
+    <Parameter Name="pe_id" Type="numeric" Mode="In" />
+    <Parameter Name="lu_id" Type="numeric" Mode="In" />
+    <Parameter Name="am_id" Type="numeric" Mode="In" />
+    <Parameter Name="cu_code" Type="int" Mode="In" />
+    <Parameter Name="cu_name" Type="varchar" Mode="In" />
+    <Parameter Name="cu_cupoMax" Type="int" Mode="In" />
+    <Parameter Name="cu_duration" Type="int" Mode="In" />
+    <Parameter Name="cu_startdate" Type="date" Mode="In" />
+    <Parameter Name="cu_enddate" Type="date" Mode="In" />
+    <Parameter Name="cu_note" Type="varchar" Mode="In" />
+    <Parameter Name="cu_days" Type="varchar" Mode="In" />
   </Function>
   <Function Name="saveUserValidation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="us_nid" Type="numeric" Mode="In" />

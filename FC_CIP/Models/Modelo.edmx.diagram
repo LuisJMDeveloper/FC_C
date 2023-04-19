@@ -6,11 +6,11 @@
     <edmx:Diagrams>
       <Diagram DiagramId="6010e0d0ced14c2886e906907b402d77" Name="Diagram1">
         <EntityTypeShape EntityType="FC_CIP_BDModel.ACTIVIDAD" Width="1.5" PointX="10.75" PointY="4" IsExpanded="true" />
-        <EntityTypeShape EntityType="FC_CIP_BDModel.AMBIENTE" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FC_CIP_BDModel.AMBIENTE" Width="1.5" PointX="5.25" PointY="2.25" IsExpanded="true" />
         <EntityTypeShape EntityType="FC_CIP_BDModel.COORDINADORA" Width="1.5" PointX="3" PointY="4.625" IsExpanded="true" />
         <EntityTypeShape EntityType="FC_CIP_BDModel.INSTRUCTOR" Width="1.5" PointX="3" PointY="7" IsExpanded="true" />
-        <EntityTypeShape EntityType="FC_CIP_BDModel.LOCACION" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="FC_CIP_BDModel.PROGRAMA_ESPECIAL" Width="1.5" PointX="5.25" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FC_CIP_BDModel.LOCACION" Width="1.5" PointX="2.875" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="FC_CIP_BDModel.PROGRAMA_ESPECIAL" Width="1.5" PointX="6.5" PointY="8.25" IsExpanded="true" />
         <EntityTypeShape EntityType="FC_CIP_BDModel.REPORTE" Width="1.5" PointX="11.125" PointY="7.25" IsExpanded="true" />
         <EntityTypeShape EntityType="FC_CIP_BDModel.SOLICITUD" Width="1.5" PointX="5.25" PointY="5.125" IsExpanded="true" />
         <EntityTypeShape EntityType="FC_CIP_BDModel.USUARIO" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
@@ -19,18 +19,18 @@
         <AssociationConnector Association="FC_CIP_BDModel.FK__SOLICITUD__co_id__2E1BDC42" ManuallyRouted="false" />
         <AssociationConnector Association="FC_CIP_BDModel.FK__INSTRUCTO__in_id__2B3F6F97" ManuallyRouted="false" />
         <AssociationConnector Association="FC_CIP_BDModel.FK__SOLICITUD__in_id__2F10007B" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="FC_CIP_BDModel.CURSO" Width="2.375" PointX="7.5" PointY="3.75" />
-        <EntityTypeShape EntityType="FC_CIP_BDModel.PROGRAMA_FORMACION" Width="1.5" PointX="5.25" PointY="13.125" />
+        <EntityTypeShape EntityType="FC_CIP_BDModel.PROGRAMA_FORMACION" Width="1.5" PointX="8.625" PointY="8.25" />
+        <EntityTypeShape EntityType="FC_CIP_BDModel.ACTIVIDAD2" Width="1.5" PointX="0.5" PointY="9.875" />
+        <EntityTypeShape EntityType="FC_CIP_BDModel.CURSO2" Width="1.5" PointX="3" PointY="9.5" />
+        <AssociationConnector Association="FC_CIP_BDModel.FK__ACTIVIDAD__cu_id__778AC167" />
+        <AssociationConnector Association="FC_CIP_BDModel.FK__CURSO2__so_id__74AE54BC" />
+        <EntityTypeShape EntityType="FC_CIP_BDModel.CURSO" Width="1.5" PointX="8.375" PointY="3.5" IsExpanded="true" />
         <AssociationConnector Association="FC_CIP_BDModel.FK__ACTIVIDAD__cu_id__44FF419A" />
         <AssociationConnector Association="FC_CIP_BDModel.FK__CURSO__am_id__3B75D760" />
         <AssociationConnector Association="FC_CIP_BDModel.FK__CURSO__pe_id__3D5E1FD2" />
         <AssociationConnector Association="FC_CIP_BDModel.FK__CURSO__pf_id__3C69FB99" />
         <AssociationConnector Association="FC_CIP_BDModel.FK__CURSO__so_id__3E52440B" />
         <AssociationConnector Association="FC_CIP_BDModel.FK__REPORTE__cu_id__412EB0B6" />
-        <EntityTypeShape EntityType="FC_CIP_BDModel.ACTIVIDAD2" Width="1.5" PointX="0.5" PointY="9.875" />
-        <EntityTypeShape EntityType="FC_CIP_BDModel.CURSO2" Width="1.5" PointX="3" PointY="9.5" />
-        <AssociationConnector Association="FC_CIP_BDModel.FK__ACTIVIDAD__cu_id__778AC167" />
-        <AssociationConnector Association="FC_CIP_BDModel.FK__CURSO2__so_id__74AE54BC" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

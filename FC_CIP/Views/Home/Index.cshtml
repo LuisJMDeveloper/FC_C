@@ -17,12 +17,12 @@
 
                     <div class="form-outline">
                         <label for="txtUser">Usuario:</label>
-                        <input type="text" class="form-control border-success" id="txtUser" name="user" required>
+                        <input type="email" class="form-control border-success" id="txtUser" name="user" autocomplete="off" required>
                     </div>
 
                     <div class="form-outline">
                         <label for="txtClave">Contraseña:</label>
-                        <input type="text" class="form-control border-success" id="txtClave" name="clave" required>
+                        <input type="text" class="form-control border-success" id="txtClave" name="clave" autocomplete="off" required>
                     </div>
 
 
@@ -65,7 +65,15 @@
                 dataType: "json",
                 contentType: "application/json; charset=utf- 8",
                 success: function (data) {
-                    
+
+                    switch (data) {
+                        case 1:
+                            document.location.href = "@Url.Content("~/Instructor/InstructorIndex")"
+                            break
+                        case 2:
+                            document.location.href = "@Url.Content("~/Coordinador/CoordinadorIndex")"
+                            break
+                    }
                 }
             })
 

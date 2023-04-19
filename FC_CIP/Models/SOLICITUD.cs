@@ -17,8 +17,8 @@ namespace FC_CIP.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public SOLICITUD()
         {
-            this.CURSO = new HashSet<CURSO>();
             this.CURSO2 = new HashSet<CURSO2>();
+            this.CURSO = new HashSet<CURSO>();
         }
     
         public decimal so_id { get; set; }
@@ -32,8 +32,8 @@ namespace FC_CIP.Models
         public virtual COORDINADORA COORDINADORA { get; set; }
         public virtual INSTRUCTOR INSTRUCTOR { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CURSO> CURSO { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CURSO2> CURSO2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CURSO> CURSO { get; set; }
     }
 }

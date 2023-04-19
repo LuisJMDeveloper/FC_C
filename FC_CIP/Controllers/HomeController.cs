@@ -95,25 +95,6 @@ namespace FC_CIP.Controllers
                     return Content(resultado);
                 }
             }
-
-            /*oPersona = db.Database.SqlQuery<USUARIO>(
-                    "exec GetUserType "
-                    + oUsuario.us_email + ","
-                    + oUsuario.us_password).FirstOrDefault();
-            if (oPersona.us_typeuser != null)
-            {
-                switch (oPersona.us_typeuser)
-                {
-                    case "Instructor":
-                        resultado = 1;
-                        break;
-                    case "Coordinador":
-                        resultado =2;
-                        break;
-                }
-            }
-
-            return Json(new { resultado }, JsonRequestBehavior.AllowGet);*/
         }
 
 

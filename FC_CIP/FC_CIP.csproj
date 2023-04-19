@@ -198,6 +198,7 @@
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TablasCombinadas\RegistrarSolicitud.cs" />
+    <Compile Include="Models\TablasCombinadas\SolicitudCurso.cs" />
     <Compile Include="Models\TablasCombinadas\SolicitudesRecibidas.cs" />
     <Compile Include="Models\TablasCombinadas\UsuarioInstructor.cs" />
     <Compile Include="Models\USUARIO.cs">
