@@ -378,7 +378,7 @@
             /*
              * Este es el objeto que se mandará a la accion del constructor
             */
-            var oGuardado = {
+            var $data = {
                 so_type: $("#cmbTipoSolicitud").val(),
                 so_ente: $("#txtempresa").val(),
 
@@ -400,7 +400,7 @@
                 cu_days: cuDias,
             };
 
-            console.log(oGuardado);
+            console.log($data);
 
             jQuery.ajax({
                 url: "@Url.Action("RegistrarSolicitudCurso", "Instructor")",
