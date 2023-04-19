@@ -31,24 +31,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="CURSO">
-      <EntityTypeMapping TypeName="FC_CIP_BDModel.CURSO">
-        <MappingFragment StoreEntitySet="CURSO">
-          <ScalarProperty Name="cu_id" ColumnName="cu_id" />
-          <ScalarProperty Name="am_id" ColumnName="am_id" />
-          <ScalarProperty Name="pf_id" ColumnName="pf_id" />
-          <ScalarProperty Name="pe_id" ColumnName="pe_id" />
-          <ScalarProperty Name="so_id" ColumnName="so_id" />
-          <ScalarProperty Name="cu_code" ColumnName="cu_code" />
-          <ScalarProperty Name="cu_name" ColumnName="cu_name" />
-          <ScalarProperty Name="cu_duration" ColumnName="cu_duration" />
-          <ScalarProperty Name="cu_startDate" ColumnName="cu_startDate" />
-          <ScalarProperty Name="cu_endDate" ColumnName="cu_endDate" />
-          <ScalarProperty Name="cu_note" ColumnName="cu_note" />
-          <ScalarProperty Name="cu_days" ColumnName="cu_days" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="INSTRUCTOR">
       <EntityTypeMapping TypeName="FC_CIP_BDModel.INSTRUCTOR">
         <MappingFragment StoreEntitySet="INSTRUCTOR">
@@ -71,16 +53,6 @@
           <ScalarProperty Name="pe_id" ColumnName="pe_id" />
           <ScalarProperty Name="pe_code" ColumnName="pe_code" />
           <ScalarProperty Name="pe_name" ColumnName="pe_name" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="PROGRAMA_FORMACION">
-      <EntityTypeMapping TypeName="FC_CIP_BDModel.PROGRAMA_FORMACION">
-        <MappingFragment StoreEntitySet="PROGRAMA_FORMACION">
-          <ScalarProperty Name="pe_id" ColumnName="pe_id" />
-          <ScalarProperty Name="pe_code" ColumnName="pe_code" />
-          <ScalarProperty Name="pe_name" ColumnName="pe_name" />
-          <ScalarProperty Name="pf_version" ColumnName="pf_version" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -136,6 +108,145 @@
           <ScalarProperty Name="us_phone" ColumnName="us_phone" />
           <ScalarProperty Name="us_reestablecer" ColumnName="us_reestablecer" />
           <ScalarProperty Name="us_date" ColumnName="us_date" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="CURSO">
+      <EntityTypeMapping TypeName="FC_CIP_BDModel.CURSO">
+        <MappingFragment StoreEntitySet="CURSO">
+          <ScalarProperty Name="cu_days" ColumnName="cu_days" />
+          <ScalarProperty Name="cu_note" ColumnName="cu_note" />
+          <ScalarProperty Name="cu_endDate" ColumnName="cu_endDate" />
+          <ScalarProperty Name="cu_startDate" ColumnName="cu_startDate" />
+          <ScalarProperty Name="cu_duration" ColumnName="cu_duration" />
+          <ScalarProperty Name="cu_name" ColumnName="cu_name" />
+          <ScalarProperty Name="cu_code" ColumnName="cu_code" />
+          <ScalarProperty Name="so_id" ColumnName="so_id" />
+          <ScalarProperty Name="pe_id" ColumnName="pe_id" />
+          <ScalarProperty Name="pf_id" ColumnName="pf_id" />
+          <ScalarProperty Name="am_id" ColumnName="am_id" />
+          <ScalarProperty Name="cu_id" ColumnName="cu_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PROGRAMA_FORMACION">
+      <EntityTypeMapping TypeName="FC_CIP_BDModel.PROGRAMA_FORMACION">
+        <MappingFragment StoreEntitySet="PROGRAMA_FORMACION">
+          <ScalarProperty Name="pf_version" ColumnName="pf_version" />
+          <ScalarProperty Name="pf_name" ColumnName="pf_name" />
+          <ScalarProperty Name="pf_code" ColumnName="pf_code" />
+          <ScalarProperty Name="pf_id" ColumnName="pf_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="getSolicitudesRecibidas" FunctionName="FC_CIP_BDModel.Store.getSolicitudesRecibidas">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FC_CIP_BDModel.getSolicitudesRecibidas_Result">
+          <ScalarProperty Name="us_id" ColumnName="us_id" />
+          <ScalarProperty Name="us_nid" ColumnName="us_nid" />
+          <ScalarProperty Name="us_password" ColumnName="us_password" />
+          <ScalarProperty Name="us_typeuser" ColumnName="us_typeuser" />
+          <ScalarProperty Name="us_name" ColumnName="us_name" />
+          <ScalarProperty Name="us_lastname" ColumnName="us_lastname" />
+          <ScalarProperty Name="us_email" ColumnName="us_email" />
+          <ScalarProperty Name="us_phone" ColumnName="us_phone" />
+          <ScalarProperty Name="us_reestablecer" ColumnName="us_reestablecer" />
+          <ScalarProperty Name="us_date" ColumnName="us_date" />
+          <ScalarProperty Name="in_id" ColumnName="in_id" />
+          <ScalarProperty Name="so_id" ColumnName="so_id" />
+          <ScalarProperty Name="co_id" ColumnName="co_id" />
+          <ScalarProperty Name="in_id1" ColumnName="in_id1" />
+          <ScalarProperty Name="so_status" ColumnName="so_status" />
+          <ScalarProperty Name="so_type" ColumnName="so_type" />
+          <ScalarProperty Name="so_ente" ColumnName="so_ente" />
+          <ScalarProperty Name="so_date" ColumnName="so_date" />
+          <ScalarProperty Name="cu_id" ColumnName="cu_id" />
+          <ScalarProperty Name="am_id" ColumnName="am_id" />
+          <ScalarProperty Name="pf_id" ColumnName="pf_id" />
+          <ScalarProperty Name="pe_id" ColumnName="pe_id" />
+          <ScalarProperty Name="so_id1" ColumnName="so_id1" />
+          <ScalarProperty Name="cu_code" ColumnName="cu_code" />
+          <ScalarProperty Name="cu_name" ColumnName="cu_name" />
+          <ScalarProperty Name="cu_duration" ColumnName="cu_duration" />
+          <ScalarProperty Name="cu_startDate" ColumnName="cu_startDate" />
+          <ScalarProperty Name="cu_endDate" ColumnName="cu_endDate" />
+          <ScalarProperty Name="cu_note" ColumnName="cu_note" />
+          <ScalarProperty Name="cu_days" ColumnName="cu_days" />
+          <ScalarProperty Name="pf_id1" ColumnName="pf_id1" />
+          <ScalarProperty Name="pf_code" ColumnName="pf_code" />
+          <ScalarProperty Name="pf_name" ColumnName="pf_name" />
+          <ScalarProperty Name="pf_version" ColumnName="pf_version" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="ACTIVIDAD2">
+      <EntityTypeMapping TypeName="FC_CIP_BDModel.ACTIVIDAD2">
+        <MappingFragment StoreEntitySet="ACTIVIDAD2">
+          <ScalarProperty Name="ac_timetable1" ColumnName="ac_timetable1" />
+          <ScalarProperty Name="ac_timetable" ColumnName="ac_timetable" />
+          <ScalarProperty Name="ac_daytotal" ColumnName="ac_daytotal" />
+          <ScalarProperty Name="ac_name" ColumnName="ac_name" />
+          <ScalarProperty Name="ac_code" ColumnName="ac_code" />
+          <ScalarProperty Name="cu_id" ColumnName="cu_id" />
+          <ScalarProperty Name="ac_id" ColumnName="ac_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CURSO2">
+      <EntityTypeMapping TypeName="FC_CIP_BDModel.CURSO2">
+        <MappingFragment StoreEntitySet="CURSO2">
+          <ScalarProperty Name="so_id" ColumnName="so_id" />
+          <ScalarProperty Name="pe_name" ColumnName="pe_name" />
+          <ScalarProperty Name="pf_version" ColumnName="pf_version" />
+          <ScalarProperty Name="pf_name" ColumnName="pf_name" />
+          <ScalarProperty Name="lo_name" ColumnName="lo_name" />
+          <ScalarProperty Name="am_name" ColumnName="am_name" />
+          <ScalarProperty Name="cu_days" ColumnName="cu_days" />
+          <ScalarProperty Name="cu_note" ColumnName="cu_note" />
+          <ScalarProperty Name="cu_endDate" ColumnName="cu_endDate" />
+          <ScalarProperty Name="cu_startDate" ColumnName="cu_startDate" />
+          <ScalarProperty Name="cu_duration" ColumnName="cu_duration" />
+          <ScalarProperty Name="cu_name" ColumnName="cu_name" />
+          <ScalarProperty Name="cu_code" ColumnName="cu_code" />
+          <ScalarProperty Name="cu_id" ColumnName="cu_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="getSolicitudes" FunctionName="FC_CIP_BDModel.Store.getSolicitudes">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FC_CIP_BDModel.getSolicitudes_Result">
+          <ScalarProperty Name="us_id" ColumnName="us_id" />
+          <ScalarProperty Name="us_nid" ColumnName="us_nid" />
+          <ScalarProperty Name="us_password" ColumnName="us_password" />
+          <ScalarProperty Name="us_typeuser" ColumnName="us_typeuser" />
+          <ScalarProperty Name="us_name" ColumnName="us_name" />
+          <ScalarProperty Name="us_lastname" ColumnName="us_lastname" />
+          <ScalarProperty Name="us_email" ColumnName="us_email" />
+          <ScalarProperty Name="us_phone" ColumnName="us_phone" />
+          <ScalarProperty Name="us_reestablecer" ColumnName="us_reestablecer" />
+          <ScalarProperty Name="us_date" ColumnName="us_date" />
+          <ScalarProperty Name="in_id" ColumnName="in_id" />
+          <ScalarProperty Name="so_id" ColumnName="so_id" />
+          <ScalarProperty Name="co_id" ColumnName="co_id" />
+          <ScalarProperty Name="in_id1" ColumnName="in_id1" />
+          <ScalarProperty Name="so_status" ColumnName="so_status" />
+          <ScalarProperty Name="so_type" ColumnName="so_type" />
+          <ScalarProperty Name="so_ente" ColumnName="so_ente" />
+          <ScalarProperty Name="so_date" ColumnName="so_date" />
+          <ScalarProperty Name="cu_id" ColumnName="cu_id" />
+          <ScalarProperty Name="cu_code" ColumnName="cu_code" />
+          <ScalarProperty Name="cu_name" ColumnName="cu_name" />
+          <ScalarProperty Name="cu_duration" ColumnName="cu_duration" />
+          <ScalarProperty Name="cu_startDate" ColumnName="cu_startDate" />
+          <ScalarProperty Name="cu_endDate" ColumnName="cu_endDate" />
+          <ScalarProperty Name="cu_note" ColumnName="cu_note" />
+          <ScalarProperty Name="cu_days" ColumnName="cu_days" />
+          <ScalarProperty Name="am_name" ColumnName="am_name" />
+          <ScalarProperty Name="lo_name" ColumnName="lo_name" />
+          <ScalarProperty Name="pf_name" ColumnName="pf_name" />
+          <ScalarProperty Name="pf_version" ColumnName="pf_version" />
+          <ScalarProperty Name="pe_name" ColumnName="pe_name" />
+          <ScalarProperty Name="so_id1" ColumnName="so_id1" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

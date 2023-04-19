@@ -20,9 +20,9 @@ namespace FC_CIP.Models
             this.CURSO = new HashSet<CURSO>();
         }
     
-        public decimal pe_id { get; set; }
-        public Nullable<int> pe_code { get; set; }
-        public string pe_name { get; set; }
+        public decimal pf_id { get; set; }
+        public Nullable<int> pf_code { get; set; }
+        public string pf_name { get; set; }
         public Nullable<double> pf_version { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

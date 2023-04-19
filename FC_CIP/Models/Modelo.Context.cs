@@ -30,14 +30,16 @@ namespace FC_CIP.Models
         public virtual DbSet<ACTIVIDAD> ACTIVIDAD { get; set; }
         public virtual DbSet<AMBIENTE> AMBIENTE { get; set; }
         public virtual DbSet<COORDINADORA> COORDINADORA { get; set; }
-        public virtual DbSet<CURSO> CURSO { get; set; }
         public virtual DbSet<INSTRUCTOR> INSTRUCTOR { get; set; }
         public virtual DbSet<LOCACION> LOCACION { get; set; }
         public virtual DbSet<PROGRAMA_ESPECIAL> PROGRAMA_ESPECIAL { get; set; }
-        public virtual DbSet<PROGRAMA_FORMACION> PROGRAMA_FORMACION { get; set; }
         public virtual DbSet<REPORTE> REPORTE { get; set; }
         public virtual DbSet<SOLICITUD> SOLICITUD { get; set; }
         public virtual DbSet<USUARIO> USUARIO { get; set; }
+        public virtual DbSet<CURSO> CURSO { get; set; }
+        public virtual DbSet<PROGRAMA_FORMACION> PROGRAMA_FORMACION { get; set; }
+        public virtual DbSet<ACTIVIDAD2> ACTIVIDAD2 { get; set; }
+        public virtual DbSet<CURSO2> CURSO2 { get; set; }
     
         public virtual ObjectResult<Nullable<int>> saveUserValidation(Nullable<decimal> us_nid, string us_password, string us_name, string us_lastname, string us_email, Nullable<decimal> us_phone)
         {
@@ -79,6 +81,16 @@ namespace FC_CIP.Models
                 new ObjectParameter("us_password", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetUserType_Result>("GetUserType", us_nidParameter, us_passwordParameter);
+        }
+    
+        public virtual ObjectResult<getSolicitudesRecibidas_Result> getSolicitudesRecibidas()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getSolicitudesRecibidas_Result>("getSolicitudesRecibidas");
+        }
+    
+        public virtual ObjectResult<getSolicitudes_Result> getSolicitudes()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getSolicitudes_Result>("getSolicitudes");
         }
     }
 }
