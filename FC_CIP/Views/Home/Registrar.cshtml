@@ -23,7 +23,7 @@
 
                         <div class="grupo-formulario">
                             <label for="txtente">Número de identificación:</label>
-                            <input type="text" class="form-control border-success" id="txtNid" name="txtNid">
+                            <input type="number" class="form-control border-success" id="txtNid" name="txtNid">
                         </div>
 
                         <div class="grupo-formulario">
@@ -68,6 +68,7 @@
 
         function Registrar() {
 
+            /* Objeto que pasa ha la informacion de la vista al controlador */
             var $data = {
                 oUsuario:{
                     us_nid: parseInt($("#txtNid").val()),
@@ -87,12 +88,43 @@
                 dataType: "json",
                 contentType: "application/json; charset=utf- 8",
                 success: function (data) {
+                    $("._inicioSesion").LoadingOverlay("hide");
                     if (data.resultado) {
-                        alert("Registro Exitoso");
+                        /* Mensaje que saldrá si la opracion es exitosa */
+                        swal({
+                            title: "Operación exitosa!",
+                            text: "A su correo electrónico ha llegado la información de inicio de sesión",
+                            type: "success",
+                            confirmButtonClass: "btn-success",
+                            confirmButtonText: "Ok",
+                            closeOnConfirm: true
+                        }, /* Redirecciona a login */
+                            function () {
+                                document.location.href = "@Url.Content("~/Home/Index")"
+                            });
+
+                        /* Limpia los campos de texto */
                         Clear();
                     } else {
-                        alert("Ha ocurrido un error. Puede que el usuario ya exista");
+                        alert("");
+                        swal("Ups!", "El número de identificación o correo electrónico ya existe :)", "error");
+                        console.log(data);
                     }
+                },
+                error: function (error) {
+                    console.log(error);
+                    $("._inicioSesion").LoadingOverlay("hide");
+                    swal("Ups!", "Error de ajax :)", "error");
+                },
+                beforeSend: function () {
+                    // Let's call it 2 times just for fun...
+                    $("._inicioSesion").LoadingOverlay("show", {
+                        background: "rgba(165, 190, 100, 0.5)",
+                        imageResizeFactor: 2,
+                        text: "Espere...",
+                        size: 14
+                    });
+
                 }
             })
         }

@@ -94,7 +94,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <FunctionImportMapping FunctionImportName="saveUserValidation" FunctionName="FC_CIP_BDModel.Store.saveUserValidation" />
     <FunctionImportMapping FunctionImportName="GetUserType" FunctionName="FC_CIP_BDModel.Store.GetUserType">
       <ResultMapping>
         <ComplexTypeMapping TypeName="FC_CIP_BDModel.GetUserType_Result">
@@ -253,5 +252,6 @@
     </EntitySetMapping>
     <FunctionImportMapping FunctionImportName="RegistrarUsuario" FunctionName="FC_CIP_BDModel.Store.RegistrarUsuario" />
     <FunctionImportMapping FunctionImportName="SaveSolicitudCurso" FunctionName="FC_CIP_BDModel.Store.SaveSolicitudCurso" />
+    <FunctionImportMapping FunctionImportName="SaveUsuario" FunctionName="FC_CIP_BDModel.Store.SaveUsuario" />
   </EntityContainerMapping>
 </Mapping>

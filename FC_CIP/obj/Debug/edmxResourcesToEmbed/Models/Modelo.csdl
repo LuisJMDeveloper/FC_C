@@ -248,7 +248,7 @@
       <Parameter Name="us_email" Mode="In" Type="String" />
       <Parameter Name="us_phone" Mode="In" Type="Decimal" />
       <Parameter Name="mensaje" Mode="InOut" Type="String" />
-      <Parameter Name="resultado" Mode="InOut" Type="Int32" />
+      <Parameter Name="resultado" Mode="InOut" Type="Decimal" />
     </FunctionImport>
     <FunctionImport Name="SaveSolicitudCurso" ReturnType="Collection(Decimal)">
       <Parameter Name="co_id" Mode="In" Type="Decimal" />
@@ -267,6 +267,14 @@
       <Parameter Name="cu_enddate" Mode="In" Type="DateTime" />
       <Parameter Name="cu_note" Mode="In" Type="String" />
       <Parameter Name="cu_days" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SaveUsuario" ReturnType="Collection(Int32)">
+      <Parameter Name="us_nid" Mode="In" Type="Decimal" />
+      <Parameter Name="us_password" Mode="In" Type="String" />
+      <Parameter Name="us_name" Mode="In" Type="String" />
+      <Parameter Name="us_lastname" Mode="In" Type="String" />
+      <Parameter Name="us_email" Mode="In" Type="String" />
+      <Parameter Name="us_phone" Mode="In" Type="Decimal" />
     </FunctionImport>
   </EntityContainer>
   <ComplexType Name="GetUserType_Result">

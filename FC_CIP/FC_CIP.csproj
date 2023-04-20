@@ -146,6 +146,7 @@
     <Compile Include="Models\AMBIENTE.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Conexion.cs" />
     <Compile Include="Models\COORDINADORA.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
@@ -170,6 +171,7 @@
     <Compile Include="Models\LOCACION.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Logica\CL_Usuario.cs" />
     <Compile Include="Models\Modelo.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -552,6 +554,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\ACTIVIDADs\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

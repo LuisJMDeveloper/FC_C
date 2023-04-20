@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Security.Cryptography;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Services.Description;
@@ -30,36 +31,37 @@ namespace FC_CIP.Controllers
         public JsonResult RegistrarInstructor(UsuarioInstructor oUsuario)
         {
             bool respuesta = false;
+            
             List<USUARIO> oList = new List<USUARIO>();
 
             using (FC_CIP_BDEntities db = new FC_CIP_BDEntities())
             {
                 oList = (from P in db.USUARIO
-                         where P.us_nid == oUsuario.us_nid
+                         where P.us_nid == oUsuario.us_nid || P.us_email == oUsuario.us_email
                          select P).ToList();
 
                 if (oList.Count > 0)
                 {
                     respuesta = false;
+                    return Json(new { resultado = respuesta}, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
-                    var resultado = db.saveUserValidation(
+                    db.SaveUsuario(
                         oUsuario.us_nid,
                         oUsuario.us_password,
                         oUsuario.us_name,
                         oUsuario.us_lastname,
                         oUsuario.us_email,
-                        oUsuario.us_phone
-                        );
-
+                        oUsuario.us_phone);
                     db.SaveChanges();
                     respuesta = true;
+                    return Json(new { resultado = respuesta}, JsonRequestBehavior.AllowGet);
                 }
             }
            
 
-            return Json( new {resultado = respuesta}, JsonRequestBehavior.AllowGet);
+           
 
         }
 

@@ -317,7 +317,7 @@
           <Parameter Name="us_email" Type="varchar" Mode="In" />
           <Parameter Name="us_phone" Type="numeric" Mode="In" />
           <Parameter Name="mensaje" Type="varchar" Mode="InOut" />
-          <Parameter Name="resultado" Type="int" Mode="InOut" />
+          <Parameter Name="resultado" Type="numeric" Mode="InOut" />
         </Function>
         <Function Name="SaveSolicitudCurso" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="co_id" Type="numeric" Mode="In" />
@@ -337,7 +337,7 @@
           <Parameter Name="cu_note" Type="varchar" Mode="In" />
           <Parameter Name="cu_days" Type="varchar" Mode="In" />
         </Function>
-        <Function Name="saveUserValidation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+        <Function Name="SaveUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="us_nid" Type="numeric" Mode="In" />
           <Parameter Name="us_password" Type="varchar" Mode="In" />
           <Parameter Name="us_name" Type="varchar" Mode="In" />
@@ -664,7 +664,7 @@
             <Parameter Name="us_email" Mode="In" Type="String" />
             <Parameter Name="us_phone" Mode="In" Type="Decimal" />
             <Parameter Name="mensaje" Mode="InOut" Type="String" />
-            <Parameter Name="resultado" Mode="InOut" Type="Int32" />
+            <Parameter Name="resultado" Mode="InOut" Type="Decimal" />
           </FunctionImport>
           <FunctionImport Name="SaveSolicitudCurso" ReturnType="Collection(Decimal)">
             <Parameter Name="co_id" Mode="In" Type="Decimal" />
@@ -683,6 +683,14 @@
             <Parameter Name="cu_enddate" Mode="In" Type="DateTime" />
             <Parameter Name="cu_note" Mode="In" Type="String" />
             <Parameter Name="cu_days" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SaveUsuario" ReturnType="Collection(Int32)">
+            <Parameter Name="us_nid" Mode="In" Type="Decimal" />
+            <Parameter Name="us_password" Mode="In" Type="String" />
+            <Parameter Name="us_name" Mode="In" Type="String" />
+            <Parameter Name="us_lastname" Mode="In" Type="String" />
+            <Parameter Name="us_email" Mode="In" Type="String" />
+            <Parameter Name="us_phone" Mode="In" Type="Decimal" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetUserType_Result">
@@ -1030,7 +1038,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="saveUserValidation" FunctionName="FC_CIP_BDModel.Store.saveUserValidation" />
           <FunctionImportMapping FunctionImportName="GetUserType" FunctionName="FC_CIP_BDModel.Store.GetUserType">
             <ResultMapping>
               <ComplexTypeMapping TypeName="FC_CIP_BDModel.GetUserType_Result">
@@ -1189,6 +1196,7 @@
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="RegistrarUsuario" FunctionName="FC_CIP_BDModel.Store.RegistrarUsuario" />
           <FunctionImportMapping FunctionImportName="SaveSolicitudCurso" FunctionName="FC_CIP_BDModel.Store.SaveSolicitudCurso" />
+          <FunctionImportMapping FunctionImportName="SaveUsuario" FunctionName="FC_CIP_BDModel.Store.SaveUsuario" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

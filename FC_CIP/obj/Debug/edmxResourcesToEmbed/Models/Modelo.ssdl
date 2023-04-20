@@ -312,7 +312,7 @@
     <Parameter Name="us_email" Type="varchar" Mode="In" />
     <Parameter Name="us_phone" Type="numeric" Mode="In" />
     <Parameter Name="mensaje" Type="varchar" Mode="InOut" />
-    <Parameter Name="resultado" Type="int" Mode="InOut" />
+    <Parameter Name="resultado" Type="numeric" Mode="InOut" />
   </Function>
   <Function Name="SaveSolicitudCurso" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="co_id" Type="numeric" Mode="In" />
@@ -332,7 +332,7 @@
     <Parameter Name="cu_note" Type="varchar" Mode="In" />
     <Parameter Name="cu_days" Type="varchar" Mode="In" />
   </Function>
-  <Function Name="saveUserValidation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+  <Function Name="SaveUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="us_nid" Type="numeric" Mode="In" />
     <Parameter Name="us_password" Type="varchar" Mode="In" />
     <Parameter Name="us_name" Type="varchar" Mode="In" />

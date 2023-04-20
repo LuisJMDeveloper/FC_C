@@ -190,5 +190,34 @@ namespace FC_CIP.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("SaveSolicitudCurso", co_idParameter, in_idParameter, so_typeParameter, so_enteParameter, pf_idParameter, pe_idParameter, lu_idParameter, am_idParameter, cu_codeParameter, cu_nameParameter, cu_cupoMaxParameter, cu_durationParameter, cu_startdateParameter, cu_enddateParameter, cu_noteParameter, cu_daysParameter);
         }
+    
+        public virtual ObjectResult<Nullable<int>> SaveUsuario(Nullable<decimal> us_nid, string us_password, string us_name, string us_lastname, string us_email, Nullable<decimal> us_phone)
+        {
+            var us_nidParameter = us_nid.HasValue ?
+                new ObjectParameter("us_nid", us_nid) :
+                new ObjectParameter("us_nid", typeof(decimal));
+    
+            var us_passwordParameter = us_password != null ?
+                new ObjectParameter("us_password", us_password) :
+                new ObjectParameter("us_password", typeof(string));
+    
+            var us_nameParameter = us_name != null ?
+                new ObjectParameter("us_name", us_name) :
+                new ObjectParameter("us_name", typeof(string));
+    
+            var us_lastnameParameter = us_lastname != null ?
+                new ObjectParameter("us_lastname", us_lastname) :
+                new ObjectParameter("us_lastname", typeof(string));
+    
+            var us_emailParameter = us_email != null ?
+                new ObjectParameter("us_email", us_email) :
+                new ObjectParameter("us_email", typeof(string));
+    
+            var us_phoneParameter = us_phone.HasValue ?
+                new ObjectParameter("us_phone", us_phone) :
+                new ObjectParameter("us_phone", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("SaveUsuario", us_nidParameter, us_passwordParameter, us_nameParameter, us_lastnameParameter, us_emailParameter, us_phoneParameter);
+        }
     }
 }
