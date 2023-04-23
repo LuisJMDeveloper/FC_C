@@ -171,6 +171,7 @@
     <Compile Include="Models\LOCACION.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Logica\CL_Recursos.cs" />
     <Compile Include="Models\Logica\CL_Usuario.cs" />
     <Compile Include="Models\Modelo.Context.cs">
       <AutoGen>True</AutoGen>

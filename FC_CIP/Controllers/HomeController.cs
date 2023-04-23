@@ -11,6 +11,7 @@ using System.Web.Mvc;
 using System.Web.Services.Description;
 using System.Windows.Forms;
 using FC_CIP.Models;
+using FC_CIP.Models.Logica;
 using FC_CIP.Models.TablasCombinadas;
 
 namespace FC_CIP.Controllers
@@ -58,11 +59,19 @@ namespace FC_CIP.Controllers
                     respuesta = true;
                     return Json(new { resultado = respuesta}, JsonRequestBehavior.AllowGet);
                 }
-            }
-           
+            }           
 
-           
+        }
 
+        [HttpPost]
+        public JsonResult SaveUser(UsuarioInstructor obj)
+        {
+            object result;
+            string mensaje = string.Empty;
+
+            result = new CL_Usuario().SaveUser(obj, out mensaje);
+
+            return Json(new {result = result, mensaje = mensaje}, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

@@ -17,7 +17,7 @@
                     </h3>
 
                 </div>
-
+                
                 <div class="contenedor-formulario">
                     <form id="formInicioRegistro" class="col-md formulario-registro">
 
@@ -71,7 +71,7 @@
 
             /* Objeto que pasa ha la informacion de la vista al controlador */
             var $data = {
-                oUsuario: {
+                obj: {
                     us_nid: parseInt($("#txtNid").val()),
                     us_password: $("#txtNid").val(),
                     us_name: $("#txtName").val(),
@@ -83,7 +83,7 @@
             }
 
             jQuery.ajax({
-                url: "@Url.Action("RegistrarInstructor", "Home")",
+                url: "@Url.Action("SaveUser", "Home")",
                 type: "POST",
                 data: JSON.stringify($data),
                 dataType: "json",
@@ -91,7 +91,7 @@
                 success: function (data) {
                     $("._inicioSesion").LoadingOverlay("hide");
                     
-                    if (data.resultado) {
+                    if (data.result > 0) {
                         /* Mensaje que saldrá si la opracion es exitosa */
                         swal({
                             title: "Operación exitosa!",
@@ -108,7 +108,7 @@
                         /* Limpia los campos de texto */
                         Clear();
                     } else {
-                        swal("Ups!", "El número de identificación o correo electrónico ya existe :)", "error");
+                        swal("Ups!", data.mensaje, "error");
                         console.log(data);
                     }
                 },
