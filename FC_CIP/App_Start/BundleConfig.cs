@@ -27,6 +27,8 @@ namespace FC_CIP
                       "~/Content/sweetalert.css",
                       "~/Content/DataTables/css/jquery.dataTables.css",
                       "~/Content/DataTables/css/responsive.dataTables.css",
+                      "~/Content/font-awesome.css",
+                      "~/Content/font-awesome.min.css",
                       "~/Content/site.css"));
 
             bundles.Add(new Bundle("~/bundles/complementos").Include(

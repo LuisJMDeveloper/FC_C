@@ -29,41 +29,6 @@ namespace FC_CIP.Controllers
         }
 
         [HttpPost]
-        public JsonResult RegistrarInstructor(UsuarioInstructor oUsuario)
-        {
-            bool respuesta = false;
-            
-            List<USUARIO> oList = new List<USUARIO>();
-
-            using (FC_CIP_BDEntities db = new FC_CIP_BDEntities())
-            {
-                oList = (from P in db.USUARIO
-                         where P.us_nid == oUsuario.us_nid || P.us_email == oUsuario.us_email
-                         select P).ToList();
-
-                if (oList.Count > 0)
-                {
-                    respuesta = false;
-                    return Json(new { resultado = respuesta}, JsonRequestBehavior.AllowGet);
-                }
-                else
-                {
-                    db.SaveUsuario(
-                        oUsuario.us_nid,
-                        oUsuario.us_password,
-                        oUsuario.us_name,
-                        oUsuario.us_lastname,
-                        oUsuario.us_email,
-                        oUsuario.us_phone);
-                    db.SaveChanges();
-                    respuesta = true;
-                    return Json(new { resultado = respuesta}, JsonRequestBehavior.AllowGet);
-                }
-            }           
-
-        }
-
-        [HttpPost]
         public JsonResult SaveUser(UsuarioInstructor obj)
         {
             object result;

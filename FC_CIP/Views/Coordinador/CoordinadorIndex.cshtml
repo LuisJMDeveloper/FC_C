@@ -36,7 +36,7 @@
             Lista De Solicitudes
             <span>
                 <button id="cargarTabla" class="btn btn-outline-dark btn-sm">
-                    Cargar tabla
+                    Cargar tabla <i></i>
                 </button>
             </span>
         </h4>
@@ -163,19 +163,26 @@
                 { "data": "so_type" },
                 { "data": "pf_name" },
                 {
-                    "defaultContent":
-                        '<div class="d-flex gap-1"> '
-                        +'<button id="Aprobar" type="button" class="btn btn-outline-primary btn-sm"> <i class="bi bi-pencil-fill"></i> </button>'
-                        + '<button id="OpenFile" type="button" class="btn btn-outline-success btn-sm"> <i class="bi bi-folder-symlink"></i> </button>'
-                        + '</div>',
+                    "data": "so_id",
+                    "render": function (data) {
+                        return "<button id='Aprobar' onclick ='Probar(" + data + ")' type='button' class='btn btn-outline-primary btn-sm'> <i class='fas fa-pencil' ></i> </button>" +
+                            "<button id='OpenFile' onclick ='Probar(" + data + ")' type='button' class='btn btn-outline-success btn-sm'>  <i class='fa fa-trash' ></i> </button>"
+                    },
                     "orderable": false,
                     "searchable": false,
+                    "width": "150px"
                 }
+       
             ],
             language: {
                 "url": "https://cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
             }
         });
+
+
+        function Probar(data) {
+            alert(data);
+        }
 
         @*   Obtiene el JSON de la fila 
         $("#tabla tbody").on("click", '#Aprobar', function () {
