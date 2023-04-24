@@ -54,7 +54,7 @@ namespace FC_CIP.Models.Logica
             }
             else
             {
-                throw new ArgumentException("El número de celular ingresado no es válido");
+                return 1;
             }
         }
 
