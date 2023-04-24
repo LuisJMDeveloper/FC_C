@@ -24,19 +24,19 @@ namespace FC_CIP.Models.Logica
             #region Evitar campos vacíos
             if (string.IsNullOrEmpty(oUsuario.us_name) || string.IsNullOrWhiteSpace(oUsuario.us_name))
             {
-                Mensaje += "¡El nombre de usuario es requerido!";
+                Mensaje += "¡El nombre de usuario es requerido! ";
             }
             if (string.IsNullOrEmpty(oUsuario.us_lastname) || string.IsNullOrWhiteSpace(oUsuario.us_lastname))
             {
-                Mensaje += "¡El apellido de usuario es requerido!";
+                Mensaje += "¡El apellido de usuario es requerido! ";
             }
             if (string.IsNullOrEmpty(oUsuario.us_email) || string.IsNullOrWhiteSpace(oUsuario.us_email))
             {
-                Mensaje += "¡El correo de usuario es requerido!";
+                Mensaje += "¡El correo de usuario es requerido! ";
             }
             if (oUsuario.us_nid <= 0)
             {
-                Mensaje += "¡El número de identificaión de usuario es requerido!";
+                Mensaje += " ¡El número de identificaión de usuario es requerido! ";
             }
             if (oUsuario.us_phone <= 0)
             {
@@ -56,7 +56,7 @@ namespace FC_CIP.Models.Logica
                 oUsuario.us_email = CL_Recursos.ClearText(oUsuario.us_email, true);
                 oUsuario.us_nid = CL_Recursos.ClearText((decimal)oUsuario.us_nid);
                 //Limpia los espacios y válida que sea un número de telefónico celular
-                oUsuario.us_phone = CL_Recursos.ValidatePhone((decimal)oUsuario.us_phone);
+                oUsuario.us_phone = CL_Recursos.ClearText((decimal)oUsuario.us_phone);
                 #endregion
 
                 string clave = CL_Recursos.ConvertSha256(oUsuario.us_nid.ToString());
@@ -81,27 +81,35 @@ namespace FC_CIP.Models.Logica
 
                             if (oList.Count > 0)
                             {
-                                Mensaje = "El usuario ya existe";
+                                Mensaje = "El usuario !user! ya existe o el correo !email!";
+                                Mensaje = Mensaje.Replace("!user!", oUsuario.us_nid.ToString());
+                                Mensaje = Mensaje.Replace("!email!", oUsuario.us_email);
                             }
                             else
                             {
-                                db.saveUserValidation(
+                                db.SaveUsuario(
                                 oUsuario.us_nid,
-                                oUsuario.us_password,
+                                clave,
                                 oUsuario.us_name,
                                 oUsuario.us_lastname,
                                 oUsuario.us_email,
                                 oUsuario.us_phone
                                 );
                                 db.SaveChanges();
+                                
                             }
-                            return IdUsuario;
+
+                            return 1;
                         }
                     }
                     catch (SqlException ex)
                     {
                         return IdUsuario;
                     }
+                }
+                else
+                {
+                    Mensaje = "Tenemos problemas para crear tu usuario\n¡Intenta más tarde!";
                 }
 
                 #region Registro de ejemplo
