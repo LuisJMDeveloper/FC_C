@@ -156,6 +156,9 @@
     <Compile Include="Models\CURSO2.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\getSolicitudesID_Result.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\getSolicitudesRecibidas_Result.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>

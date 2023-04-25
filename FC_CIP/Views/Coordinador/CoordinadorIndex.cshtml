@@ -36,7 +36,7 @@
             Lista De Solicitudes
             <span>
                 <button id="cargarTabla" class="btn btn-outline-dark btn-sm">
-                    Cargar tabla <i></i>
+                    Cargar tabla <i class="fa fa-spinner"></i>
                 </button>
             </span>
         </h4>
@@ -49,7 +49,7 @@
     <section class="card-body">
 
         @*  Esta tabla es la que muesta la informacion del JSON getSolicidesRecibidas*@
-        <table id="tabla" class="table display">
+        <table id="tabla" class="table display _tabla">
             <thead>
                 <tr>
                     <th>Nombre Instructor</th>
@@ -165,14 +165,14 @@
                 {
                     "data": "so_id",
                     "render": function (data) {
-                        return "<button id='Aprobar' onclick ='Probar(" + data + ")' type='button' class='btn btn-outline-primary btn-sm'> <i class='fas fa-pencil' ></i> </button>" +
+                        return "<button id='Aprobar' onclick ='ShowModal(" + data + ")' type='button' class='btn btn-outline-primary btn-sm'> <i class='fa fa-pencil' ></i> </button>" +
                             "<button id='OpenFile' onclick ='Probar(" + data + ")' type='button' class='btn btn-outline-success btn-sm'>  <i class='fa fa-trash' ></i> </button>"
                     },
                     "orderable": false,
                     "searchable": false,
                     "width": "150px"
                 }
-       
+
             ],
             language: {
                 "url": "https://cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
@@ -180,27 +180,58 @@
         });
 
 
-        function Probar(data) {
-            alert(data);
+        function ShowModal($so_id) {
+            console.log($so_id);
+            ClearModal();
+
+            if ($so_id != 0) {
+                jQuery.ajax({
+                    url: "@Url.Action("getSolicitudesID", "Coordinador")" + "?so_id=" + $so_id,
+                    type: "GET",
+                    dataType: "json",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf- 8",
+                    success: function (data) {
+                        $("._tabla").LoadingOverlay("hide");
+                        console.log(data);
+                        if (data != null) {
+                            /* Mensaje que saldrá si la opracion es exitosa */
+                            swal({
+                                title: "Operación exitosa!",
+                                text: "A su correo electrónico ha llegado la información de inicio de sesión",
+                                type: "success",
+                                confirmButtonClass: "btn-success",
+                                confirmButtonText: "Ok",
+                                closeOnConfirm: true
+                            });
+
+                            /* Limpia los campos de texto */
+                            ClearModal();
+                        } else {
+                            swal("Ups!", data.mensaje, "error");
+                            console.log(data);
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error);
+                        $("._tabla").LoadingOverlay("hide");
+                        swal("Ups!", "Error de ajax :(", "error");
+                    },
+                    beforeSend: function () {
+                        // Let's call it 2 times just for fun...
+                        $("._tabla").LoadingOverlay("show", {
+                            background: "rgba(165, 190, 100, 0.5)",
+                            imageResizeFactor: 2,
+                            text: "Espere...",
+                            size: 14
+                        });
+
+                    }
+                })
+            }
+
         }
 
-        @*   Obtiene el JSON de la fila 
-        $("#tabla tbody").on("click", '#Aprobar', function () {
-
-            filaSelecionada = $(this).closest("tr")
-            getDataTabledata = tabladata.row(filaSelecionada).data();
-
-            if (getDataTabledata != undefined) {
-                ShowModal(getDataTabledata);
-            } else {
-                getDataTabledata = tabladata.row(this).data();
-                ShowModal(getDataTabledata);
-            }
-            console.log(getDataTabledata);
-
-        })
-
-        @*  Actualiza la tabla
         function LoadTable() {
             let numRegistrosAntes = numRegistros;
             tabladata.ajax.reload(function () {
@@ -214,10 +245,7 @@
 
                 else if (numRegistros < numRegistrosAntes) {
 
-                }
-
-                else
-                {
+                } else {
                     $('#alert-registros-iguales').show();
                      setTimeout(function ()
                      {
@@ -227,47 +255,22 @@
             });
         }
 
-        function ShowModal(json) {
-
-            $("#txtIdSolicitud").val(0);
-            $("#txtInstructor").val("");
-            $("#txtFechaSolicitud").val("");
-            $("#txtNombreCurso").val("");
-            $("#txtProgramaFormacion").val("");
-
-            if (json != null) {
-                $("#txtIdSolicitud").val(json.so_id);
-
-                var fecha = json.so_date;
-
-                const timestamp = Number(fecha.match(/\d+/)[0]);
-                const date = new Date(timestamp);
-                const day = date.getDate().toString().padStart(2, '0');
-                const month = (date.getMonth() + 1).toString().padStart(2, '0');
-                const year = date.getFullYear().toString();
-                const formattedDate = `${day}/${month}/${year}`;
-                console.log(formattedDate);
-
-                console.log(json.so_id);
-
-                $("#txtInstructor").val(json.us_name);
-                $("#txtFechaSolicitud").val(formattedDate);
-                $("#txtNombreCurso").val(json.cu_name);
-                $("#txtProgramaFormacion").val(json.pf_name);
-                $("#formModal").modal("show");
-            } else {
-                alert("A ocurrido un erro, intenta recargar la página")
-            }
-
-        }
-
-        function ActualizaSolicitud(btn) {
+        
+        @*function ActualizaSolicitud(btn) {
             var so_id = $("#txtIdSolicitud").val();
             var status = btn;
             console.log(so_id + "-" + status)
 
 
         }*@
+
+        function ClearModal() {
+            $("#txtIdSolicitud").val(0);
+            $("#txtInstructor").val("");
+            $("#txtFechaSolicitud").val("");
+            $("#txtNombreCurso").val("");
+            $("#txtProgramaFormacion").val("");
+        }
     </script>
 }
 

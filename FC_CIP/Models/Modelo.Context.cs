@@ -219,5 +219,14 @@ namespace FC_CIP.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("SaveUsuario", us_nidParameter, us_passwordParameter, us_nameParameter, us_lastnameParameter, us_emailParameter, us_phoneParameter);
         }
+    
+        public virtual ObjectResult<getSolicitudesID_Result> getSolicitudesID(Nullable<decimal> so_id)
+        {
+            var so_idParameter = so_id.HasValue ?
+                new ObjectParameter("so_id", so_id) :
+                new ObjectParameter("so_id", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getSolicitudesID_Result>("getSolicitudesID", so_idParameter);
+        }
     }
 }

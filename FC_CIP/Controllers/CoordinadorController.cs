@@ -26,6 +26,16 @@ namespace FC_CIP.Controllers
             }
         }
 
-       
+        [HttpGet]
+        public JsonResult getSolicitudesID(int so_id)
+        {
+            using (FC_CIP_BDEntities db = new FC_CIP_BDEntities())
+            {
+                var oLista = db.Database.SqlQuery<SolicitudesRecibidas>("EXEC getSolicitudesID " + so_id).FirstOrDefault();
+                return Json( oLista , JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
     }
 }

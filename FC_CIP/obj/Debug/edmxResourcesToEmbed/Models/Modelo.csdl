@@ -276,6 +276,9 @@
       <Parameter Name="us_email" Mode="In" Type="String" />
       <Parameter Name="us_phone" Mode="In" Type="Decimal" />
     </FunctionImport>
+    <FunctionImport Name="getSolicitudesID" ReturnType="Collection(FC_CIP_BDModel.getSolicitudesID_Result)">
+      <Parameter Name="so_id" Mode="In" Type="Decimal" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="GetUserType_Result">
     <Property Type="Decimal" Name="us_id" Nullable="false" Precision="18" Scale="0" />
@@ -523,4 +526,38 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <ComplexType Name="getSolicitudesID_Result">
+    <Property Type="Decimal" Name="us_id" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="us_nid" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="String" Name="us_password" Nullable="true" MaxLength="250" />
+    <Property Type="String" Name="us_typeuser" Nullable="true" MaxLength="15" />
+    <Property Type="String" Name="us_name" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="us_lastname" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="us_email" Nullable="true" MaxLength="100" />
+    <Property Type="Decimal" Name="us_phone" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Boolean" Name="us_reestablecer" Nullable="true" />
+    <Property Type="DateTime" Name="us_date" Nullable="true" />
+    <Property Type="Decimal" Name="in_id" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="so_id" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="co_id" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="in_id1" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="String" Name="so_status" Nullable="true" MaxLength="15" />
+    <Property Type="String" Name="so_type" Nullable="true" MaxLength="15" />
+    <Property Type="String" Name="so_ente" Nullable="true" MaxLength="100" />
+    <Property Type="DateTime" Name="so_date" Nullable="true" />
+    <Property Type="Decimal" Name="cu_id" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Int32" Name="cu_code" Nullable="true" />
+    <Property Type="String" Name="cu_name" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="cu_duration" Nullable="true" />
+    <Property Type="DateTime" Name="cu_startDate" Nullable="true" />
+    <Property Type="DateTime" Name="cu_endDate" Nullable="true" />
+    <Property Type="String" Name="cu_note" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="cu_days" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="am_name" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="lo_name" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="pf_name" Nullable="true" MaxLength="200" />
+    <Property Type="Double" Name="pf_version" Nullable="true" />
+    <Property Type="String" Name="pe_name" Nullable="true" MaxLength="200" />
+    <Property Type="Decimal" Name="so_id1" Nullable="true" Precision="18" Scale="0" />
+  </ComplexType>
 </Schema>
