@@ -14,6 +14,7 @@ namespace FC_CIP.Models.Logica
 {
     public class CL_Recursos
     {
+        #region Limpiar textos
         public static string ClearText(string texto)
         {
             // Eliminar los espacios en blanco del principio y del final de la cadena
@@ -57,7 +58,7 @@ namespace FC_CIP.Models.Logica
                 return 1;
             }
         }
-
+        #endregion
 
         public static string ConvertSha256(string texto)
         {
