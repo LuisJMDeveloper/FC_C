@@ -33,20 +33,36 @@
         </nav>
 
         <div class="offcanvas offcanvas-end " tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-            <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasRightLabel">Menú de opciones</h5>
+            <div class="offcanvas-header" style="background-color: #168A45">
+                <h4 class="offcanvas-title text-light">Perfil de usuario</h4>
                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
             </div>
             <div class="offcanvas-body">
-                <div class="form-control-lg">
-                    <br />
-                    <div class="user-icon-max bg-success">
-
+                <div class="form-control-lg d-flex flex-column align-items-center">
+                    
+                    <div class="user-icon-max form-group mt-1">
+                        <i style="font-size:100px" class="fa fa-user-circle-o"></i>
                     </div>
                     <br />
+                    <div class="container-fluid d-flex justify-content-around mb-2">
+                        
+                        <button class="btn btn-warning btn-sm" type="button">
+                            Actualizar
+                        </button>
+                        
+                    </div>
+                    
                     <label class="form-label me-3">Número de identificiaión</label>
                     <input class="form-control border-success shadow-success me-3" />
 
+                    <label class="form-label me-3">Nombre de usuario</label>
+                    <input class="form-control border-success shadow-success me-3" />
+
+                    <label class="form-label me-3">Apellido de usuario</label>
+                    <input class="form-control border-success shadow-success me-3" />
+
+                    <label class="form-label me-3">Correo electrónico</label>
+                    <input class="form-control border-success shadow-success me-3" />
                 </div>
             </div>
         </div>
