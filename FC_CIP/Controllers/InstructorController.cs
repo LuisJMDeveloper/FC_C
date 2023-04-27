@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using FC_CIP.Models.Logica;
 
 namespace FC_CIP.Controllers
 {
@@ -13,6 +14,7 @@ namespace FC_CIP.Controllers
         // GET: Instructor
         public ActionResult InstructorIndex()
         {
+            CL_Curso.AddCurso();
             return View();
         }
 

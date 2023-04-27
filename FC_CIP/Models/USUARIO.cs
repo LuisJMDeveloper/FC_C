@@ -14,18 +14,18 @@ namespace FC_CIP.Models
     
     public partial class USUARIO
     {
-        public decimal us_id { get; set; }
-        public Nullable<decimal> us_nid { get; set; }
-        public string us_password { get; set; }
-        public string us_typeuser { get; set; }
-        public string us_name { get; set; }
-        public string us_lastname { get; set; }
-        public string us_email { get; set; }
-        public Nullable<decimal> us_phone { get; set; }
-        public Nullable<bool> us_reestablecer { get; set; }
+        public decimal userId { get; set; }
+        public Nullable<decimal> usua_nid { get; set; }
+        public string user_password { get; set; }
+        public Nullable<int> user_type { get; set; }
+        public string userName { get; set; }
+        public string user_lastname { get; set; }
+        public string user_email { get; set; }
+        public Nullable<decimal> user_phone { get; set; }
+        public Nullable<bool> user_restore { get; set; }
         public Nullable<System.DateTime> us_date { get; set; }
     
-        public virtual COORDINADORA COORDINADORA { get; set; }
+        public virtual COORDINADOR COORDINADOR { get; set; }
         public virtual INSTRUCTOR INSTRUCTOR { get; set; }
     }
 }

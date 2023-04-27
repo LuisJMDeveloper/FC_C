@@ -14,34 +14,22 @@ namespace FC_CIP.Models
     
     public partial class CURSO
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public CURSO()
-        {
-            this.ACTIVIDAD = new HashSet<ACTIVIDAD>();
-            this.REPORTE = new HashSet<REPORTE>();
-        }
+        public decimal curso_id { get; set; }
+        public string curso_name { get; set; }
+        public Nullable<int> curso_code { get; set; }
+        public Nullable<double> curso_version { get; set; }
+        public string curso_programa { get; set; }
+        public Nullable<int> curso_duration { get; set; }
+        public Nullable<System.DateTime> curso_startDate { get; set; }
+        public Nullable<System.DateTime> curso_endDate { get; set; }
+        public string curso_note { get; set; }
+        public string curso_days { get; set; }
+        public decimal muni_id { get; set; }
+        public decimal pe_id { get; set; }
+        public decimal soli_id { get; set; }
     
-        public decimal cu_id { get; set; }
-        public Nullable<decimal> am_id { get; set; }
-        public Nullable<decimal> pf_id { get; set; }
-        public Nullable<decimal> pe_id { get; set; }
-        public Nullable<decimal> so_id { get; set; }
-        public Nullable<int> cu_code { get; set; }
-        public string cu_name { get; set; }
-        public Nullable<int> cu_duration { get; set; }
-        public Nullable<System.DateTime> cu_startDate { get; set; }
-        public Nullable<System.DateTime> cu_endDate { get; set; }
-        public string cu_note { get; set; }
-        public string cu_days { get; set; }
-        public Nullable<int> cu_cupoMax { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ACTIVIDAD> ACTIVIDAD { get; set; }
-        public virtual AMBIENTE AMBIENTE { get; set; }
+        public virtual MUNICIPIO MUNICIPIO { get; set; }
         public virtual PROGRAMA_ESPECIAL PROGRAMA_ESPECIAL { get; set; }
-        public virtual PROGRAMA_FORMACION PROGRAMA_FORMACION { get; set; }
         public virtual SOLICITUD SOLICITUD { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<REPORTE> REPORTE { get; set; }
     }
 }

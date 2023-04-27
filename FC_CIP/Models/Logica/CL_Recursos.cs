@@ -114,6 +114,22 @@ namespace FC_CIP.Models.Logica
              
         }
 
+        public static DateTime String_DateTime(string date)
+        {
+            DateTime result = DateTime.Now;
+            result = Convert.ToDateTime(date);
+            return result ;
+        }
+
+        public static string DateTime_String(DateTime date)
+        {
+            string result = string.Empty;
+
+           
+            return result;
+        }
+
+
         #region Funciones Asincronas
         public static async Task<string> ClearTextAsync(string text)
         {

@@ -14,14 +14,14 @@ namespace FC_CIP.Models
     
     public partial class ACTIVIDAD
     {
-        public decimal ac_id { get; set; }
-        public Nullable<decimal> cu_id { get; set; }
-        public Nullable<int> ac_code { get; set; }
-        public string ac_name { get; set; }
-        public Nullable<int> ac_daytotal { get; set; }
-        public string ac_timetable { get; set; }
-        public string ac_timetable1 { get; set; }
+        public decimal acti_id { get; set; }
+        public decimal muni_id { get; set; }
+        public decimal cu_id { get; set; }
+        public string acti_name { get; set; }
+        public Nullable<int> acti_datytotal { get; set; }
+        public Nullable<System.DateTime> acti_startDate { get; set; }
+        public Nullable<System.DateTime> acti_endDate { get; set; }
     
-        public virtual CURSO CURSO { get; set; }
+        public virtual MUNICIPIO MUNICIPIO { get; set; }
     }
 }

@@ -20,7 +20,7 @@ namespace FC_CIP.Models
             this.SOLICITUD = new HashSet<SOLICITUD>();
         }
     
-        public decimal in_id { get; set; }
+        public decimal userId { get; set; }
     
         public virtual USUARIO USUARIO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

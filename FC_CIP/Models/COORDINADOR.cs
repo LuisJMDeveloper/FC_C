@@ -12,16 +12,18 @@ namespace FC_CIP.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ACTIVIDAD2
+    public partial class COORDINADOR
     {
-        public decimal ac_id { get; set; }
-        public Nullable<decimal> cu_id { get; set; }
-        public Nullable<int> ac_code { get; set; }
-        public string ac_name { get; set; }
-        public Nullable<int> ac_daytotal { get; set; }
-        public string ac_timetable { get; set; }
-        public string ac_timetable1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public COORDINADOR()
+        {
+            this.SOLICITUD = new HashSet<SOLICITUD>();
+        }
     
-        public virtual CURSO2 CURSO2 { get; set; }
+        public decimal userId { get; set; }
+    
+        public virtual USUARIO USUARIO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SOLICITUD> SOLICITUD { get; set; }
     }
 }

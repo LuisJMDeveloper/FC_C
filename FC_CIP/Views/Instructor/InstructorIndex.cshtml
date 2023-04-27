@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "InstructorIndex";
     Layout = "~/Views/Shared/_Instructor.cshtml";
-
+}
 
 <h2>Bienvenido Instructor</h2>
 
@@ -22,7 +22,7 @@
                 <section class="card-header d-flex justify-content-between gap-5 flex-wrap">
                     <h5>Formulario de solicitud</h5>
                     <div class="d-flex justify-content-end gap-3">
-                        <button form="formSolicitud" onclick="Guardar()" type="button" class="btn btn-success btn-sm">
+                        <button form="formSolicitud" type="submit" class="_btnGuardar btn btn-success btn-sm">
                             <i class="bi bi-file-earmark-check"></i> Guardar
                         </button>
                         <button form="formSolicitud" class="btn btn-danger btn-sm">
@@ -277,25 +277,17 @@
 
                                             <div class="form-group">
                                                 <label for="txtnombre">Nombre:</label>
-                                                <input type="text" class="form-control border-success" id="txtnombre" name="txtnombre">
+                                                <input id="txtAc_name" name="txtAc_name" type="text" class="form-control border-success">
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="tipo">Tipo:</label>
-                                                <select class="form-select border-success" aria-label="Default select example" id="cmbTipoSolicitud" name="cmbTipoSolicitud">
-                                                    <option value="Abierta">
-                                                        Abierta
-                                                    </option>
-
-                                                    <option value="Cerrada">
-                                                        Cerrada
-                                                    </option>
-                                                </select>
+                                                <label for="txtente">Fecha de inicio:</label>
+                                                <input id="txtAc_inicio" name="txtAc_inicio" type="datetime-local" class="form-control border-success">
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="txtente">Empresa:</label>
-                                                <input type="text" class="form-control border-success" id="txtente" name="txtente">
+                                                <label for="txtente">Fecha de Fin:</label>
+                                                <input id="txtAc_fin" name="txtAc_fin" type="datetime-local" class="form-control border-success">
                                             </div>
 
                                         </div>
@@ -311,7 +303,7 @@
                 <section class="card-footer d-flex justify-content-between gap-2 flex-wrap">
                     <h6>Formulario de solicitud</h6>
                     <div class="d-flex justify-content-end gap-3">
-                        <button form="formSolicitud" class="btn btn-outline-success btn-sm">
+                        <button type="submit" form="formSolicitud" class="_btnGuardar btn btn-outline-success btn-sm">
                             <i class="bi bi-file-earmark-check"></i> Guardar
                         </button>
                         <button form="formSolicitud" class="btn btn-outline-danger btn-sm">
@@ -346,7 +338,7 @@
                     <th>Estado</th>
                     <th>Fecha</th>
                     <th>Tipo</th>
-                    <th>Ente</th>
+                    <th>Empresa</th>
                     <th>Curso</th>
                     <th></th>
                 </tr>
@@ -362,8 +354,9 @@
 
     <script>
 
-        function Guardar() {
-
+        $("._btnGuardar").click(function (event) {
+            event.preventDefault();
+            debugger;
             /*
              * Con este codigo se obtienen los dias seleccionados y se pasan a string separados
              * por el caracter - (guion medio)
@@ -398,11 +391,15 @@
                 cu_enddate: $("#txtCu_fechaFin").val(),
                 cu_note: $("#txtCu_observacion").val(),
                 cu_days: cuDias,
+
+                ac_nombre: $("#txtAc_name").val(),
+                ac_inicio: $("#txtAc_inicio").val(),
+                ac_fin: $("#txtAc_fin").val(),
             };
 
             console.log($data);
 
-            jQuery.ajax({
+            @*jQuery.ajax({
                 url: "@Url.Action("RegistrarSolicitudCurso", "Instructor")",
                 type: "POST",
                 data: JSON.stringify($data),
@@ -416,9 +413,9 @@
                         alert("Ha ocurrido un error. Puede que el usuario ya exista");
                     }
                 }
-            })
+            })*@
 
-        }
+        });
 
 
     </script>

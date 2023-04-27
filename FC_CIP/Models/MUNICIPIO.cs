@@ -12,20 +12,20 @@ namespace FC_CIP.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class AMBIENTE
+    public partial class MUNICIPIO
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public AMBIENTE()
+        public MUNICIPIO()
         {
+            this.ACTIVIDAD = new HashSet<ACTIVIDAD>();
             this.CURSO = new HashSet<CURSO>();
         }
     
-        public decimal am_id { get; set; }
-        public Nullable<decimal> lo_id { get; set; }
-        public Nullable<int> am_code { get; set; }
-        public string am_name { get; set; }
+        public decimal muni_id { get; set; }
+        public string muni_name { get; set; }
     
-        public virtual LOCACION LOCACION { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ACTIVIDAD> ACTIVIDAD { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CURSO> CURSO { get; set; }
     }

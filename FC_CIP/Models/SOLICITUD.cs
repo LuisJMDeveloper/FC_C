@@ -17,23 +17,21 @@ namespace FC_CIP.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public SOLICITUD()
         {
-            this.CURSO2 = new HashSet<CURSO2>();
             this.CURSO = new HashSet<CURSO>();
         }
     
         public decimal so_id { get; set; }
-        public Nullable<decimal> co_id { get; set; }
-        public Nullable<decimal> in_id { get; set; }
-        public string so_status { get; set; }
-        public string so_type { get; set; }
-        public string so_ente { get; set; }
-        public Nullable<System.DateTime> so_date { get; set; }
+        public decimal user_InId { get; set; }
+        public decimal user_CoId { get; set; }
+        public string soli_name { get; set; }
+        public string soli_type { get; set; }
+        public string soli_empresa { get; set; }
+        public Nullable<System.DateTime> soli_date { get; set; }
+        public string soli_status { get; set; }
     
-        public virtual COORDINADORA COORDINADORA { get; set; }
-        public virtual INSTRUCTOR INSTRUCTOR { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CURSO2> CURSO2 { get; set; }
+        public virtual COORDINADOR COORDINADOR { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CURSO> CURSO { get; set; }
+        public virtual INSTRUCTOR INSTRUCTOR { get; set; }
     }
 }

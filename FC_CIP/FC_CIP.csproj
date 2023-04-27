@@ -140,40 +140,23 @@
     <Compile Include="Models\ACTIVIDAD.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ACTIVIDAD2.cs">
-      <DependentUpon>Modelo.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AMBIENTE.cs">
-      <DependentUpon>Modelo.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Conexion.cs" />
-    <Compile Include="Models\COORDINADORA.cs">
+    <Compile Include="Models\COORDINADOR.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CURSO.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\CURSO2.cs">
-      <DependentUpon>Modelo.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\getSolicitudesID_Result.cs">
-      <DependentUpon>Modelo.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\getSolicitudesRecibidas_Result.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\getSolicitudes_Result.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\GetUserType_Result.cs">
-      <DependentUpon>Modelo.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\INSTRUCTOR.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\LOCACION.cs">
-      <DependentUpon>Modelo.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Models\Logica\CL_Curso.cs" />
     <Compile Include="Models\Logica\CL_Recursos.cs" />
     <Compile Include="Models\Logica\CL_Usuario.cs" />
     <Compile Include="Models\Modelo.Context.cs">
@@ -191,13 +174,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Modelo.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\MUNICIPIO.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\PROGRAMA_ESPECIAL.cs">
-      <DependentUpon>Modelo.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PROGRAMA_FORMACION.cs">
-      <DependentUpon>Modelo.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\REPORTE.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SOLICITUD.cs">

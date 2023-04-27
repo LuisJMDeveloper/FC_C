@@ -21,7 +21,6 @@ namespace FC_CIP.Models
         }
     
         public decimal pe_id { get; set; }
-        public Nullable<int> pe_code { get; set; }
         public string pe_name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
