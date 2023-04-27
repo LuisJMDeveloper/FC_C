@@ -48,8 +48,8 @@ namespace FC_CIP.Controllers
             {
                 
                 var lst = from d in db.USUARIO
-                          where d.us_email == oUsuario.us_email
-                          && d.us_password == oUsuario.us_password
+                          where d.user_email == oUsuario.user_email
+                          && d.user_password == oUsuario.user_password
                           select d;
 
                 if (lst.Count() > 0)
@@ -57,10 +57,10 @@ namespace FC_CIP.Controllers
                     USUARIO oUser = lst.First();
                     Session["User"] = oUser;
 
-                    if(oUser.us_typeuser == "Instructor")
+                    if(oUser.user_type == 2020)
                     {
                         resultado = "1";
-                    }else if (oUser.us_typeuser == "Coordinador")
+                    }else if (oUser.user_type == 1010)
                     {
                         resultado = "2";
                     }

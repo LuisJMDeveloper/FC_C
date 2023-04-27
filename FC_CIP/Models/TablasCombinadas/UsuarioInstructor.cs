@@ -16,13 +16,13 @@ namespace FC_CIP.Models.TablasCombinadas
            @us_phone numeric
         */
 
-        public decimal us_id { get; set; }
-        public decimal us_nid { get; set; }
-        public string us_password { get; set; }
-        public string us_name { get; set; }
-        public string us_lastname { get; set; }
-        public string us_email { get; set; }
-        public decimal us_phone { get; set; }
+        public decimal user_id { get; set; }
+        public decimal user_nid { get; set; }
+        public string user_password { get; set; }
+        public string user_name { get; set; }
+        public string user_lastname { get; set; }
+        public string user_email { get; set; }
+        public decimal user_phone { get; set; }
        
     }
 }

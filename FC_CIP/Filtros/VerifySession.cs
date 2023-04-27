@@ -21,14 +21,14 @@ namespace FC_CIP.Filtros
                 }
 
             }
-            else if (oUser.us_typeuser == "Instructor")
+            else if (oUser.user_type == 2020)
             {
                 if (filterContext.Controller is InstructorController == false)
                 {
                     filterContext.HttpContext.Response.Redirect("~/Instructor/InstructorIndex");
                 }
             }
-            else if (oUser.us_typeuser == "Coordinador")
+            else if (oUser.user_type == 1010)
             {
                 if (filterContext.Controller is CoordinadorController == false)
                 {

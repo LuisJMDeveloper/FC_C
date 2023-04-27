@@ -50,7 +50,7 @@ namespace FC_CIP.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getSolicitudesID_Result>("getSolicitudesID", so_idParameter);
         }
     
-        public virtual int RegistrarUsuario(Nullable<decimal> us_nid, string us_password, string us_name, string us_lastname, string us_email, Nullable<decimal> us_phone, ObjectParameter mensaje, ObjectParameter resultado)
+        public virtual ObjectResult<Nullable<decimal>> RegistrarUsuario(Nullable<decimal> us_nid, string us_password, string us_name, string us_lastname, string us_email, Nullable<decimal> us_phone)
         {
             var us_nidParameter = us_nid.HasValue ?
                 new ObjectParameter("us_nid", us_nid) :
@@ -76,7 +76,7 @@ namespace FC_CIP.Models
                 new ObjectParameter("us_phone", us_phone) :
                 new ObjectParameter("us_phone", typeof(decimal));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegistrarUsuario", us_nidParameter, us_passwordParameter, us_nameParameter, us_lastnameParameter, us_emailParameter, us_phoneParameter, mensaje, resultado);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("RegistrarUsuario", us_nidParameter, us_passwordParameter, us_nameParameter, us_lastnameParameter, us_emailParameter, us_phoneParameter);
         }
     }
 }

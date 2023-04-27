@@ -197,8 +197,6 @@
           <Parameter Name="us_lastname" Type="varchar" Mode="In" />
           <Parameter Name="us_email" Type="varchar" Mode="In" />
           <Parameter Name="us_phone" Type="numeric" Mode="In" />
-          <Parameter Name="mensaje" Type="varchar" Mode="InOut" />
-          <Parameter Name="resultado" Type="numeric" Mode="InOut" />
         </Function>
         <EntityContainer Name="FC_CIP_BDModelStoreContainer">
           <EntitySet Name="ACTIVIDAD" EntityType="Self.ACTIVIDAD" Schema="dbo" store:Type="Tables" />
@@ -289,17 +287,15 @@
           </AssociationSet>
           <FunctionImport Name="getSolicitudes" ReturnType="Collection(FC_CIP_BDModel.getSolicitudes_Result)" />
           <FunctionImport Name="getSolicitudesID" ReturnType="Collection(FC_CIP_BDModel.getSolicitudesID_Result)">
-            <Parameter Name="so_id" Mode="In" Type="Decimal" />
+          <Parameter Name="so_id" Mode="In" Type="Decimal" />
           </FunctionImport>
-          <FunctionImport Name="RegistrarUsuario">
+          <FunctionImport Name="RegistrarUsuario" ReturnType="Collection(Decimal)">
             <Parameter Name="us_nid" Mode="In" Type="Decimal" />
             <Parameter Name="us_password" Mode="In" Type="String" />
             <Parameter Name="us_name" Mode="In" Type="String" />
             <Parameter Name="us_lastname" Mode="In" Type="String" />
             <Parameter Name="us_email" Mode="In" Type="String" />
             <Parameter Name="us_phone" Mode="In" Type="Decimal" />
-            <Parameter Name="mensaje" Mode="InOut" Type="String" />
-            <Parameter Name="resultado" Mode="InOut" Type="Decimal" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="ACTIVIDAD">

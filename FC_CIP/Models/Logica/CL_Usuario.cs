@@ -22,23 +22,23 @@ namespace FC_CIP.Models.Logica
             Mensaje = string.Empty;
 
             #region Evitar campos vacíos
-            if (string.IsNullOrEmpty(oUsuario.us_name) || string.IsNullOrWhiteSpace(oUsuario.us_name))
+            if (string.IsNullOrEmpty(oUsuario.user_name) || string.IsNullOrWhiteSpace(oUsuario.user_name))
             {
                 Mensaje += "¡El nombre de usuario es requerido! ";
             }
-            if (string.IsNullOrEmpty(oUsuario.us_lastname) || string.IsNullOrWhiteSpace(oUsuario.us_lastname))
+            if (string.IsNullOrEmpty(oUsuario.user_lastname) || string.IsNullOrWhiteSpace(oUsuario.user_lastname))
             {
                 Mensaje += "¡El apellido de usuario es requerido! ";
             }
-            if (string.IsNullOrEmpty(oUsuario.us_email) || string.IsNullOrWhiteSpace(oUsuario.us_email))
+            if (string.IsNullOrEmpty(oUsuario.user_email) || string.IsNullOrWhiteSpace(oUsuario.user_email))
             {
                 Mensaje += "¡El correo de usuario es requerido! ";
             }
-            if (oUsuario.us_nid <= 0)
+            if (oUsuario.user_nid <= 0)
             {
                 Mensaje += " ¡El número de identificaión de usuario es requerido! ";
             }
-            if (oUsuario.us_phone <= 0)
+            if (oUsuario.user_phone <= 0)
             {
                 Mensaje += "¡El número Telefónico de usuario es requerido!";
             }
@@ -50,23 +50,27 @@ namespace FC_CIP.Models.Logica
                 #region Limpiar espacios
 
                 //Limpia espacios al principio y al final
-                oUsuario.us_name = CL_Recursos.ClearText(oUsuario.us_name);
-                oUsuario.us_lastname = CL_Recursos.ClearText(oUsuario.us_lastname);
+                oUsuario.user_name = CL_Recursos.ClearText(oUsuario.user_name);
+                oUsuario.user_lastname = CL_Recursos.ClearText(oUsuario.user_lastname);
                 //Limpia todos los espacios
-                oUsuario.us_email = CL_Recursos.ClearText(oUsuario.us_email, true);
-                oUsuario.us_nid = CL_Recursos.ClearText((decimal)oUsuario.us_nid);
+                oUsuario.user_email = CL_Recursos.ClearText(oUsuario.user_email, true);
+                oUsuario.user_nid = CL_Recursos.ClearText((decimal)oUsuario.user_nid);
                 //Limpia los espacios y válida que sea un número de telefónico celular
-                oUsuario.us_phone = CL_Recursos.ClearText((decimal)oUsuario.us_phone);
+                oUsuario.user_phone = CL_Recursos.ClearText((decimal)oUsuario.user_phone);
                 #endregion
 
-                string clave = CL_Recursos.ConvertSha256(oUsuario.us_nid.ToString());
+                //Encripta la clave
+                string clave = CL_Recursos.ConvertSha256(oUsuario.user_nid.ToString());
 
+
+                //Prepara el envio del correo
                 string asunto = "Creación de usuario FC CIP";
                 string _mensaje = "<h3>Su cuenta fue creada con exito</h3><br /><p>Su usuario es: <strong>!correo!</strong> y su contraseña es <strong>!clave!</strong></p>";
-                _mensaje = _mensaje.Replace("!correo!", oUsuario.us_email);
-                _mensaje = _mensaje.Replace("!clave!", oUsuario.us_nid.ToString());
+                _mensaje = _mensaje.Replace("!correo!", oUsuario.user_email);
+                _mensaje = _mensaje.Replace("!clave!", oUsuario.user_nid.ToString());
 
-                bool respuesta = CL_Recursos.EnviarCorreo(oUsuario.us_email,asunto,_mensaje);
+                //Envia el correo
+                bool respuesta = CL_Recursos.EnviarCorreo(oUsuario.user_email,asunto,_mensaje);
                 // Inserción a la base de datos
 
                 if (respuesta)
@@ -76,27 +80,29 @@ namespace FC_CIP.Models.Logica
                         using (FC_CIP_BDEntities db = new FC_CIP_BDEntities())
                         {
                             oList = (from P in db.USUARIO
-                                     where P.us_nid == oUsuario.us_nid || P.us_email == oUsuario.us_email
+                                     where P.usua_nid == oUsuario.user_nid || P.user_email == oUsuario.user_email
                                      select P).ToList();
 
                             if (oList.Count > 0)
                             {
                                 Mensaje = "El usuario !user! ya existe o el correo !email!";
-                                Mensaje = Mensaje.Replace("!user!", oUsuario.us_nid.ToString());
-                                Mensaje = Mensaje.Replace("!email!", oUsuario.us_email);
+                                Mensaje = Mensaje.Replace("!user!", oUsuario.user_nid.ToString());
+                                Mensaje = Mensaje.Replace("!email!", oUsuario.user_email);
                             }
                             else
                             {
-                                db.SaveUsuario(
-                                oUsuario.us_nid,
+                                db.RegistrarUsuario(
+                                oUsuario.user_nid,
                                 clave,
-                                oUsuario.us_name,
-                                oUsuario.us_lastname,
-                                oUsuario.us_email,
-                                oUsuario.us_phone
+                                oUsuario.user_name,
+                                oUsuario.user_lastname,
+                                oUsuario.user_email,
+                                oUsuario.user_phone
                                 );
+
                                 db.SaveChanges();
-                                
+                              
+  
                             }
 
                             return 1;
