@@ -34,15 +34,11 @@
     <section class="card-header d-flex justify-content-between gap-1 flex-wrap">
         <h4>
             Lista de solicitudes
-            <span>
-                <button id="cargarTabla" class="btn btn-outline-dark btn-sm">
-                    Cargar tabla <i class="fa fa-spinner"></i>
-                </button>
-            </span>
         </h4>
-        @*  Esta etiqueta abre una nueva pestaña en la que se muestra el JSON que contiene la información donde
-            se encuentra la información de la consulta de solicitudes *@
-        <a target="_blank" class="btn btn-outline-danger btn-sm" href="@Url.Action("getSolicitudesRecibidas", "Coordinador")">IndexReporte Json</a>
+
+        <button id="cargarTabla" onclick="LoadTable()" class="btn btn-outline-dark btn-sm">
+            Cargar tabla <i class="fa fa-spinner"></i>
+        </button>
     </section>
 
     @*  Inicio del contenido de la carta *@
@@ -82,46 +78,46 @@
             </div>
             <div class="modal-body">
                 @*  En este input se almacena el "id" para luego hacer la operación*@
-                <input id="txtIdSolicitud" hidden />
+                <input id="txtIdSolicitud" />
 
                 <div class="row">
                     <div class="col-sm-6">
                         <label for="txtInstructor" class="form-label">
                             Instructor
                         </label>
-                        <input id="txtInstructor" name="txtInstructor" form="formConfirmacionCambios" type="text" class="form-control" />
+                        <input id="txtInstructor" name="txtInstructor" form="formConfirmacionCambios" type="text" class="form-control border-success" readonly />
                     </div>
 
                     <div class="col-sm-6">
                         <label for="txtFechaSolicitud" class="form-label">
                             Fecha de la solicitud
                         </label>
-                        <input id="txtFechaSolicitud" name="txtFechaSolicitud" form="formConfirmacionCambios" type="text" class="form-control" />
+                        <input id="txtFechaSolicitud" name="txtFechaSolicitud" form="formConfirmacionCambios" type="text" class="form-control border-success" readonly />
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-6 ">
                         <label for="txtNombreCurso" class="form-label">
                             Nombre del curso
                         </label>
-                        <input type="text" class="form-control" id="txtNombreCurso" name="txtNombreCurso" />
+                        <input id="txtNombreCurso" name="txtNombreCurso" type="text" class="form-control border-success" readonly />
                     </div>
 
                     <div class="col-sm-6">
                         <label for="txtProgramaFormacion" class="form-label">
                             Programa de formación
                         </label>
-                        <input type="text" class="form-control" id="txtProgramaFormacion" name="txtProgramaFormacion" />
+                        <input id="txtProgramaFormacion" name="txtProgramaFormacion" type="text" class="form-control border-success" readonly />
                     </div>
                 </div>
 
             </div>
             <div class="modal-footer">
-                <button id="btnAprobar" name="btnAprobar" form="formConfirmacionCambios" onclick="ActualizaSolicitud(1)" value="Aprobar" type="button" class="btn btn-success" data-bs-dismiss="modal">
+                <button onclick="ActualizaSolicitud('Aprobada')" value="1" type="button" class="btn btn-success" data-bs-dismiss="modal">
                     Aprobar
                 </button>
-                <button id="btnRechazar" name="btnRechazar" form="formConfirmacionCambios" onclick="ActualizaSolicitud(2)" value="Rechazar" type="submit" class="btn btn-danger" data-bs-dismiss="modal">
+                <button onclick="ActualizaSolicitud('Rechazada')" value="2" type="button" class="btn btn-danger" data-bs-dismiss="modal">
                     Rechazar
                 </button>
             </div>
@@ -133,6 +129,7 @@
     <script>
 
         var numRegistros = 0;
+        var numRegistrosAntes = 0;
         var tabladata;
         var filaSelecionada;
         var getDataTabledata;
@@ -148,12 +145,12 @@
             },
             "columns": [
 
-                { "data": "us_name" },
-                { "data": "us_lastname" },
-                { "data": "cu_name" },
-                { "data": "so_status"},
+                { "data": "userName" },
+                { "data": "user_lastname" },
+                { "data": "curso_name" },
+                { "data": "soli_status"},
                 {
-                    "data": "so_date",
+                    "data": "soli_date",
                     "render": function (data) {
                         var date = new Date(parseInt(data.substr(6)));
                         var day = date.getDate().toString().padStart(2, '0');
@@ -162,17 +159,19 @@
                         return day + "/" + month + "/" + year;
                     }
                 },
-                { "data": "so_type" },
-                { "data": "pf_name" },
+                { "data": "soli_type" },
+                { "data": "curso_programa" },
                 {
                     "data": "so_id",
                     "render": function (data) {
-                        return "<button id='Aprobar' onclick ='ShowModal(" + data + ")' type='button' class='btn btn-outline-primary btn-sm'> <i class='fa fa-pencil' ></i> </button>" +
-                            "<button id='OpenFile' onclick ='Probar(" + data + ")' type='button' class='btn btn-outline-success btn-sm'>  <i class='fa fa-trash' ></i> </button>"
+                        return "<div class='d-flex gap-2 justify-content-around'>" +
+                                "<button id='Aprobar' onclick ='ShowModal(" + data + ")' type='button' class='btn btn-primary btn-sm'>Editar <i class='fa fa-pencil' ></i></button>" +
+                            "<button id='OpenFile' onclick ='Probar(" + data + ")' type='button' class='btn btn-success btn-sm'>Abrir <i class='bi bi-folder-symlink' ></i></button>" +
+                            "</div>"
                     },
                     "orderable": false,
                     "searchable": false,
-                    "width": "150px"
+                    "width": "auto"
                 }
 
             ],
@@ -181,9 +180,7 @@
             }
         });
 
-
         function ShowModal($so_id) {
-            console.log($so_id);
             ClearModal();
 
             if ($so_id != 0) {
@@ -195,20 +192,25 @@
                     contentType: "application/json; charset=utf- 8",
                     success: function (data) {
                         $("._tabla").LoadingOverlay("hide");
-                        console.log(data);
-                        if (data != null) {
-                            /* Mensaje que saldrá si la opracion es exitosa */
-                            swal({
-                                title: "Operación exitosa!",
-                                text: "A su correo electrónico ha llegado la información de inicio de sesión",
-                                type: "success",
-                                confirmButtonClass: "btn-success",
-                                confirmButtonText: "Ok",
-                                closeOnConfirm: true
-                            });
 
-                            /* Limpia los campos de texto */
-                            ClearModal();
+                        if (data != null) {
+                            $("#txtIdSolicitud").val(data.so_id);
+
+                            var fecha = data.soli_date;
+                            const timestamp = Number(fecha.match(/\d+/)[0]);
+                            const date = new Date(timestamp);
+                            const day = date.getDate().toString().padStart(2, '0');
+                            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+                            const year = date.getFullYear().toString();
+                            const formattedDate = `${day}/${month}/${year}`;
+
+                            $("#txtInstructor").val(data.userName + " " + data.user_lastname);
+                            $("#txtFechaSolicitud").val(formattedDate);
+                            $("#txtNombreCurso").val(data.curso_name);
+                            $("#txtProgramaFormacion").val(data.curso_programa);
+                            $("#formModal").modal("show");
+
+
                         } else {
                             swal("Ups!", data.mensaje, "error");
                             console.log(data);
@@ -235,7 +237,7 @@
         }
 
         function LoadTable() {
-            let numRegistrosAntes = numRegistros;
+
             tabladata.ajax.reload(function () {
                 numRegistros = tabladata.rows().count();
                 if (numRegistros > numRegistrosAntes) {
@@ -255,16 +257,59 @@
                      }, 3000);
                 }
             });
+
+            numRegistrosAntes = numRegistros;
         }
 
-        
-        @*function ActualizaSolicitud(btn) {
-            var so_id = $("#txtIdSolicitud").val();
-            var status = btn;
-            console.log(so_id + "-" + status)
 
+        function ActualizaSolicitud($soli_status) {
 
-        }*@
+            var $data = {
+                so_id: $("#txtIdSolicitud").val(),
+                soli_status: $soli_status,
+            }
+
+            jQuery.ajax({
+                url: "@Url.Action("UpdateSolicitud", "Coordinador")",
+                type: "POST",
+                data: JSON.stringify($data),
+                dataType: "json",
+                contentType: "application/json; charset=utf- 8",
+                success: function (data) {
+                    $("._inicioSesion").LoadingOverlay("hide");
+                    $("#formModal").modal("hide");
+
+                    /* Mensaje que saldrá si la opracion es exitosa */
+                    swal({
+                        title: "Operación exitosa!",
+                        text: "La Solicitud a sido " + $soli_status + "Con exito!",
+                        type: "success",
+                        confirmButtonClass: "btn-success",
+                        confirmButtonText: "Ok",
+                        closeOnConfirm: true
+                    });
+
+                    LoadTable();
+                },
+                error: function (error) {
+                    console.log(error);
+                    $("._inicioSesion").LoadingOverlay("hide");
+                    swal("Ups!", "Error de ajax :)", "error");
+                },
+                beforeSend: function () {
+                    // Let's call it 2 times just for fun...
+                    $("._inicioSesion").LoadingOverlay("show", {
+                        background: "rgba(165, 190, 100, 0.5)",
+                        imageResizeFactor: 2,
+                        text: "Espere...",
+                        size: 14
+                    });
+
+                }
+
+            })
+
+        }
 
         function ClearModal() {
             $("#txtIdSolicitud").val(0);

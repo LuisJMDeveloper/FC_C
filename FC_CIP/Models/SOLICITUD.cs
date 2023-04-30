@@ -23,7 +23,6 @@ namespace FC_CIP.Models
         public decimal so_id { get; set; }
         public decimal user_InId { get; set; }
         public decimal user_CoId { get; set; }
-        public string soli_name { get; set; }
         public string soli_type { get; set; }
         public string soli_empresa { get; set; }
         public Nullable<System.DateTime> soli_date { get; set; }

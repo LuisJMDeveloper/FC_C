@@ -69,7 +69,6 @@
           <Property Name="so_id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="user_InId" Type="numeric" Precision="18" Scale="0" Nullable="false" />
           <Property Name="user_CoId" Type="numeric" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="soli_name" Type="varchar" MaxLength="30" />
           <Property Name="soli_type" Type="varchar" MaxLength="30" />
           <Property Name="soli_empresa" Type="varchar" MaxLength="60" />
           <Property Name="soli_date" Type="datetime" />
@@ -198,6 +197,10 @@
           <Parameter Name="us_email" Type="varchar" Mode="In" />
           <Parameter Name="us_phone" Type="numeric" Mode="In" />
         </Function>
+        <Function Name="UpdateSolistatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="so_id" Type="numeric" Mode="In" />
+          <Parameter Name="soli_status" Type="varchar" Mode="In" />
+        </Function>
         <EntityContainer Name="FC_CIP_BDModelStoreContainer">
           <EntitySet Name="ACTIVIDAD" EntityType="Self.ACTIVIDAD" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="COORDINADOR" EntityType="Self.COORDINADOR" Schema="dbo" store:Type="Tables" />
@@ -245,6 +248,18 @@
     <edmx:ConceptualModels>
       <Schema Namespace="FC_CIP_BDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="FC_CIP_BDEntities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="getSolicitudes" ReturnType="Collection(FC_CIP_BDModel.getSolicitudes_Result)" />
+          <FunctionImport Name="getSolicitudesID" ReturnType="Collection(FC_CIP_BDModel.getSolicitudesID_Result)">
+          <Parameter Name="so_id" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="RegistrarUsuario" ReturnType="Collection(Decimal)">
+            <Parameter Name="us_nid" Mode="In" Type="Decimal" />
+            <Parameter Name="us_password" Mode="In" Type="String" />
+            <Parameter Name="us_name" Mode="In" Type="String" />
+            <Parameter Name="us_lastname" Mode="In" Type="String" />
+            <Parameter Name="us_email" Mode="In" Type="String" />
+            <Parameter Name="us_phone" Mode="In" Type="Decimal" />
+          </FunctionImport>
           <EntitySet Name="ACTIVIDAD" EntityType="FC_CIP_BDModel.ACTIVIDAD" />
           <EntitySet Name="COORDINADOR" EntityType="FC_CIP_BDModel.COORDINADOR" />
           <EntitySet Name="CURSO" EntityType="FC_CIP_BDModel.CURSO" />
@@ -285,19 +300,79 @@
             <End Role="INSTRUCTOR" EntitySet="INSTRUCTOR" />
             <End Role="SOLICITUD" EntitySet="SOLICITUD" />
           </AssociationSet>
-          <FunctionImport Name="getSolicitudes" ReturnType="Collection(FC_CIP_BDModel.getSolicitudes_Result)" />
-          <FunctionImport Name="getSolicitudesID" ReturnType="Collection(FC_CIP_BDModel.getSolicitudesID_Result)">
-          <Parameter Name="so_id" Mode="In" Type="Decimal" />
-          </FunctionImport>
-          <FunctionImport Name="RegistrarUsuario" ReturnType="Collection(Decimal)">
-            <Parameter Name="us_nid" Mode="In" Type="Decimal" />
-            <Parameter Name="us_password" Mode="In" Type="String" />
-            <Parameter Name="us_name" Mode="In" Type="String" />
-            <Parameter Name="us_lastname" Mode="In" Type="String" />
-            <Parameter Name="us_email" Mode="In" Type="String" />
-            <Parameter Name="us_phone" Mode="In" Type="Decimal" />
+          <FunctionImport Name="UpdateSolistatus">
+            <Parameter Name="so_id" Mode="In" Type="Decimal" />
+            <Parameter Name="soli_status" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="getSolicitudes_Result">
+          <Property Type="Decimal" Name="userId" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="usua_nid" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="user_password" Nullable="true" MaxLength="250" />
+          <Property Type="Int32" Name="user_type" Nullable="true" />
+          <Property Type="String" Name="userName" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="user_lastname" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="user_email" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="user_phone" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Boolean" Name="user_restore" Nullable="true" />
+          <Property Type="DateTime" Name="us_date" Nullable="true" Precision="23" />
+          <Property Type="Decimal" Name="userId1" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="so_id" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="user_InId" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="user_CoId" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="String" Name="soli_name" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="soli_type" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="soli_empresa" Nullable="true" MaxLength="60" />
+          <Property Type="DateTime" Name="soli_date" Nullable="true" Precision="23" />
+          <Property Type="String" Name="soli_status" Nullable="true" MaxLength="20" />
+          <Property Type="Decimal" Name="curso_id" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="String" Name="curso_name" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="curso_code" Nullable="true" />
+          <Property Type="Double" Name="curso_version" Nullable="true" />
+          <Property Type="String" Name="curso_programa" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="curso_duration" Nullable="true" />
+          <Property Type="DateTime" Name="curso_startDate" Nullable="true" />
+          <Property Type="DateTime" Name="curso_endDate" Nullable="true" />
+          <Property Type="String" Name="curso_note" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="curso_days" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="muni_id" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="pe_id" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="soli_id" Nullable="false" Precision="18" Scale="0" />
+        </ComplexType>
+        <ComplexType Name="getSolicitudesID_Result">
+          <Property Type="Decimal" Name="userId" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="usua_nid" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="user_password" Nullable="true" MaxLength="250" />
+          <Property Type="Int32" Name="user_type" Nullable="true" />
+          <Property Type="String" Name="userName" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="user_lastname" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="user_email" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="user_phone" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Boolean" Name="user_restore" Nullable="true" />
+          <Property Type="DateTime" Name="us_date" Nullable="true" Precision="23" />
+          <Property Type="Decimal" Name="userId1" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="so_id" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="user_InId" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="user_CoId" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="String" Name="soli_name" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="soli_type" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="soli_empresa" Nullable="true" MaxLength="60" />
+          <Property Type="DateTime" Name="soli_date" Nullable="true" Precision="23" />
+          <Property Type="String" Name="soli_status" Nullable="true" MaxLength="20" />
+          <Property Type="Decimal" Name="curso_id" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="String" Name="curso_name" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="curso_code" Nullable="true" />
+          <Property Type="Double" Name="curso_version" Nullable="true" />
+          <Property Type="String" Name="curso_programa" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="curso_duration" Nullable="true" />
+          <Property Type="DateTime" Name="curso_startDate" Nullable="true" />
+          <Property Type="DateTime" Name="curso_endDate" Nullable="true" />
+          <Property Type="String" Name="curso_note" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="curso_days" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="muni_id" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="pe_id" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="soli_id" Nullable="false" Precision="18" Scale="0" />
+        </ComplexType>
         <EntityType Name="ACTIVIDAD">
           <Key>
             <PropertyRef Name="acti_id" />
@@ -373,7 +448,6 @@
           <Property Name="so_id" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="user_InId" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
           <Property Name="user_CoId" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
-          <Property Name="soli_name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="soli_type" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="soli_empresa" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
           <Property Name="soli_date" Type="DateTime" Precision="3" />
@@ -495,172 +569,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <ComplexType Name="getSolicitudes_Result">
-          <Property Type="Decimal" Name="userId" Nullable="false" Precision="18" Scale="0" />
-          <Property Type="Decimal" Name="usua_nid" Nullable="true" Precision="18" Scale="0" />
-          <Property Type="String" Name="user_password" Nullable="true" MaxLength="250" />
-          <Property Type="Int32" Name="user_type" Nullable="true" />
-          <Property Type="String" Name="userName" Nullable="true" MaxLength="60" />
-          <Property Type="String" Name="user_lastname" Nullable="true" MaxLength="60" />
-          <Property Type="String" Name="user_email" Nullable="true" MaxLength="100" />
-          <Property Type="Decimal" Name="user_phone" Nullable="true" Precision="18" Scale="0" />
-          <Property Type="Boolean" Name="user_restore" Nullable="true" />
-          <Property Type="DateTime" Name="us_date" Nullable="true" Precision="23" />
-          <Property Type="Decimal" Name="userId1" Nullable="false" Precision="18" Scale="0" />
-          <Property Type="Decimal" Name="so_id" Nullable="false" Precision="18" Scale="0" />
-          <Property Type="Decimal" Name="user_InId" Nullable="false" Precision="18" Scale="0" />
-          <Property Type="Decimal" Name="user_CoId" Nullable="false" Precision="18" Scale="0" />
-          <Property Type="String" Name="soli_name" Nullable="true" MaxLength="30" />
-          <Property Type="String" Name="soli_type" Nullable="true" MaxLength="30" />
-          <Property Type="String" Name="soli_empresa" Nullable="true" MaxLength="60" />
-          <Property Type="DateTime" Name="soli_date" Nullable="true" Precision="23" />
-          <Property Type="String" Name="soli_status" Nullable="true" MaxLength="20" />
-          <Property Type="Decimal" Name="curso_id" Nullable="false" Precision="18" Scale="0" />
-          <Property Type="String" Name="curso_name" Nullable="true" MaxLength="100" />
-          <Property Type="Int32" Name="curso_code" Nullable="true" />
-          <Property Type="Double" Name="curso_version" Nullable="true" />
-          <Property Type="String" Name="curso_programa" Nullable="true" MaxLength="200" />
-          <Property Type="Int32" Name="curso_duration" Nullable="true" />
-          <Property Type="DateTime" Name="curso_startDate" Nullable="true" />
-          <Property Type="DateTime" Name="curso_endDate" Nullable="true" />
-          <Property Type="String" Name="curso_note" Nullable="true" MaxLength="255" />
-          <Property Type="String" Name="curso_days" Nullable="true" MaxLength="100" />
-          <Property Type="Decimal" Name="muni_id" Nullable="false" Precision="18" Scale="0" />
-          <Property Type="Decimal" Name="pe_id" Nullable="false" Precision="18" Scale="0" />
-          <Property Type="Decimal" Name="soli_id" Nullable="false" Precision="18" Scale="0" />
-        </ComplexType>
-        <ComplexType Name="getSolicitudesID_Result">
-          <Property Type="Decimal" Name="userId" Nullable="false" Precision="18" Scale="0" />
-          <Property Type="Decimal" Name="usua_nid" Nullable="true" Precision="18" Scale="0" />
-          <Property Type="String" Name="user_password" Nullable="true" MaxLength="250" />
-          <Property Type="Int32" Name="user_type" Nullable="true" />
-          <Property Type="String" Name="userName" Nullable="true" MaxLength="60" />
-          <Property Type="String" Name="user_lastname" Nullable="true" MaxLength="60" />
-          <Property Type="String" Name="user_email" Nullable="true" MaxLength="100" />
-          <Property Type="Decimal" Name="user_phone" Nullable="true" Precision="18" Scale="0" />
-          <Property Type="Boolean" Name="user_restore" Nullable="true" />
-          <Property Type="DateTime" Name="us_date" Nullable="true" Precision="23" />
-          <Property Type="Decimal" Name="userId1" Nullable="false" Precision="18" Scale="0" />
-          <Property Type="Decimal" Name="so_id" Nullable="false" Precision="18" Scale="0" />
-          <Property Type="Decimal" Name="user_InId" Nullable="false" Precision="18" Scale="0" />
-          <Property Type="Decimal" Name="user_CoId" Nullable="false" Precision="18" Scale="0" />
-          <Property Type="String" Name="soli_name" Nullable="true" MaxLength="30" />
-          <Property Type="String" Name="soli_type" Nullable="true" MaxLength="30" />
-          <Property Type="String" Name="soli_empresa" Nullable="true" MaxLength="60" />
-          <Property Type="DateTime" Name="soli_date" Nullable="true" Precision="23" />
-          <Property Type="String" Name="soli_status" Nullable="true" MaxLength="20" />
-          <Property Type="Decimal" Name="curso_id" Nullable="false" Precision="18" Scale="0" />
-          <Property Type="String" Name="curso_name" Nullable="true" MaxLength="100" />
-          <Property Type="Int32" Name="curso_code" Nullable="true" />
-          <Property Type="Double" Name="curso_version" Nullable="true" />
-          <Property Type="String" Name="curso_programa" Nullable="true" MaxLength="200" />
-          <Property Type="Int32" Name="curso_duration" Nullable="true" />
-          <Property Type="DateTime" Name="curso_startDate" Nullable="true" />
-          <Property Type="DateTime" Name="curso_endDate" Nullable="true" />
-          <Property Type="String" Name="curso_note" Nullable="true" MaxLength="255" />
-          <Property Type="String" Name="curso_days" Nullable="true" MaxLength="100" />
-          <Property Type="Decimal" Name="muni_id" Nullable="false" Precision="18" Scale="0" />
-          <Property Type="Decimal" Name="pe_id" Nullable="false" Precision="18" Scale="0" />
-          <Property Type="Decimal" Name="soli_id" Nullable="false" Precision="18" Scale="0" />
-        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="FC_CIP_BDModelStoreContainer" CdmEntityContainer="FC_CIP_BDEntities">
-          <EntitySetMapping Name="ACTIVIDAD">
-            <EntityTypeMapping TypeName="FC_CIP_BDModel.ACTIVIDAD">
-              <MappingFragment StoreEntitySet="ACTIVIDAD">
-                <ScalarProperty Name="acti_endDate" ColumnName="acti_endDate" />
-                <ScalarProperty Name="acti_startDate" ColumnName="acti_startDate" />
-                <ScalarProperty Name="acti_datytotal" ColumnName="acti_datytotal" />
-                <ScalarProperty Name="acti_name" ColumnName="acti_name" />
-                <ScalarProperty Name="cu_id" ColumnName="cu_id" />
-                <ScalarProperty Name="muni_id" ColumnName="muni_id" />
-                <ScalarProperty Name="acti_id" ColumnName="acti_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="COORDINADOR">
-            <EntityTypeMapping TypeName="FC_CIP_BDModel.COORDINADOR">
-              <MappingFragment StoreEntitySet="COORDINADOR">
-                <ScalarProperty Name="userId" ColumnName="userId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CURSO">
-            <EntityTypeMapping TypeName="FC_CIP_BDModel.CURSO">
-              <MappingFragment StoreEntitySet="CURSO">
-                <ScalarProperty Name="soli_id" ColumnName="soli_id" />
-                <ScalarProperty Name="pe_id" ColumnName="pe_id" />
-                <ScalarProperty Name="muni_id" ColumnName="muni_id" />
-                <ScalarProperty Name="curso_days" ColumnName="curso_days" />
-                <ScalarProperty Name="curso_note" ColumnName="curso_note" />
-                <ScalarProperty Name="curso_endDate" ColumnName="curso_endDate" />
-                <ScalarProperty Name="curso_startDate" ColumnName="curso_startDate" />
-                <ScalarProperty Name="curso_duration" ColumnName="curso_duration" />
-                <ScalarProperty Name="curso_programa" ColumnName="curso_programa" />
-                <ScalarProperty Name="curso_version" ColumnName="curso_version" />
-                <ScalarProperty Name="curso_code" ColumnName="curso_code" />
-                <ScalarProperty Name="curso_name" ColumnName="curso_name" />
-                <ScalarProperty Name="curso_id" ColumnName="curso_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="INSTRUCTOR">
-            <EntityTypeMapping TypeName="FC_CIP_BDModel.INSTRUCTOR">
-              <MappingFragment StoreEntitySet="INSTRUCTOR">
-                <ScalarProperty Name="userId" ColumnName="userId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="MUNICIPIO">
-            <EntityTypeMapping TypeName="FC_CIP_BDModel.MUNICIPIO">
-              <MappingFragment StoreEntitySet="MUNICIPIO">
-                <ScalarProperty Name="muni_name" ColumnName="muni_name" />
-                <ScalarProperty Name="muni_id" ColumnName="muni_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PROGRAMA_ESPECIAL">
-            <EntityTypeMapping TypeName="FC_CIP_BDModel.PROGRAMA_ESPECIAL">
-              <MappingFragment StoreEntitySet="PROGRAMA_ESPECIAL">
-                <ScalarProperty Name="pe_name" ColumnName="pe_name" />
-                <ScalarProperty Name="pe_id" ColumnName="pe_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SOLICITUD">
-            <EntityTypeMapping TypeName="FC_CIP_BDModel.SOLICITUD">
-              <MappingFragment StoreEntitySet="SOLICITUD">
-                <ScalarProperty Name="soli_status" ColumnName="soli_status" />
-                <ScalarProperty Name="soli_date" ColumnName="soli_date" />
-                <ScalarProperty Name="soli_empresa" ColumnName="soli_empresa" />
-                <ScalarProperty Name="soli_type" ColumnName="soli_type" />
-                <ScalarProperty Name="soli_name" ColumnName="soli_name" />
-                <ScalarProperty Name="user_CoId" ColumnName="user_CoId" />
-                <ScalarProperty Name="user_InId" ColumnName="user_InId" />
-                <ScalarProperty Name="so_id" ColumnName="so_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="USUARIO">
-            <EntityTypeMapping TypeName="FC_CIP_BDModel.USUARIO">
-              <MappingFragment StoreEntitySet="USUARIO">
-                <ScalarProperty Name="us_date" ColumnName="us_date" />
-                <ScalarProperty Name="user_restore" ColumnName="user_restore" />
-                <ScalarProperty Name="user_phone" ColumnName="user_phone" />
-                <ScalarProperty Name="user_email" ColumnName="user_email" />
-                <ScalarProperty Name="user_lastname" ColumnName="user_lastname" />
-                <ScalarProperty Name="userName" ColumnName="userName" />
-                <ScalarProperty Name="user_type" ColumnName="user_type" />
-                <ScalarProperty Name="user_password" ColumnName="user_password" />
-                <ScalarProperty Name="usua_nid" ColumnName="usua_nid" />
-                <ScalarProperty Name="userId" ColumnName="userId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="getSolicitudes" FunctionName="FC_CIP_BDModel.Store.getSolicitudes">
             <ResultMapping>
               <ComplexTypeMapping TypeName="FC_CIP_BDModel.getSolicitudes_Result">
@@ -738,6 +652,98 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="RegistrarUsuario" FunctionName="FC_CIP_BDModel.Store.RegistrarUsuario" />
+          <EntitySetMapping Name="ACTIVIDAD">
+            <EntityTypeMapping TypeName="FC_CIP_BDModel.ACTIVIDAD">
+              <MappingFragment StoreEntitySet="ACTIVIDAD">
+                <ScalarProperty Name="acti_endDate" ColumnName="acti_endDate" />
+                <ScalarProperty Name="acti_startDate" ColumnName="acti_startDate" />
+                <ScalarProperty Name="acti_datytotal" ColumnName="acti_datytotal" />
+                <ScalarProperty Name="acti_name" ColumnName="acti_name" />
+                <ScalarProperty Name="cu_id" ColumnName="cu_id" />
+                <ScalarProperty Name="muni_id" ColumnName="muni_id" />
+                <ScalarProperty Name="acti_id" ColumnName="acti_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="COORDINADOR">
+            <EntityTypeMapping TypeName="FC_CIP_BDModel.COORDINADOR">
+              <MappingFragment StoreEntitySet="COORDINADOR">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CURSO">
+            <EntityTypeMapping TypeName="FC_CIP_BDModel.CURSO">
+              <MappingFragment StoreEntitySet="CURSO">
+                <ScalarProperty Name="soli_id" ColumnName="soli_id" />
+                <ScalarProperty Name="pe_id" ColumnName="pe_id" />
+                <ScalarProperty Name="muni_id" ColumnName="muni_id" />
+                <ScalarProperty Name="curso_days" ColumnName="curso_days" />
+                <ScalarProperty Name="curso_note" ColumnName="curso_note" />
+                <ScalarProperty Name="curso_endDate" ColumnName="curso_endDate" />
+                <ScalarProperty Name="curso_startDate" ColumnName="curso_startDate" />
+                <ScalarProperty Name="curso_duration" ColumnName="curso_duration" />
+                <ScalarProperty Name="curso_programa" ColumnName="curso_programa" />
+                <ScalarProperty Name="curso_version" ColumnName="curso_version" />
+                <ScalarProperty Name="curso_code" ColumnName="curso_code" />
+                <ScalarProperty Name="curso_name" ColumnName="curso_name" />
+                <ScalarProperty Name="curso_id" ColumnName="curso_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="INSTRUCTOR">
+            <EntityTypeMapping TypeName="FC_CIP_BDModel.INSTRUCTOR">
+              <MappingFragment StoreEntitySet="INSTRUCTOR">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MUNICIPIO">
+            <EntityTypeMapping TypeName="FC_CIP_BDModel.MUNICIPIO">
+              <MappingFragment StoreEntitySet="MUNICIPIO">
+                <ScalarProperty Name="muni_name" ColumnName="muni_name" />
+                <ScalarProperty Name="muni_id" ColumnName="muni_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PROGRAMA_ESPECIAL">
+            <EntityTypeMapping TypeName="FC_CIP_BDModel.PROGRAMA_ESPECIAL">
+              <MappingFragment StoreEntitySet="PROGRAMA_ESPECIAL">
+                <ScalarProperty Name="pe_name" ColumnName="pe_name" />
+                <ScalarProperty Name="pe_id" ColumnName="pe_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SOLICITUD">
+            <EntityTypeMapping TypeName="FC_CIP_BDModel.SOLICITUD">
+              <MappingFragment StoreEntitySet="SOLICITUD">
+                <ScalarProperty Name="soli_status" ColumnName="soli_status" />
+                <ScalarProperty Name="soli_date" ColumnName="soli_date" />
+                <ScalarProperty Name="soli_empresa" ColumnName="soli_empresa" />
+                <ScalarProperty Name="soli_type" ColumnName="soli_type" />
+                <ScalarProperty Name="user_CoId" ColumnName="user_CoId" />
+                <ScalarProperty Name="user_InId" ColumnName="user_InId" />
+                <ScalarProperty Name="so_id" ColumnName="so_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USUARIO">
+            <EntityTypeMapping TypeName="FC_CIP_BDModel.USUARIO">
+              <MappingFragment StoreEntitySet="USUARIO">
+                <ScalarProperty Name="us_date" ColumnName="us_date" />
+                <ScalarProperty Name="user_restore" ColumnName="user_restore" />
+                <ScalarProperty Name="user_phone" ColumnName="user_phone" />
+                <ScalarProperty Name="user_email" ColumnName="user_email" />
+                <ScalarProperty Name="user_lastname" ColumnName="user_lastname" />
+                <ScalarProperty Name="userName" ColumnName="userName" />
+                <ScalarProperty Name="user_type" ColumnName="user_type" />
+                <ScalarProperty Name="user_password" ColumnName="user_password" />
+                <ScalarProperty Name="usua_nid" ColumnName="usua_nid" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="UpdateSolistatus" FunctionName="FC_CIP_BDModel.Store.UpdateSolistatus" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

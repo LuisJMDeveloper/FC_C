@@ -78,5 +78,18 @@ namespace FC_CIP.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("RegistrarUsuario", us_nidParameter, us_passwordParameter, us_nameParameter, us_lastnameParameter, us_emailParameter, us_phoneParameter);
         }
+    
+        public virtual int UpdateSolistatus(Nullable<decimal> so_id, string soli_status)
+        {
+            var so_idParameter = so_id.HasValue ?
+                new ObjectParameter("so_id", so_id) :
+                new ObjectParameter("so_id", typeof(decimal));
+    
+            var soli_statusParameter = soli_status != null ?
+                new ObjectParameter("soli_status", soli_status) :
+                new ObjectParameter("soli_status", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateSolistatus", so_idParameter, soli_statusParameter);
+        }
     }
 }

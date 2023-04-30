@@ -36,6 +36,18 @@ namespace FC_CIP.Controllers
             }
         }
 
+        [HttpPost]
+        public JsonResult UpdateSolicitud(int so_id,string soli_status)
+        {
+            using(FC_CIP_BDEntities db = new FC_CIP_BDEntities())
+            {
+                db.UpdateSolistatus(so_id, soli_status);
+                db.SaveChanges();
+                var oLista = db.Database.SqlQuery<SolicitudesRecibidas>("EXEC getSolicitudesID " + so_id).FirstOrDefault();
+                return Json(oLista, JsonRequestBehavior.AllowGet);
+            }
+        }
+
 
     }
 }

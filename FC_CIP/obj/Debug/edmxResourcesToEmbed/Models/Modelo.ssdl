@@ -64,7 +64,6 @@
     <Property Name="so_id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="user_InId" Type="numeric" Precision="18" Scale="0" Nullable="false" />
     <Property Name="user_CoId" Type="numeric" Precision="18" Scale="0" Nullable="false" />
-    <Property Name="soli_name" Type="varchar" MaxLength="30" />
     <Property Name="soli_type" Type="varchar" MaxLength="30" />
     <Property Name="soli_empresa" Type="varchar" MaxLength="60" />
     <Property Name="soli_date" Type="datetime" />
@@ -192,6 +191,10 @@
     <Parameter Name="us_lastname" Type="varchar" Mode="In" />
     <Parameter Name="us_email" Type="varchar" Mode="In" />
     <Parameter Name="us_phone" Type="numeric" Mode="In" />
+  </Function>
+  <Function Name="UpdateSolistatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="so_id" Type="numeric" Mode="In" />
+    <Parameter Name="soli_status" Type="varchar" Mode="In" />
   </Function>
   <EntityContainer Name="FC_CIP_BDModelStoreContainer">
     <EntitySet Name="ACTIVIDAD" EntityType="Self.ACTIVIDAD" Schema="dbo" store:Type="Tables" />

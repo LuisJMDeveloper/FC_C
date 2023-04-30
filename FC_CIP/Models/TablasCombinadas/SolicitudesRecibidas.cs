@@ -8,32 +8,32 @@ namespace FC_CIP.Models.TablasCombinadas
     public class SolicitudesRecibidas
     {
         #region Datos
-        public decimal us_id { get; set; }
-        public decimal us_nid { get; set; }
-        public string us_name { get; set; }
-        public string us_lastname { get; set; }
-        public string us_email { get; set; }
-        public decimal us_phone { get; set; }
+        public decimal userId { get; set; }
+        public decimal usua_nid { get; set; }
+        public string userName { get; set; }
+        public string user_lastname { get; set; }
+        public string user_email { get; set; }
+        public decimal user_phone { get; set; }
 
     
-        public decimal co_id { get; set; }
+        public decimal user_InId { get; set; }
         
 
-        public decimal in_id { get; set; }
+        public decimal user_CoId { get; set; }
 
 
         public decimal so_id { get; set; }
-        public string so_status { get; set; }
-        public string so_type { get; set; }
-        public string so_ente { get; set; }
-        public DateTime so_date { get; set; }
+        public string soli_status { get; set; }
+        public string soli_type { get; set; }
+        public string soli_empresa { get; set; }
+        public DateTime soli_date { get; set; }
 
 
-        public string cu_name { get; set; }
+        public string curso_name { get; set; }
 
 
-        public string pf_name { get; set; }
-        public double pf_version { get; set; }
+        public string curso_programa { get; set; }
+        public double curso_version { get; set; }
         #endregion
 
         /* Glosario

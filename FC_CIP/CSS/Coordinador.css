@@ -1,0 +1,19 @@
+﻿.toast {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 9999;
+}
+
+.toast-body {
+    flex-grow: 1;
+}
+
+.btn-close {
+    padding: 0.25rem 0.5rem;
+    margin-left: auto;
+    font-size: 1.25rem;
+    line-height: 1;
+    color: #fff;
+    opacity: 0.7;
+}

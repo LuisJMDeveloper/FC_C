@@ -5,14 +5,14 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="6010e0d0ced14c2886e906907b402d77" Name="Diagram1">
-        <EntityTypeShape EntityType="FC_CIP_BDModel.ACTIVIDAD" Width="1.5" PointX="9.625" PointY="4.125" />
-        <EntityTypeShape EntityType="FC_CIP_BDModel.COORDINADOR" Width="1.5" PointX="3" PointY="2.875" />
-        <EntityTypeShape EntityType="FC_CIP_BDModel.CURSO" Width="1.5" PointX="7.5" PointY="2.75" />
-        <EntityTypeShape EntityType="FC_CIP_BDModel.INSTRUCTOR" Width="1.5" PointX="3" PointY="5.25" />
-        <EntityTypeShape EntityType="FC_CIP_BDModel.MUNICIPIO" Width="1.5" PointX="9.375" PointY="1.5" />
-        <EntityTypeShape EntityType="FC_CIP_BDModel.PROGRAMA_ESPECIAL" Width="1.5" PointX="5.25" PointY="1.25" />
-        <EntityTypeShape EntityType="FC_CIP_BDModel.SOLICITUD" Width="1.5" PointX="5.25" PointY="3.25" />
-        <EntityTypeShape EntityType="FC_CIP_BDModel.USUARIO" Width="1.5" PointX="0.75" PointY="3.125" />
+        <EntityTypeShape EntityType="FC_CIP_BDModel.ACTIVIDAD" Width="1.5" PointX="7.5" PointY="9.125" />
+        <EntityTypeShape EntityType="FC_CIP_BDModel.COORDINADOR" Width="1.5" PointX="3" PointY="3.875" />
+        <EntityTypeShape EntityType="FC_CIP_BDModel.CURSO" Width="1.5" PointX="7.5" PointY="3.75" />
+        <EntityTypeShape EntityType="FC_CIP_BDModel.INSTRUCTOR" Width="1.5" PointX="3" PointY="6.25" />
+        <EntityTypeShape EntityType="FC_CIP_BDModel.MUNICIPIO" Width="1.5" PointX="5.25" PointY="0.75" />
+        <EntityTypeShape EntityType="FC_CIP_BDModel.PROGRAMA_ESPECIAL" Width="1.5" PointX="5.25" PointY="8.375" />
+        <EntityTypeShape EntityType="FC_CIP_BDModel.SOLICITUD" Width="1.5" PointX="5.25" PointY="4.375" />
+        <EntityTypeShape EntityType="FC_CIP_BDModel.USUARIO" Width="1.5" PointX="0.75" PointY="4.125" />
         <AssociationConnector Association="FC_CIP_BDModel.FK__ACTIVIDAD__muni___489AC854" />
         <AssociationConnector Association="FC_CIP_BDModel.FK__COORDINAD__userI__2FCF1A8A" />
         <AssociationConnector Association="FC_CIP_BDModel.FK__SOLICITUD__user___37703C52" />

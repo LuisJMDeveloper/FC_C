@@ -1,6 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="FC_CIP_BDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityContainer Name="FC_CIP_BDEntities" annotation:LazyLoadingEnabled="true">
+    <FunctionImport Name="getSolicitudes" ReturnType="Collection(FC_CIP_BDModel.getSolicitudes_Result)" />
+    <FunctionImport Name="getSolicitudesID" ReturnType="Collection(FC_CIP_BDModel.getSolicitudesID_Result)">
+      <Parameter Name="so_id" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="RegistrarUsuario" ReturnType="Collection(Decimal)">
+      <Parameter Name="us_nid" Mode="In" Type="Decimal" />
+      <Parameter Name="us_password" Mode="In" Type="String" />
+      <Parameter Name="us_name" Mode="In" Type="String" />
+      <Parameter Name="us_lastname" Mode="In" Type="String" />
+      <Parameter Name="us_email" Mode="In" Type="String" />
+      <Parameter Name="us_phone" Mode="In" Type="Decimal" />
+    </FunctionImport>
     <EntitySet Name="ACTIVIDAD" EntityType="FC_CIP_BDModel.ACTIVIDAD" />
     <EntitySet Name="COORDINADOR" EntityType="FC_CIP_BDModel.COORDINADOR" />
     <EntitySet Name="CURSO" EntityType="FC_CIP_BDModel.CURSO" />
@@ -41,19 +53,79 @@
       <End Role="INSTRUCTOR" EntitySet="INSTRUCTOR" />
       <End Role="SOLICITUD" EntitySet="SOLICITUD" />
     </AssociationSet>
-    <FunctionImport Name="getSolicitudes" ReturnType="Collection(FC_CIP_BDModel.getSolicitudes_Result)" />
-    <FunctionImport Name="getSolicitudesID" ReturnType="Collection(FC_CIP_BDModel.getSolicitudesID_Result)">
+    <FunctionImport Name="UpdateSolistatus">
       <Parameter Name="so_id" Mode="In" Type="Decimal" />
-    </FunctionImport>
-    <FunctionImport Name="RegistrarUsuario" ReturnType="Collection(Decimal)">
-      <Parameter Name="us_nid" Mode="In" Type="Decimal" />
-      <Parameter Name="us_password" Mode="In" Type="String" />
-      <Parameter Name="us_name" Mode="In" Type="String" />
-      <Parameter Name="us_lastname" Mode="In" Type="String" />
-      <Parameter Name="us_email" Mode="In" Type="String" />
-      <Parameter Name="us_phone" Mode="In" Type="Decimal" />
+      <Parameter Name="soli_status" Mode="In" Type="String" />
     </FunctionImport>
   </EntityContainer>
+  <ComplexType Name="getSolicitudes_Result">
+    <Property Type="Decimal" Name="userId" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="usua_nid" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="String" Name="user_password" Nullable="true" MaxLength="250" />
+    <Property Type="Int32" Name="user_type" Nullable="true" />
+    <Property Type="String" Name="userName" Nullable="true" MaxLength="60" />
+    <Property Type="String" Name="user_lastname" Nullable="true" MaxLength="60" />
+    <Property Type="String" Name="user_email" Nullable="true" MaxLength="100" />
+    <Property Type="Decimal" Name="user_phone" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Boolean" Name="user_restore" Nullable="true" />
+    <Property Type="DateTime" Name="us_date" Nullable="true" Precision="23" />
+    <Property Type="Decimal" Name="userId1" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="so_id" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="user_InId" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="user_CoId" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="String" Name="soli_name" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="soli_type" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="soli_empresa" Nullable="true" MaxLength="60" />
+    <Property Type="DateTime" Name="soli_date" Nullable="true" Precision="23" />
+    <Property Type="String" Name="soli_status" Nullable="true" MaxLength="20" />
+    <Property Type="Decimal" Name="curso_id" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="String" Name="curso_name" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="curso_code" Nullable="true" />
+    <Property Type="Double" Name="curso_version" Nullable="true" />
+    <Property Type="String" Name="curso_programa" Nullable="true" MaxLength="200" />
+    <Property Type="Int32" Name="curso_duration" Nullable="true" />
+    <Property Type="DateTime" Name="curso_startDate" Nullable="true" />
+    <Property Type="DateTime" Name="curso_endDate" Nullable="true" />
+    <Property Type="String" Name="curso_note" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="curso_days" Nullable="true" MaxLength="100" />
+    <Property Type="Decimal" Name="muni_id" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="pe_id" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="soli_id" Nullable="false" Precision="18" Scale="0" />
+  </ComplexType>
+  <ComplexType Name="getSolicitudesID_Result">
+    <Property Type="Decimal" Name="userId" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="usua_nid" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="String" Name="user_password" Nullable="true" MaxLength="250" />
+    <Property Type="Int32" Name="user_type" Nullable="true" />
+    <Property Type="String" Name="userName" Nullable="true" MaxLength="60" />
+    <Property Type="String" Name="user_lastname" Nullable="true" MaxLength="60" />
+    <Property Type="String" Name="user_email" Nullable="true" MaxLength="100" />
+    <Property Type="Decimal" Name="user_phone" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Boolean" Name="user_restore" Nullable="true" />
+    <Property Type="DateTime" Name="us_date" Nullable="true" Precision="23" />
+    <Property Type="Decimal" Name="userId1" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="so_id" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="user_InId" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="user_CoId" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="String" Name="soli_name" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="soli_type" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="soli_empresa" Nullable="true" MaxLength="60" />
+    <Property Type="DateTime" Name="soli_date" Nullable="true" Precision="23" />
+    <Property Type="String" Name="soli_status" Nullable="true" MaxLength="20" />
+    <Property Type="Decimal" Name="curso_id" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="String" Name="curso_name" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="curso_code" Nullable="true" />
+    <Property Type="Double" Name="curso_version" Nullable="true" />
+    <Property Type="String" Name="curso_programa" Nullable="true" MaxLength="200" />
+    <Property Type="Int32" Name="curso_duration" Nullable="true" />
+    <Property Type="DateTime" Name="curso_startDate" Nullable="true" />
+    <Property Type="DateTime" Name="curso_endDate" Nullable="true" />
+    <Property Type="String" Name="curso_note" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="curso_days" Nullable="true" MaxLength="100" />
+    <Property Type="Decimal" Name="muni_id" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="pe_id" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="soli_id" Nullable="false" Precision="18" Scale="0" />
+  </ComplexType>
   <EntityType Name="ACTIVIDAD">
     <Key>
       <PropertyRef Name="acti_id" />
@@ -129,7 +201,6 @@
     <Property Name="so_id" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="user_InId" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
     <Property Name="user_CoId" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
-    <Property Name="soli_name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
     <Property Name="soli_type" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
     <Property Name="soli_empresa" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
     <Property Name="soli_date" Type="DateTime" Precision="3" />
@@ -251,72 +322,4 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <ComplexType Name="getSolicitudes_Result">
-    <Property Type="Decimal" Name="userId" Nullable="false" Precision="18" Scale="0" />
-    <Property Type="Decimal" Name="usua_nid" Nullable="true" Precision="18" Scale="0" />
-    <Property Type="String" Name="user_password" Nullable="true" MaxLength="250" />
-    <Property Type="Int32" Name="user_type" Nullable="true" />
-    <Property Type="String" Name="userName" Nullable="true" MaxLength="60" />
-    <Property Type="String" Name="user_lastname" Nullable="true" MaxLength="60" />
-    <Property Type="String" Name="user_email" Nullable="true" MaxLength="100" />
-    <Property Type="Decimal" Name="user_phone" Nullable="true" Precision="18" Scale="0" />
-    <Property Type="Boolean" Name="user_restore" Nullable="true" />
-    <Property Type="DateTime" Name="us_date" Nullable="true" Precision="23" />
-    <Property Type="Decimal" Name="userId1" Nullable="false" Precision="18" Scale="0" />
-    <Property Type="Decimal" Name="so_id" Nullable="false" Precision="18" Scale="0" />
-    <Property Type="Decimal" Name="user_InId" Nullable="false" Precision="18" Scale="0" />
-    <Property Type="Decimal" Name="user_CoId" Nullable="false" Precision="18" Scale="0" />
-    <Property Type="String" Name="soli_name" Nullable="true" MaxLength="30" />
-    <Property Type="String" Name="soli_type" Nullable="true" MaxLength="30" />
-    <Property Type="String" Name="soli_empresa" Nullable="true" MaxLength="60" />
-    <Property Type="DateTime" Name="soli_date" Nullable="true" Precision="23" />
-    <Property Type="String" Name="soli_status" Nullable="true" MaxLength="20" />
-    <Property Type="Decimal" Name="curso_id" Nullable="false" Precision="18" Scale="0" />
-    <Property Type="String" Name="curso_name" Nullable="true" MaxLength="100" />
-    <Property Type="Int32" Name="curso_code" Nullable="true" />
-    <Property Type="Double" Name="curso_version" Nullable="true" />
-    <Property Type="String" Name="curso_programa" Nullable="true" MaxLength="200" />
-    <Property Type="Int32" Name="curso_duration" Nullable="true" />
-    <Property Type="DateTime" Name="curso_startDate" Nullable="true" />
-    <Property Type="DateTime" Name="curso_endDate" Nullable="true" />
-    <Property Type="String" Name="curso_note" Nullable="true" MaxLength="255" />
-    <Property Type="String" Name="curso_days" Nullable="true" MaxLength="100" />
-    <Property Type="Decimal" Name="muni_id" Nullable="false" Precision="18" Scale="0" />
-    <Property Type="Decimal" Name="pe_id" Nullable="false" Precision="18" Scale="0" />
-    <Property Type="Decimal" Name="soli_id" Nullable="false" Precision="18" Scale="0" />
-  </ComplexType>
-  <ComplexType Name="getSolicitudesID_Result">
-    <Property Type="Decimal" Name="userId" Nullable="false" Precision="18" Scale="0" />
-    <Property Type="Decimal" Name="usua_nid" Nullable="true" Precision="18" Scale="0" />
-    <Property Type="String" Name="user_password" Nullable="true" MaxLength="250" />
-    <Property Type="Int32" Name="user_type" Nullable="true" />
-    <Property Type="String" Name="userName" Nullable="true" MaxLength="60" />
-    <Property Type="String" Name="user_lastname" Nullable="true" MaxLength="60" />
-    <Property Type="String" Name="user_email" Nullable="true" MaxLength="100" />
-    <Property Type="Decimal" Name="user_phone" Nullable="true" Precision="18" Scale="0" />
-    <Property Type="Boolean" Name="user_restore" Nullable="true" />
-    <Property Type="DateTime" Name="us_date" Nullable="true" Precision="23" />
-    <Property Type="Decimal" Name="userId1" Nullable="false" Precision="18" Scale="0" />
-    <Property Type="Decimal" Name="so_id" Nullable="false" Precision="18" Scale="0" />
-    <Property Type="Decimal" Name="user_InId" Nullable="false" Precision="18" Scale="0" />
-    <Property Type="Decimal" Name="user_CoId" Nullable="false" Precision="18" Scale="0" />
-    <Property Type="String" Name="soli_name" Nullable="true" MaxLength="30" />
-    <Property Type="String" Name="soli_type" Nullable="true" MaxLength="30" />
-    <Property Type="String" Name="soli_empresa" Nullable="true" MaxLength="60" />
-    <Property Type="DateTime" Name="soli_date" Nullable="true" Precision="23" />
-    <Property Type="String" Name="soli_status" Nullable="true" MaxLength="20" />
-    <Property Type="Decimal" Name="curso_id" Nullable="false" Precision="18" Scale="0" />
-    <Property Type="String" Name="curso_name" Nullable="true" MaxLength="100" />
-    <Property Type="Int32" Name="curso_code" Nullable="true" />
-    <Property Type="Double" Name="curso_version" Nullable="true" />
-    <Property Type="String" Name="curso_programa" Nullable="true" MaxLength="200" />
-    <Property Type="Int32" Name="curso_duration" Nullable="true" />
-    <Property Type="DateTime" Name="curso_startDate" Nullable="true" />
-    <Property Type="DateTime" Name="curso_endDate" Nullable="true" />
-    <Property Type="String" Name="curso_note" Nullable="true" MaxLength="255" />
-    <Property Type="String" Name="curso_days" Nullable="true" MaxLength="100" />
-    <Property Type="Decimal" Name="muni_id" Nullable="false" Precision="18" Scale="0" />
-    <Property Type="Decimal" Name="pe_id" Nullable="false" Precision="18" Scale="0" />
-    <Property Type="Decimal" Name="soli_id" Nullable="false" Precision="18" Scale="0" />
-  </ComplexType>
 </Schema>
