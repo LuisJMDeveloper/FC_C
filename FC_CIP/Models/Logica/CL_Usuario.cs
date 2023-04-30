@@ -150,6 +150,6 @@ namespace FC_CIP.Models.Logica
             return IdUsuario;
         }
 
-        
+       
     }
 }

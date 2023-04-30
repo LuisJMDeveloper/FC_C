@@ -42,37 +42,47 @@ namespace FC_CIP.Controllers
         [HttpPost]
         public ActionResult ValidarIngreso(USUARIO oUsuario)
         {
-            USUARIO oPersona = new USUARIO();
             string resultado = string.Empty;
             using (FC_CIP_BDEntities db = new FC_CIP_BDEntities())
             {
-                
-                var lst = from d in db.USUARIO
-                          where d.user_email == oUsuario.user_email
-                          && d.user_password == oUsuario.user_password
-                          select d;
 
-                if (lst.Count() > 0)
+                var oUser = (from d in db.USUARIO
+                           where d.user_email == oUsuario.user_email
+                           //&& SHA256.ReferenceEquals(d.user_password, oUsuario.user_password)
+                           select d).FirstOrDefault<USUARIO>();
+
+                if (oUser != null)
                 {
-                    USUARIO oUser = lst.First();
-                    Session["User"] = oUser;
+                    if (CL_Recursos.ConvertSha256(oUsuario.user_password).Equals(oUser.user_password))
+                    {
+                        if (oUser != null)
+                        {
 
-                    if(oUser.user_type == 2020)
-                    {
-                        resultado = "1";
-                    }else if (oUser.user_type == 1010)
-                    {
-                        resultado = "2";
+                            Session["User"] = oUser;
+
+                            if (oUser.user_type == 2020)
+                            {
+                                resultado = "1";
+                            }
+                            else if (oUser.user_type == 1010)
+                            {
+                                resultado = "2";
+                            }
+                            return Content(resultado);
+                        }
+
                     }
-                    return Content(resultado);
+                    else
+                    {
+                        resultado = "0";
+                    }
                 }
                 else
                 {
-                    return Content(resultado);
+                    resultado = "0";
                 }
             }
+            return Content(resultado);
         }
-
-
     }
 }

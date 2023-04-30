@@ -52,8 +52,8 @@
 
             var $data = {
                 oUsuario:{
-                    us_email: $("#txtUser").val(),
-                    us_password: $("#txtClave").val(),
+                    user_email: $("#txtUser").val(),
+                    user_password: $("#txtClave").val(),
                 }
 
             }
@@ -73,6 +73,9 @@
                             break
                         case 2:
                             document.location.href = "@Url.Content("~/Coordinador/CoordinadorIndex")"
+                            break
+                        case 0:
+                            swal("EL usuario no existe!");
                             break
                     }
                 }, 
