@@ -7,11 +7,13 @@
 <div class="card mt-3">
     <div class=" container-fluid text-center">
         <div class="_divRow row">
-            <div class="_divCol col-10 text-center d-flex flex-column">
+            <div class="_divCol col-10 text-center">
                 <br />
-                <label>SERVICIO NACIONAL DE APRENDIZAJE</label>
-                <label>REGIONAL BOLÍVAR</label>
-                <label>CENTRO PARA LA INDUSTRIA PETROQUÍMICA</label>
+                <strong class="d-flex flex-column">
+                    <label>SERVICIO NACIONAL DE APRENDIZAJE</label>
+                    <label>REGIONAL BOLÍVAR</label>
+                    <label>CENTRO PARA LA INDUSTRIA PETROQUÍMICA</label>
+                </strong>
                 <br />
             </div>
             <div class="_div col-2 ">
@@ -27,72 +29,72 @@
         @*  Primera fila*@
         <div class="_divRow row">
             <label class="_divCol col-6">
-                NOMBRE DEL INSTRUCTOR:
+                NOMBRE DEL INSTRUCTOR: <label id="inst_name"></label>
             </label>
             <label class="_divCol col-3">
-                CC:
+                CC: <label id="inst_cc"></label>
             </label>
             <label class="_divCol col-3">
-                FECHA INICIO:
+                FECHA INICIO: <label id="curso_fechaInicio"></label>
             </label>
         </div>
 
         @*  Segunda fila*@
         <div class="_divRow row">
             <label class="_divCol col-6">
-                <label>CORREO ELECTRONICO:  </label>
+                CORREO ELECTRONICO:  <label id="inst_correo"></label>
             </label>
             <label class="_divCol col-3">
-                TEL:
+                TEL: <label id="inst_tel"></label>
             </label>
             <label class="_divCol col-3">
-                FECHA TERMINACION:
+                FECHA TERMINACION: <label id="curso_fechaFin"></label>
             </label>
         </div>
 
         @*  Tercera fila*@
         <div class="_divRow row">
             <label class="_divCol col-6">
-                <label>PROGRAMA DE FORMACIÓN: </label>
+                PROGRAMA DE FORMACIÓN: <label id="curso_programa"></label>
             </label>
             <label class="_divCol col-4">
-                CODIGO:
+                CODIGO: <label id="curso_codigo"></label>
             </label>
             <label class="_divCol col-2">
-                VERSION:
+                VERSION: <label id="curso_version"></label>
             </label>
         </div>
 
         @*  Cuarta fila*@
         <div class="_divRow row">
             <label class="_divCol col-6">
-                <label>AMBIENTE DE APRENDIZAJE: </label>
+                AMBIENTE DE APRENDIZAJE: <label id="curso_ambiente"></label>
             </label>
             <label class="_divCol col-4">
-                MUNICIPIO:
+                MUNICIPIO: <label id="curso_municipio"></label>
             </label>
             <label class="_divCol col-2">
-                DURACION:
+                DURACION: <label id="curso_duracion"></label>
             </label>
         </div>
 
         @*  Quinta fila*@
         <div class="_divRow row">
             <label class="_divCol col-6">
-                <label>PROGRAMA ESPECIAL: </label>
+                PROGRAMA ESPECIAL: <label id="pe_name"></label>
             </label>
             <label class="_divCol col-6">
-                OBSERVACION:
+                OBSERVACION: <label id="curso_observacion"></label>
             </label>
         </div>
 
         @*  Sexta fila*@
         <div class="_divRow row">
             <label class="_divCol col-6">
-                TIPO DE SOLICITUD: 
+                TIPO DE SOLICITUD: <label id="soli_tipo"></label>
             </label>
             <label class="_divCol col-4">
-                EMPRESA:
+                EMPRESA: <label id="soli_empresa"></label>
             </label>
             <label class="_divCol col-2">
                 CUPO MAXIMO: 30
@@ -102,13 +104,23 @@
         @*  Septima fila*@
         <div class="_divRow row text-center">
             <label class="col">
-                DIAS DE EJECUCION DEL PROGRAMA 
+                DIAS DE EJECUCION DEL PROGRAMA
             </label>
-            <label class="col">
-                Lunes-Martes-Miercoles-Jueves-Viernes-sabado
-            </label>
+            <label id="curso_dias"></label>
         </div>
     </div>
 
 </div>
+
+@section scripts{
+    
+    <script>
+
+        var $data = {
+
+        }
+
+    </script>
+
+    }
 
