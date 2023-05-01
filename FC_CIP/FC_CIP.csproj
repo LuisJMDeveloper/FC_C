@@ -369,7 +369,7 @@
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\sweetalert.css" />
-    <Content Include="CSS\Coordinador.css" />
+    <Content Include="CSS\CSSCoordinador.css" />
     <Content Include="CSS\Login_.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
@@ -536,6 +536,7 @@
     <Content Include="Views\Instructor\InstructorIndex.cshtml" />
     <Content Include="Views\Shared\_Coordinador.cshtml" />
     <Content Include="Views\Coordinador\CoordinadorIndex.cshtml" />
+    <Content Include="Views\Coordinador\CoordinadorSolicitud.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

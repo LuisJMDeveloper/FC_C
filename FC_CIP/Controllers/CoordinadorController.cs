@@ -15,6 +15,10 @@ namespace FC_CIP.Controllers
         {
             return View();
         }
+        public ActionResult CoordinadorSolicitud()
+        {
+            return View();
+        }
 
         [HttpGet]
         public JsonResult getSolicitudesRecibidas()

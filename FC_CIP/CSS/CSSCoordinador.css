@@ -17,3 +17,19 @@
     color: #fff;
     opacity: 0.7;
 }
+
+._divCol {
+    border-right: 1px solid #000000;
+
+    padding:4px 6px;
+}
+
+._divRow {
+    border: 2px solid #000000;
+    border-bottom: 0px solid #000000;
+}
+
+._divRow-cierre {
+    border-bottom: 2px solid #000000;
+}
+
