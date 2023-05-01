@@ -10,16 +10,27 @@
 namespace FC_CIP.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class CURSO
+    public partial class getFormatoSolicitudes_Result1
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public CURSO()
-        {
-            this.ACTIVIDAD = new HashSet<ACTIVIDAD>();
-        }
-    
+        public decimal userId { get; set; }
+        public Nullable<decimal> usua_nid { get; set; }
+        public string user_password { get; set; }
+        public Nullable<int> user_type { get; set; }
+        public string userName { get; set; }
+        public string user_lastname { get; set; }
+        public string user_email { get; set; }
+        public Nullable<decimal> user_phone { get; set; }
+        public Nullable<bool> user_restore { get; set; }
+        public Nullable<System.DateTime> us_date { get; set; }
+        public decimal userId1 { get; set; }
+        public decimal so_id { get; set; }
+        public decimal user_InId { get; set; }
+        public decimal user_CoId { get; set; }
+        public string soli_type { get; set; }
+        public string soli_empresa { get; set; }
+        public Nullable<System.DateTime> soli_date { get; set; }
+        public string soli_status { get; set; }
         public decimal curso_id { get; set; }
         public string curso_name { get; set; }
         public Nullable<int> curso_code { get; set; }
@@ -34,11 +45,9 @@ namespace FC_CIP.Models
         public decimal pe_id { get; set; }
         public decimal soli_id { get; set; }
         public string curso_lugar { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ACTIVIDAD> ACTIVIDAD { get; set; }
-        public virtual MUNICIPIO MUNICIPIO { get; set; }
-        public virtual PROGRAMA_ESPECIAL PROGRAMA_ESPECIAL { get; set; }
-        public virtual SOLICITUD SOLICITUD { get; set; }
+        public decimal muni_id1 { get; set; }
+        public string muni_name { get; set; }
+        public decimal pe_id1 { get; set; }
+        public string pe_name { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿
+﻿@model FC_CIP.Models.TablasCombinadas.FormatoSolicitudes
+
 @{
     ViewBag.Title = "Solicitud";
     Layout = "~/Views/Shared/_Coordinador.cshtml";
@@ -29,75 +30,75 @@
         @*  Primera fila*@
         <div class="_divRow row">
             <label class="_divCol col-6">
-                NOMBRE DEL INSTRUCTOR: <label id="inst_name"></label>
+                NOMBRE DEL INSTRUCTOR: <strong>@Model.userName</strong> 
             </label>
             <label class="_divCol col-3">
-                CC: <label id="inst_cc"></label>
+                CC: <strong>@Model.usua_nid</strong>
             </label>
             <label class="_divCol col-3">
-                FECHA INICIO: <label id="curso_fechaInicio"></label>
+                FECHA INICIO: <strong>@Model.curso_startDate.ToShortDateString()</strong>
             </label>
         </div>
 
         @*  Segunda fila*@
         <div class="_divRow row">
             <label class="_divCol col-6">
-                CORREO ELECTRONICO:  <label id="inst_correo"></label>
+                CORREO ELECTRONICO:  <strong>@Model.user_email</strong>
             </label>
             <label class="_divCol col-3">
-                TEL: <label id="inst_tel"></label>
+                TEL: <strong>@Model.user_phone</strong>
             </label>
             <label class="_divCol col-3">
-                FECHA TERMINACION: <label id="curso_fechaFin"></label>
+                FECHA TERMINACION: <strong>@Model.curso_endDate.ToShortDateString()</strong>
             </label>
         </div>
 
         @*  Tercera fila*@
         <div class="_divRow row">
             <label class="_divCol col-6">
-                PROGRAMA DE FORMACIÓN: <label id="curso_programa"></label>
+                PROGRAMA DE FORMACIÓN: <strong>@Model.curso_programa</strong>
             </label>
             <label class="_divCol col-4">
-                CODIGO: <label id="curso_codigo"></label>
+                CODIGO: <strong>@Model.curso_code</strong>
             </label>
             <label class="_divCol col-2">
-                VERSION: <label id="curso_version"></label>
+                VERSION: <strong>@Model.curso_version</strong>
             </label>
         </div>
 
         @*  Cuarta fila*@
         <div class="_divRow row">
             <label class="_divCol col-6">
-                AMBIENTE DE APRENDIZAJE: <label id="curso_ambiente"></label>
+                AMBIENTE DE APRENDIZAJE: <strong>@Model.curso_lugar</strong>
             </label>
             <label class="_divCol col-4">
-                MUNICIPIO: <label id="curso_municipio"></label>
+                MUNICIPIO: <strong>@Model.muni_name</strong>
             </label>
             <label class="_divCol col-2">
-                DURACION: <label id="curso_duracion"></label>
+                DURACION: <strong>@Model.curso_duration</strong>
             </label>
         </div>
 
         @*  Quinta fila*@
         <div class="_divRow row">
             <label class="_divCol col-6">
-                PROGRAMA ESPECIAL: <label id="pe_name"></label>
+                PROGRAMA ESPECIAL: <strong>@Model.pe_name</strong>
             </label>
             <label class="_divCol col-6">
-                OBSERVACION: <label id="curso_observacion"></label>
+                OBSERVACION: <strong>@Model.curso_note</strong>
             </label>
         </div>
 
         @*  Sexta fila*@
         <div class="_divRow row">
             <label class="_divCol col-6">
-                TIPO DE SOLICITUD: <label id="soli_tipo"></label>
+                TIPO DE SOLICITUD: <strong>@Model.soli_type</strong>
             </label>
             <label class="_divCol col-4">
-                EMPRESA: <label id="soli_empresa"></label>
+                EMPRESA: <strong>@Model.soli_empresa</strong>
             </label>
             <label class="_divCol col-2">
-                CUPO MAXIMO: 30
+                CUPO MAXIMO: <strong>30</strong>
             </label>
         </div>
 
@@ -106,21 +107,9 @@
             <label class="col">
                 DIAS DE EJECUCION DEL PROGRAMA
             </label>
-            <label id="curso_dias"></label>
+            <strong class="col">@Model.curso_days</strong>
         </div>
     </div>
 
 </div>
-
-@section scripts{
-    
-    <script>
-
-        var $data = {
-
-        }
-
-    </script>
-
-    }
 

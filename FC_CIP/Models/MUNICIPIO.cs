@@ -17,15 +17,12 @@ namespace FC_CIP.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public MUNICIPIO()
         {
-            this.ACTIVIDAD = new HashSet<ACTIVIDAD>();
             this.CURSO = new HashSet<CURSO>();
         }
     
         public decimal muni_id { get; set; }
         public string muni_name { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ACTIVIDAD> ACTIVIDAD { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CURSO> CURSO { get; set; }
     }

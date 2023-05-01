@@ -21,7 +21,6 @@
   <EntityType Name="CURSO">
     <Key>
       <PropertyRef Name="curso_id" />
-      <PropertyRef Name="muni_id" />
     </Key>
     <Property Name="curso_id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="curso_name" Type="varchar" MaxLength="100" />
@@ -36,6 +35,7 @@
     <Property Name="muni_id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
     <Property Name="pe_id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
     <Property Name="soli_id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="curso_lugar" Type="varchar" MaxLength="200" />
   </EntityType>
   <EntityType Name="INSTRUCTOR">
     <Key>
@@ -84,18 +84,6 @@
     <Property Name="user_restore" Type="bit" />
     <Property Name="us_date" Type="datetime" />
   </EntityType>
-  <Association Name="FK__ACTIVIDAD__muni___489AC854">
-    <End Role="MUNICIPIO" Type="Self.MUNICIPIO" Multiplicity="1" />
-    <End Role="ACTIVIDAD" Type="Self.ACTIVIDAD" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="MUNICIPIO">
-        <PropertyRef Name="muni_id" />
-      </Principal>
-      <Dependent Role="ACTIVIDAD">
-        <PropertyRef Name="muni_id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK__COORDINAD__userI__2FCF1A8A">
     <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
     <End Role="COORDINADOR" Type="Self.COORDINADOR" Multiplicity="0..1" />
@@ -180,6 +168,21 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_ACTIVIDAD_CURSO">
+    <End Role="CURSO" Type="Self.CURSO" Multiplicity="1" />
+    <End Role="ACTIVIDAD" Type="Self.ACTIVIDAD" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CURSO">
+        <PropertyRef Name="curso_id" />
+      </Principal>
+      <Dependent Role="ACTIVIDAD">
+        <PropertyRef Name="cu_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="getFormatoSolicitudes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="so_id" Type="numeric" Mode="In" />
+  </Function>
   <Function Name="getSolicitudes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="getSolicitudesID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="so_id" Type="numeric" Mode="In" />
@@ -205,10 +208,6 @@
     <EntitySet Name="PROGRAMA_ESPECIAL" EntityType="Self.PROGRAMA_ESPECIAL" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SOLICITUD" EntityType="Self.SOLICITUD" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="USUARIO" EntityType="Self.USUARIO" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK__ACTIVIDAD__muni___489AC854" Association="Self.FK__ACTIVIDAD__muni___489AC854">
-      <End Role="MUNICIPIO" EntitySet="MUNICIPIO" />
-      <End Role="ACTIVIDAD" EntitySet="ACTIVIDAD" />
-    </AssociationSet>
     <AssociationSet Name="FK__COORDINAD__userI__2FCF1A8A" Association="Self.FK__COORDINAD__userI__2FCF1A8A">
       <End Role="USUARIO" EntitySet="USUARIO" />
       <End Role="COORDINADOR" EntitySet="COORDINADOR" />
@@ -236,6 +235,10 @@
     <AssociationSet Name="FK__SOLICITUD__user___37703C52" Association="Self.FK__SOLICITUD__user___37703C52">
       <End Role="COORDINADOR" EntitySet="COORDINADOR" />
       <End Role="SOLICITUD" EntitySet="SOLICITUD" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ACTIVIDAD_CURSO" Association="Self.FK_ACTIVIDAD_CURSO">
+      <End Role="CURSO" EntitySet="CURSO" />
+      <End Role="ACTIVIDAD" EntitySet="ACTIVIDAD" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

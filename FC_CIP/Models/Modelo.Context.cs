@@ -27,14 +27,14 @@ namespace FC_CIP.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<ACTIVIDAD> ACTIVIDAD { get; set; }
         public virtual DbSet<COORDINADOR> COORDINADOR { get; set; }
-        public virtual DbSet<CURSO> CURSO { get; set; }
         public virtual DbSet<INSTRUCTOR> INSTRUCTOR { get; set; }
-        public virtual DbSet<MUNICIPIO> MUNICIPIO { get; set; }
         public virtual DbSet<PROGRAMA_ESPECIAL> PROGRAMA_ESPECIAL { get; set; }
         public virtual DbSet<SOLICITUD> SOLICITUD { get; set; }
         public virtual DbSet<USUARIO> USUARIO { get; set; }
+        public virtual DbSet<ACTIVIDAD> ACTIVIDAD { get; set; }
+        public virtual DbSet<MUNICIPIO> MUNICIPIO { get; set; }
+        public virtual DbSet<CURSO> CURSO { get; set; }
     
         public virtual ObjectResult<getSolicitudes_Result> getSolicitudes()
         {
@@ -90,6 +90,15 @@ namespace FC_CIP.Models
                 new ObjectParameter("soli_status", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateSolistatus", so_idParameter, soli_statusParameter);
+        }
+    
+        public virtual ObjectResult<getFormatoSolicitudes_Result1> getFormatoSolicitudes(Nullable<decimal> so_id)
+        {
+            var so_idParameter = so_id.HasValue ?
+                new ObjectParameter("so_id", so_id) :
+                new ObjectParameter("so_id", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getFormatoSolicitudes_Result1>("getFormatoSolicitudes", so_idParameter);
         }
     }
 }

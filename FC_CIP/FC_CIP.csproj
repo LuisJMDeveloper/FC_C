@@ -147,6 +147,12 @@
     <Compile Include="Models\CURSO.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\getFormatoSolicitudes_Result.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\getFormatoSolicitudes_Result1.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\getSolicitudesID_Result.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
@@ -183,6 +189,7 @@
     <Compile Include="Models\SOLICITUD.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TablasCombinadas\FormatoSolicitudes.cs" />
     <Compile Include="Models\TablasCombinadas\RegistrarSolicitud.cs" />
     <Compile Include="Models\TablasCombinadas\SolicitudCurso.cs" />
     <Compile Include="Models\TablasCombinadas\SolicitudesRecibidas.cs" />

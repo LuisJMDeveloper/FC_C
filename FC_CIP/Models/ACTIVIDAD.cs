@@ -22,6 +22,6 @@ namespace FC_CIP.Models
         public Nullable<System.DateTime> acti_startDate { get; set; }
         public Nullable<System.DateTime> acti_endDate { get; set; }
     
-        public virtual MUNICIPIO MUNICIPIO { get; set; }
+        public virtual CURSO CURSO { get; set; }
     }
 }

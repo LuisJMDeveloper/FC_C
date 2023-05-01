@@ -166,7 +166,7 @@
                     "render": function (data) {
                         return "<div class='d-flex gap-2 justify-content-around'>" +
                                 "<button id='Aprobar' onclick ='ShowModal(" + data + ")' type='button' class='btn btn-primary btn-sm'>Editar <i class='fa fa-pencil' ></i></button>" +
-                            "<button id='OpenFile' onclick ='Probar(" + data + ")' type='button' class='btn btn-success btn-sm'>Abrir <i class='bi bi-folder-symlink' ></i></button>" +
+                            "<button id='OpenFile' onclick ='AbrirSolicitud(" + data + ")' type='button' class='btn btn-success btn-sm'>Abrir <i class='bi bi-folder-symlink' ></i></button>" +
                             "</div>"
                     },
                     "orderable": false,
@@ -317,6 +317,10 @@
             $("#txtFechaSolicitud").val("");
             $("#txtNombreCurso").val("");
             $("#txtProgramaFormacion").val("");
+        }
+
+        function AbrirSolicitud($so_id) {
+            window.open("@Url.Action("CoordinadorSolicitud", "Coordinador")" + "?so_id=" + $so_id);
         }
     </script>
 }

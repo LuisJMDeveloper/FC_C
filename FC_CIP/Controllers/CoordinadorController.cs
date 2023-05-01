@@ -15,9 +15,14 @@ namespace FC_CIP.Controllers
         {
             return View();
         }
-        public ActionResult CoordinadorSolicitud()
+        public ActionResult CoordinadorSolicitud(decimal? so_id)
         {
-            return View();
+            using (var db = new FC_CIP_BDEntities())
+            {
+                var oLista = db.Database.SqlQuery<FormatoSolicitudes>("EXEC getFormatoSolicitudes " + so_id).FirstOrDefault();
+                return View(oLista);
+            }
+            
         }
 
         [HttpGet]
@@ -37,6 +42,16 @@ namespace FC_CIP.Controllers
             {
                 var oLista = db.Database.SqlQuery<SolicitudesRecibidas>("EXEC getSolicitudesID " + so_id).FirstOrDefault();
                 return Json( oLista , JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpGet]
+        public JsonResult getFormatoSolicitud(int so_id)
+        {
+            using (var db = new FC_CIP_BDEntities())
+            {
+                var oLista = db.Database.SqlQuery<FormatoSolicitudes>("EXEC getFormatoSolicitudes " + so_id).FirstOrDefault();
+                return Json(oLista, JsonRequestBehavior.AllowGet);
             }
         }
 

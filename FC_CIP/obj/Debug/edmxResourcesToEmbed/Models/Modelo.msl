@@ -78,19 +78,6 @@
       </ResultMapping>
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="RegistrarUsuario" FunctionName="FC_CIP_BDModel.Store.RegistrarUsuario" />
-    <EntitySetMapping Name="ACTIVIDAD">
-      <EntityTypeMapping TypeName="FC_CIP_BDModel.ACTIVIDAD">
-        <MappingFragment StoreEntitySet="ACTIVIDAD">
-          <ScalarProperty Name="acti_endDate" ColumnName="acti_endDate" />
-          <ScalarProperty Name="acti_startDate" ColumnName="acti_startDate" />
-          <ScalarProperty Name="acti_datytotal" ColumnName="acti_datytotal" />
-          <ScalarProperty Name="acti_name" ColumnName="acti_name" />
-          <ScalarProperty Name="cu_id" ColumnName="cu_id" />
-          <ScalarProperty Name="muni_id" ColumnName="muni_id" />
-          <ScalarProperty Name="acti_id" ColumnName="acti_id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="COORDINADOR">
       <EntityTypeMapping TypeName="FC_CIP_BDModel.COORDINADOR">
         <MappingFragment StoreEntitySet="COORDINADOR">
@@ -98,37 +85,10 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="CURSO">
-      <EntityTypeMapping TypeName="FC_CIP_BDModel.CURSO">
-        <MappingFragment StoreEntitySet="CURSO">
-          <ScalarProperty Name="soli_id" ColumnName="soli_id" />
-          <ScalarProperty Name="pe_id" ColumnName="pe_id" />
-          <ScalarProperty Name="muni_id" ColumnName="muni_id" />
-          <ScalarProperty Name="curso_days" ColumnName="curso_days" />
-          <ScalarProperty Name="curso_note" ColumnName="curso_note" />
-          <ScalarProperty Name="curso_endDate" ColumnName="curso_endDate" />
-          <ScalarProperty Name="curso_startDate" ColumnName="curso_startDate" />
-          <ScalarProperty Name="curso_duration" ColumnName="curso_duration" />
-          <ScalarProperty Name="curso_programa" ColumnName="curso_programa" />
-          <ScalarProperty Name="curso_version" ColumnName="curso_version" />
-          <ScalarProperty Name="curso_code" ColumnName="curso_code" />
-          <ScalarProperty Name="curso_name" ColumnName="curso_name" />
-          <ScalarProperty Name="curso_id" ColumnName="curso_id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="INSTRUCTOR">
       <EntityTypeMapping TypeName="FC_CIP_BDModel.INSTRUCTOR">
         <MappingFragment StoreEntitySet="INSTRUCTOR">
           <ScalarProperty Name="userId" ColumnName="userId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="MUNICIPIO">
-      <EntityTypeMapping TypeName="FC_CIP_BDModel.MUNICIPIO">
-        <MappingFragment StoreEntitySet="MUNICIPIO">
-          <ScalarProperty Name="muni_name" ColumnName="muni_name" />
-          <ScalarProperty Name="muni_id" ColumnName="muni_id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -170,5 +130,88 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <FunctionImportMapping FunctionImportName="UpdateSolistatus" FunctionName="FC_CIP_BDModel.Store.UpdateSolistatus" />
+    <EntitySetMapping Name="ACTIVIDAD">
+      <EntityTypeMapping TypeName="FC_CIP_BDModel.ACTIVIDAD">
+        <MappingFragment StoreEntitySet="ACTIVIDAD">
+          <ScalarProperty Name="acti_endDate" ColumnName="acti_endDate" />
+          <ScalarProperty Name="acti_startDate" ColumnName="acti_startDate" />
+          <ScalarProperty Name="acti_datytotal" ColumnName="acti_datytotal" />
+          <ScalarProperty Name="acti_name" ColumnName="acti_name" />
+          <ScalarProperty Name="cu_id" ColumnName="cu_id" />
+          <ScalarProperty Name="muni_id" ColumnName="muni_id" />
+          <ScalarProperty Name="acti_id" ColumnName="acti_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MUNICIPIO">
+      <EntityTypeMapping TypeName="FC_CIP_BDModel.MUNICIPIO">
+        <MappingFragment StoreEntitySet="MUNICIPIO">
+          <ScalarProperty Name="muni_name" ColumnName="muni_name" />
+          <ScalarProperty Name="muni_id" ColumnName="muni_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CURSO">
+      <EntityTypeMapping TypeName="FC_CIP_BDModel.CURSO">
+        <MappingFragment StoreEntitySet="CURSO">
+          <ScalarProperty Name="curso_lugar" ColumnName="curso_lugar" />
+          <ScalarProperty Name="soli_id" ColumnName="soli_id" />
+          <ScalarProperty Name="pe_id" ColumnName="pe_id" />
+          <ScalarProperty Name="muni_id" ColumnName="muni_id" />
+          <ScalarProperty Name="curso_days" ColumnName="curso_days" />
+          <ScalarProperty Name="curso_note" ColumnName="curso_note" />
+          <ScalarProperty Name="curso_endDate" ColumnName="curso_endDate" />
+          <ScalarProperty Name="curso_startDate" ColumnName="curso_startDate" />
+          <ScalarProperty Name="curso_duration" ColumnName="curso_duration" />
+          <ScalarProperty Name="curso_programa" ColumnName="curso_programa" />
+          <ScalarProperty Name="curso_version" ColumnName="curso_version" />
+          <ScalarProperty Name="curso_code" ColumnName="curso_code" />
+          <ScalarProperty Name="curso_name" ColumnName="curso_name" />
+          <ScalarProperty Name="curso_id" ColumnName="curso_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="getFormatoSolicitudes" FunctionName="FC_CIP_BDModel.Store.getFormatoSolicitudes">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FC_CIP_BDModel.getFormatoSolicitudes_Result1">
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="usua_nid" ColumnName="usua_nid" />
+          <ScalarProperty Name="user_password" ColumnName="user_password" />
+          <ScalarProperty Name="user_type" ColumnName="user_type" />
+          <ScalarProperty Name="userName" ColumnName="userName" />
+          <ScalarProperty Name="user_lastname" ColumnName="user_lastname" />
+          <ScalarProperty Name="user_email" ColumnName="user_email" />
+          <ScalarProperty Name="user_phone" ColumnName="user_phone" />
+          <ScalarProperty Name="user_restore" ColumnName="user_restore" />
+          <ScalarProperty Name="us_date" ColumnName="us_date" />
+          <ScalarProperty Name="userId1" ColumnName="userId1" />
+          <ScalarProperty Name="so_id" ColumnName="so_id" />
+          <ScalarProperty Name="user_InId" ColumnName="user_InId" />
+          <ScalarProperty Name="user_CoId" ColumnName="user_CoId" />
+          <ScalarProperty Name="soli_type" ColumnName="soli_type" />
+          <ScalarProperty Name="soli_empresa" ColumnName="soli_empresa" />
+          <ScalarProperty Name="soli_date" ColumnName="soli_date" />
+          <ScalarProperty Name="soli_status" ColumnName="soli_status" />
+          <ScalarProperty Name="curso_id" ColumnName="curso_id" />
+          <ScalarProperty Name="curso_name" ColumnName="curso_name" />
+          <ScalarProperty Name="curso_code" ColumnName="curso_code" />
+          <ScalarProperty Name="curso_version" ColumnName="curso_version" />
+          <ScalarProperty Name="curso_programa" ColumnName="curso_programa" />
+          <ScalarProperty Name="curso_duration" ColumnName="curso_duration" />
+          <ScalarProperty Name="curso_startDate" ColumnName="curso_startDate" />
+          <ScalarProperty Name="curso_endDate" ColumnName="curso_endDate" />
+          <ScalarProperty Name="curso_note" ColumnName="curso_note" />
+          <ScalarProperty Name="curso_days" ColumnName="curso_days" />
+          <ScalarProperty Name="muni_id" ColumnName="muni_id" />
+          <ScalarProperty Name="pe_id" ColumnName="pe_id" />
+          <ScalarProperty Name="soli_id" ColumnName="soli_id" />
+          <ScalarProperty Name="curso_lugar" ColumnName="curso_lugar" />
+          <ScalarProperty Name="muni_id1" ColumnName="muni_id1" />
+          <ScalarProperty Name="muni_name" ColumnName="muni_name" />
+          <ScalarProperty Name="pe_id1" ColumnName="pe_id1" />
+          <ScalarProperty Name="pe_name" ColumnName="pe_name" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

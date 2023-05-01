@@ -29,8 +29,8 @@ namespace FC_CIP.Models
         public string soli_status { get; set; }
     
         public virtual COORDINADOR COORDINADOR { get; set; }
+        public virtual INSTRUCTOR INSTRUCTOR { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CURSO> CURSO { get; set; }
-        public virtual INSTRUCTOR INSTRUCTOR { get; set; }
     }
 }

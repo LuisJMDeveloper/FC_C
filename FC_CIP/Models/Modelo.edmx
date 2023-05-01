@@ -26,7 +26,6 @@
         <EntityType Name="CURSO">
           <Key>
             <PropertyRef Name="curso_id" />
-            <PropertyRef Name="muni_id" />
           </Key>
           <Property Name="curso_id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="curso_name" Type="varchar" MaxLength="100" />
@@ -41,6 +40,7 @@
           <Property Name="muni_id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
           <Property Name="pe_id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
           <Property Name="soli_id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="curso_lugar" Type="varchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="INSTRUCTOR">
           <Key>
@@ -89,18 +89,6 @@
           <Property Name="user_restore" Type="bit" />
           <Property Name="us_date" Type="datetime" />
         </EntityType>
-        <Association Name="FK__ACTIVIDAD__muni___489AC854">
-          <End Role="MUNICIPIO" Type="Self.MUNICIPIO" Multiplicity="1" />
-          <End Role="ACTIVIDAD" Type="Self.ACTIVIDAD" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MUNICIPIO">
-              <PropertyRef Name="muni_id" />
-            </Principal>
-            <Dependent Role="ACTIVIDAD">
-              <PropertyRef Name="muni_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__COORDINAD__userI__2FCF1A8A">
           <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
           <End Role="COORDINADOR" Type="Self.COORDINADOR" Multiplicity="0..1" />
@@ -185,6 +173,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ACTIVIDAD_CURSO">
+          <End Role="CURSO" Type="Self.CURSO" Multiplicity="1" />
+          <End Role="ACTIVIDAD" Type="Self.ACTIVIDAD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CURSO">
+              <PropertyRef Name="curso_id" />
+            </Principal>
+            <Dependent Role="ACTIVIDAD">
+              <PropertyRef Name="cu_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="getFormatoSolicitudes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="so_id" Type="numeric" Mode="In" />
+        </Function>
         <Function Name="getSolicitudes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="getSolicitudesID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="so_id" Type="numeric" Mode="In" />
@@ -210,10 +213,6 @@
           <EntitySet Name="PROGRAMA_ESPECIAL" EntityType="Self.PROGRAMA_ESPECIAL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SOLICITUD" EntityType="Self.SOLICITUD" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="USUARIO" EntityType="Self.USUARIO" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__ACTIVIDAD__muni___489AC854" Association="Self.FK__ACTIVIDAD__muni___489AC854">
-            <End Role="MUNICIPIO" EntitySet="MUNICIPIO" />
-            <End Role="ACTIVIDAD" EntitySet="ACTIVIDAD" />
-          </AssociationSet>
           <AssociationSet Name="FK__COORDINAD__userI__2FCF1A8A" Association="Self.FK__COORDINAD__userI__2FCF1A8A">
             <End Role="USUARIO" EntitySet="USUARIO" />
             <End Role="COORDINADOR" EntitySet="COORDINADOR" />
@@ -242,6 +241,10 @@
             <End Role="COORDINADOR" EntitySet="COORDINADOR" />
             <End Role="SOLICITUD" EntitySet="SOLICITUD" />
           </AssociationSet>
+          <AssociationSet Name="FK_ACTIVIDAD_CURSO" Association="Self.FK_ACTIVIDAD_CURSO">
+            <End Role="CURSO" EntitySet="CURSO" />
+            <End Role="ACTIVIDAD" EntitySet="ACTIVIDAD" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -260,18 +263,11 @@
             <Parameter Name="us_email" Mode="In" Type="String" />
             <Parameter Name="us_phone" Mode="In" Type="Decimal" />
           </FunctionImport>
-          <EntitySet Name="ACTIVIDAD" EntityType="FC_CIP_BDModel.ACTIVIDAD" />
           <EntitySet Name="COORDINADOR" EntityType="FC_CIP_BDModel.COORDINADOR" />
-          <EntitySet Name="CURSO" EntityType="FC_CIP_BDModel.CURSO" />
           <EntitySet Name="INSTRUCTOR" EntityType="FC_CIP_BDModel.INSTRUCTOR" />
-          <EntitySet Name="MUNICIPIO" EntityType="FC_CIP_BDModel.MUNICIPIO" />
           <EntitySet Name="PROGRAMA_ESPECIAL" EntityType="FC_CIP_BDModel.PROGRAMA_ESPECIAL" />
           <EntitySet Name="SOLICITUD" EntityType="FC_CIP_BDModel.SOLICITUD" />
           <EntitySet Name="USUARIO" EntityType="FC_CIP_BDModel.USUARIO" />
-          <AssociationSet Name="FK__ACTIVIDAD__muni___489AC854" Association="FC_CIP_BDModel.FK__ACTIVIDAD__muni___489AC854">
-            <End Role="MUNICIPIO" EntitySet="MUNICIPIO" />
-            <End Role="ACTIVIDAD" EntitySet="ACTIVIDAD" />
-          </AssociationSet>
           <AssociationSet Name="FK__COORDINAD__userI__2FCF1A8A" Association="FC_CIP_BDModel.FK__COORDINAD__userI__2FCF1A8A">
             <End Role="USUARIO" EntitySet="USUARIO" />
             <End Role="COORDINADOR" EntitySet="COORDINADOR" />
@@ -279,18 +275,6 @@
           <AssociationSet Name="FK__SOLICITUD__user___37703C52" Association="FC_CIP_BDModel.FK__SOLICITUD__user___37703C52">
             <End Role="COORDINADOR" EntitySet="COORDINADOR" />
             <End Role="SOLICITUD" EntitySet="SOLICITUD" />
-          </AssociationSet>
-          <AssociationSet Name="FK__CURSO__muni_id__3B40CD36" Association="FC_CIP_BDModel.FK__CURSO__muni_id__3B40CD36">
-            <End Role="MUNICIPIO" EntitySet="MUNICIPIO" />
-            <End Role="CURSO" EntitySet="CURSO" />
-          </AssociationSet>
-          <AssociationSet Name="FK__CURSO__pe_id__3C34F16F" Association="FC_CIP_BDModel.FK__CURSO__pe_id__3C34F16F">
-            <End Role="PROGRAMA_ESPECIAL" EntitySet="PROGRAMA_ESPECIAL" />
-            <End Role="CURSO" EntitySet="CURSO" />
-          </AssociationSet>
-          <AssociationSet Name="FK__CURSO__soli_id__3D2915A8" Association="FC_CIP_BDModel.FK__CURSO__soli_id__3D2915A8">
-            <End Role="SOLICITUD" EntitySet="SOLICITUD" />
-            <End Role="CURSO" EntitySet="CURSO" />
           </AssociationSet>
           <AssociationSet Name="FK__INSTRUCTO__userI__32AB8735" Association="FC_CIP_BDModel.FK__INSTRUCTO__userI__32AB8735">
             <End Role="USUARIO" EntitySet="USUARIO" />
@@ -304,7 +288,29 @@
             <Parameter Name="so_id" Mode="In" Type="Decimal" />
             <Parameter Name="soli_status" Mode="In" Type="String" />
           </FunctionImport>
-        </EntityContainer>
+          <EntitySet Name="ACTIVIDAD" EntityType="FC_CIP_BDModel.ACTIVIDAD" />
+          <EntitySet Name="MUNICIPIO" EntityType="FC_CIP_BDModel.MUNICIPIO" />
+          <EntitySet Name="CURSO" EntityType="FC_CIP_BDModel.CURSO" />
+          <AssociationSet Name="FK_ACTIVIDAD_CURSO" Association="FC_CIP_BDModel.FK_ACTIVIDAD_CURSO">
+            <End Role="CURSO" EntitySet="CURSO" />
+            <End Role="ACTIVIDAD" EntitySet="ACTIVIDAD" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CURSO__muni_id__3B40CD36" Association="FC_CIP_BDModel.FK__CURSO__muni_id__3B40CD36">
+            <End Role="MUNICIPIO" EntitySet="MUNICIPIO" />
+            <End Role="CURSO" EntitySet="CURSO" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CURSO__pe_id__3C34F16F" Association="FC_CIP_BDModel.FK__CURSO__pe_id__3C34F16F">
+            <End Role="PROGRAMA_ESPECIAL" EntitySet="PROGRAMA_ESPECIAL" />
+            <End Role="CURSO" EntitySet="CURSO" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CURSO__soli_id__3D2915A8" Association="FC_CIP_BDModel.FK__CURSO__soli_id__3D2915A8">
+            <End Role="SOLICITUD" EntitySet="SOLICITUD" />
+            <End Role="CURSO" EntitySet="CURSO" />
+          </AssociationSet>
+          <FunctionImport Name="getFormatoSolicitudes" ReturnType="Collection(FC_CIP_BDModel.getFormatoSolicitudes_Result1)">
+            <Parameter Name="so_id" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          </EntityContainer>
         <ComplexType Name="getSolicitudes_Result">
           <Property Type="Decimal" Name="userId" Nullable="false" Precision="18" Scale="0" />
           <Property Type="Decimal" Name="usua_nid" Nullable="true" Precision="18" Scale="0" />
@@ -373,19 +379,6 @@
           <Property Type="Decimal" Name="pe_id" Nullable="false" Precision="18" Scale="0" />
           <Property Type="Decimal" Name="soli_id" Nullable="false" Precision="18" Scale="0" />
         </ComplexType>
-        <EntityType Name="ACTIVIDAD">
-          <Key>
-            <PropertyRef Name="acti_id" />
-          </Key>
-          <Property Name="acti_id" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="muni_id" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
-          <Property Name="cu_id" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
-          <Property Name="acti_name" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
-          <Property Name="acti_datytotal" Type="Int32" />
-          <Property Name="acti_startDate" Type="DateTime" Precision="3" />
-          <Property Name="acti_endDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="MUNICIPIO" Relationship="FC_CIP_BDModel.FK__ACTIVIDAD__muni___489AC854" FromRole="ACTIVIDAD" ToRole="MUNICIPIO" />
-        </EntityType>
         <EntityType Name="COORDINADOR">
           <Key>
             <PropertyRef Name="userId" />
@@ -394,28 +387,6 @@
           <NavigationProperty Name="USUARIO" Relationship="FC_CIP_BDModel.FK__COORDINAD__userI__2FCF1A8A" FromRole="COORDINADOR" ToRole="USUARIO" />
           <NavigationProperty Name="SOLICITUD" Relationship="FC_CIP_BDModel.FK__SOLICITUD__user___37703C52" FromRole="COORDINADOR" ToRole="SOLICITUD" />
         </EntityType>
-        <EntityType Name="CURSO">
-          <Key>
-            <PropertyRef Name="curso_id" />
-            <PropertyRef Name="muni_id" />
-          </Key>
-          <Property Name="curso_id" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="curso_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="curso_code" Type="Int32" />
-          <Property Name="curso_version" Type="Double" />
-          <Property Name="curso_programa" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="curso_duration" Type="Int32" />
-          <Property Name="curso_startDate" Type="DateTime" Precision="0" />
-          <Property Name="curso_endDate" Type="DateTime" Precision="0" />
-          <Property Name="curso_note" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="curso_days" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="muni_id" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
-          <Property Name="pe_id" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
-          <Property Name="soli_id" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
-          <NavigationProperty Name="MUNICIPIO" Relationship="FC_CIP_BDModel.FK__CURSO__muni_id__3B40CD36" FromRole="CURSO" ToRole="MUNICIPIO" />
-          <NavigationProperty Name="PROGRAMA_ESPECIAL" Relationship="FC_CIP_BDModel.FK__CURSO__pe_id__3C34F16F" FromRole="CURSO" ToRole="PROGRAMA_ESPECIAL" />
-          <NavigationProperty Name="SOLICITUD" Relationship="FC_CIP_BDModel.FK__CURSO__soli_id__3D2915A8" FromRole="CURSO" ToRole="SOLICITUD" />
-        </EntityType>
         <EntityType Name="INSTRUCTOR">
           <Key>
             <PropertyRef Name="userId" />
@@ -423,15 +394,6 @@
           <Property Name="userId" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
           <NavigationProperty Name="USUARIO" Relationship="FC_CIP_BDModel.FK__INSTRUCTO__userI__32AB8735" FromRole="INSTRUCTOR" ToRole="USUARIO" />
           <NavigationProperty Name="SOLICITUD" Relationship="FC_CIP_BDModel.FK__SOLICITUD__user___367C1819" FromRole="INSTRUCTOR" ToRole="SOLICITUD" />
-        </EntityType>
-        <EntityType Name="MUNICIPIO">
-          <Key>
-            <PropertyRef Name="muni_id" />
-          </Key>
-          <Property Name="muni_id" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="muni_name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="ACTIVIDAD" Relationship="FC_CIP_BDModel.FK__ACTIVIDAD__muni___489AC854" FromRole="MUNICIPIO" ToRole="ACTIVIDAD" />
-          <NavigationProperty Name="CURSO" Relationship="FC_CIP_BDModel.FK__CURSO__muni_id__3B40CD36" FromRole="MUNICIPIO" ToRole="CURSO" />
         </EntityType>
         <EntityType Name="PROGRAMA_ESPECIAL">
           <Key>
@@ -453,8 +415,8 @@
           <Property Name="soli_date" Type="DateTime" Precision="3" />
           <Property Name="soli_status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="COORDINADOR" Relationship="FC_CIP_BDModel.FK__SOLICITUD__user___37703C52" FromRole="SOLICITUD" ToRole="COORDINADOR" />
-          <NavigationProperty Name="CURSO" Relationship="FC_CIP_BDModel.FK__CURSO__soli_id__3D2915A8" FromRole="SOLICITUD" ToRole="CURSO" />
           <NavigationProperty Name="INSTRUCTOR" Relationship="FC_CIP_BDModel.FK__SOLICITUD__user___367C1819" FromRole="SOLICITUD" ToRole="INSTRUCTOR" />
+          <NavigationProperty Name="CURSO" Relationship="FC_CIP_BDModel.FK__CURSO__soli_id__3D2915A8" FromRole="SOLICITUD" ToRole="CURSO" />
         </EntityType>
         <EntityType Name="USUARIO">
           <Key>
@@ -473,18 +435,6 @@
           <NavigationProperty Name="COORDINADOR" Relationship="FC_CIP_BDModel.FK__COORDINAD__userI__2FCF1A8A" FromRole="USUARIO" ToRole="COORDINADOR" />
           <NavigationProperty Name="INSTRUCTOR" Relationship="FC_CIP_BDModel.FK__INSTRUCTO__userI__32AB8735" FromRole="USUARIO" ToRole="INSTRUCTOR" />
         </EntityType>
-        <Association Name="FK__ACTIVIDAD__muni___489AC854">
-          <End Type="FC_CIP_BDModel.MUNICIPIO" Role="MUNICIPIO" Multiplicity="1" />
-          <End Type="FC_CIP_BDModel.ACTIVIDAD" Role="ACTIVIDAD" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MUNICIPIO">
-              <PropertyRef Name="muni_id" />
-            </Principal>
-            <Dependent Role="ACTIVIDAD">
-              <PropertyRef Name="muni_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__COORDINAD__userI__2FCF1A8A">
           <End Type="FC_CIP_BDModel.USUARIO" Role="USUARIO" Multiplicity="1" />
           <End Type="FC_CIP_BDModel.COORDINADOR" Role="COORDINADOR" Multiplicity="0..1" />
@@ -506,6 +456,86 @@
             </Principal>
             <Dependent Role="SOLICITUD">
               <PropertyRef Name="user_CoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__INSTRUCTO__userI__32AB8735">
+          <End Type="FC_CIP_BDModel.USUARIO" Role="USUARIO" Multiplicity="1" />
+          <End Type="FC_CIP_BDModel.INSTRUCTOR" Role="INSTRUCTOR" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="INSTRUCTOR">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SOLICITUD__user___367C1819">
+          <End Type="FC_CIP_BDModel.INSTRUCTOR" Role="INSTRUCTOR" Multiplicity="1" />
+          <End Type="FC_CIP_BDModel.SOLICITUD" Role="SOLICITUD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="INSTRUCTOR">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="SOLICITUD">
+              <PropertyRef Name="user_InId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ACTIVIDAD">
+          <Key>
+            <PropertyRef Name="acti_id" />
+          </Key>
+          <Property Name="acti_id" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="muni_id" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="cu_id" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="acti_name" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="acti_datytotal" Type="Int32" />
+          <Property Name="acti_startDate" Type="DateTime" Precision="3" />
+          <Property Name="acti_endDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="CURSO" Relationship="FC_CIP_BDModel.FK_ACTIVIDAD_CURSO" FromRole="ACTIVIDAD" ToRole="CURSO" />
+        </EntityType>
+        <EntityType Name="MUNICIPIO">
+          <Key>
+            <PropertyRef Name="muni_id" />
+          </Key>
+          <Property Name="muni_id" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="muni_name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CURSO" Relationship="FC_CIP_BDModel.FK__CURSO__muni_id__3B40CD36" FromRole="MUNICIPIO" ToRole="CURSO" />
+        </EntityType>
+        <EntityType Name="CURSO">
+          <Key>
+            <PropertyRef Name="curso_id" />
+          </Key>
+          <Property Name="curso_id" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="curso_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="curso_code" Type="Int32" />
+          <Property Name="curso_version" Type="Double" />
+          <Property Name="curso_programa" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="curso_duration" Type="Int32" />
+          <Property Name="curso_startDate" Type="DateTime" Precision="0" />
+          <Property Name="curso_endDate" Type="DateTime" Precision="0" />
+          <Property Name="curso_note" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="curso_days" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="muni_id" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="pe_id" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="soli_id" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="curso_lugar" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ACTIVIDAD" Relationship="FC_CIP_BDModel.FK_ACTIVIDAD_CURSO" FromRole="CURSO" ToRole="ACTIVIDAD" />
+          <NavigationProperty Name="MUNICIPIO" Relationship="FC_CIP_BDModel.FK__CURSO__muni_id__3B40CD36" FromRole="CURSO" ToRole="MUNICIPIO" />
+          <NavigationProperty Name="PROGRAMA_ESPECIAL" Relationship="FC_CIP_BDModel.FK__CURSO__pe_id__3C34F16F" FromRole="CURSO" ToRole="PROGRAMA_ESPECIAL" />
+          <NavigationProperty Name="SOLICITUD" Relationship="FC_CIP_BDModel.FK__CURSO__soli_id__3D2915A8" FromRole="CURSO" ToRole="SOLICITUD" />
+        </EntityType>
+        <Association Name="FK_ACTIVIDAD_CURSO">
+          <End Type="FC_CIP_BDModel.CURSO" Role="CURSO" Multiplicity="1" />
+          <End Type="FC_CIP_BDModel.ACTIVIDAD" Role="ACTIVIDAD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CURSO">
+              <PropertyRef Name="curso_id" />
+            </Principal>
+            <Dependent Role="ACTIVIDAD">
+              <PropertyRef Name="cu_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -545,31 +575,63 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__INSTRUCTO__userI__32AB8735">
-          <End Type="FC_CIP_BDModel.USUARIO" Role="USUARIO" Multiplicity="1" />
-          <End Type="FC_CIP_BDModel.INSTRUCTOR" Role="INSTRUCTOR" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="USUARIO">
-              <PropertyRef Name="userId" />
-            </Principal>
-            <Dependent Role="INSTRUCTOR">
-              <PropertyRef Name="userId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__SOLICITUD__user___367C1819">
-          <End Type="FC_CIP_BDModel.INSTRUCTOR" Role="INSTRUCTOR" Multiplicity="1" />
-          <End Type="FC_CIP_BDModel.SOLICITUD" Role="SOLICITUD" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="INSTRUCTOR">
-              <PropertyRef Name="userId" />
-            </Principal>
-            <Dependent Role="SOLICITUD">
-              <PropertyRef Name="user_InId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-      </Schema>
+        <ComplexType Name="getFormatoSolicitudes_Result">
+          <Property Type="String" Name="userName" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="user_lastname" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="user_email" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="user_phone" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="DateTime" Name="curso_startDate" Nullable="true" />
+          <Property Type="DateTime" Name="curso_endDate" Nullable="true" />
+          <Property Type="String" Name="curso_programa" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="curso_code" Nullable="true" />
+          <Property Type="Double" Name="curso_version" Nullable="true" />
+          <Property Type="String" Name="curso_lugar" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="muni_name" Nullable="true" MaxLength="30" />
+          <Property Type="Int32" Name="curso_duration" Nullable="true" />
+          <Property Type="String" Name="pe_name" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="curso_note" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="soli_type" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="soli_empresa" Nullable="true" MaxLength="60" />
+        </ComplexType>
+        <ComplexType Name="getFormatoSolicitudes_Result1">
+          <Property Type="Decimal" Name="userId" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="usua_nid" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="user_password" Nullable="true" MaxLength="250" />
+          <Property Type="Int32" Name="user_type" Nullable="true" />
+          <Property Type="String" Name="userName" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="user_lastname" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="user_email" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="user_phone" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Boolean" Name="user_restore" Nullable="true" />
+          <Property Type="DateTime" Name="us_date" Nullable="true" Precision="23" />
+          <Property Type="Decimal" Name="userId1" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="so_id" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="user_InId" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="user_CoId" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="String" Name="soli_type" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="soli_empresa" Nullable="true" MaxLength="60" />
+          <Property Type="DateTime" Name="soli_date" Nullable="true" Precision="23" />
+          <Property Type="String" Name="soli_status" Nullable="true" MaxLength="20" />
+          <Property Type="Decimal" Name="curso_id" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="String" Name="curso_name" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="curso_code" Nullable="true" />
+          <Property Type="Double" Name="curso_version" Nullable="true" />
+          <Property Type="String" Name="curso_programa" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="curso_duration" Nullable="true" />
+          <Property Type="DateTime" Name="curso_startDate" Nullable="true" />
+          <Property Type="DateTime" Name="curso_endDate" Nullable="true" />
+          <Property Type="String" Name="curso_note" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="curso_days" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="muni_id" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="pe_id" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="soli_id" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="String" Name="curso_lugar" Nullable="true" MaxLength="200" />
+          <Property Type="Decimal" Name="muni_id1" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="String" Name="muni_name" Nullable="true" MaxLength="30" />
+          <Property Type="Decimal" Name="pe_id1" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="String" Name="pe_name" Nullable="true" MaxLength="60" />
+        </ComplexType>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -652,19 +714,6 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="RegistrarUsuario" FunctionName="FC_CIP_BDModel.Store.RegistrarUsuario" />
-          <EntitySetMapping Name="ACTIVIDAD">
-            <EntityTypeMapping TypeName="FC_CIP_BDModel.ACTIVIDAD">
-              <MappingFragment StoreEntitySet="ACTIVIDAD">
-                <ScalarProperty Name="acti_endDate" ColumnName="acti_endDate" />
-                <ScalarProperty Name="acti_startDate" ColumnName="acti_startDate" />
-                <ScalarProperty Name="acti_datytotal" ColumnName="acti_datytotal" />
-                <ScalarProperty Name="acti_name" ColumnName="acti_name" />
-                <ScalarProperty Name="cu_id" ColumnName="cu_id" />
-                <ScalarProperty Name="muni_id" ColumnName="muni_id" />
-                <ScalarProperty Name="acti_id" ColumnName="acti_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="COORDINADOR">
             <EntityTypeMapping TypeName="FC_CIP_BDModel.COORDINADOR">
               <MappingFragment StoreEntitySet="COORDINADOR">
@@ -672,37 +721,10 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CURSO">
-            <EntityTypeMapping TypeName="FC_CIP_BDModel.CURSO">
-              <MappingFragment StoreEntitySet="CURSO">
-                <ScalarProperty Name="soli_id" ColumnName="soli_id" />
-                <ScalarProperty Name="pe_id" ColumnName="pe_id" />
-                <ScalarProperty Name="muni_id" ColumnName="muni_id" />
-                <ScalarProperty Name="curso_days" ColumnName="curso_days" />
-                <ScalarProperty Name="curso_note" ColumnName="curso_note" />
-                <ScalarProperty Name="curso_endDate" ColumnName="curso_endDate" />
-                <ScalarProperty Name="curso_startDate" ColumnName="curso_startDate" />
-                <ScalarProperty Name="curso_duration" ColumnName="curso_duration" />
-                <ScalarProperty Name="curso_programa" ColumnName="curso_programa" />
-                <ScalarProperty Name="curso_version" ColumnName="curso_version" />
-                <ScalarProperty Name="curso_code" ColumnName="curso_code" />
-                <ScalarProperty Name="curso_name" ColumnName="curso_name" />
-                <ScalarProperty Name="curso_id" ColumnName="curso_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="INSTRUCTOR">
             <EntityTypeMapping TypeName="FC_CIP_BDModel.INSTRUCTOR">
               <MappingFragment StoreEntitySet="INSTRUCTOR">
                 <ScalarProperty Name="userId" ColumnName="userId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="MUNICIPIO">
-            <EntityTypeMapping TypeName="FC_CIP_BDModel.MUNICIPIO">
-              <MappingFragment StoreEntitySet="MUNICIPIO">
-                <ScalarProperty Name="muni_name" ColumnName="muni_name" />
-                <ScalarProperty Name="muni_id" ColumnName="muni_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -744,6 +766,89 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="UpdateSolistatus" FunctionName="FC_CIP_BDModel.Store.UpdateSolistatus" />
+          <EntitySetMapping Name="ACTIVIDAD">
+            <EntityTypeMapping TypeName="FC_CIP_BDModel.ACTIVIDAD">
+              <MappingFragment StoreEntitySet="ACTIVIDAD">
+                <ScalarProperty Name="acti_endDate" ColumnName="acti_endDate" />
+                <ScalarProperty Name="acti_startDate" ColumnName="acti_startDate" />
+                <ScalarProperty Name="acti_datytotal" ColumnName="acti_datytotal" />
+                <ScalarProperty Name="acti_name" ColumnName="acti_name" />
+                <ScalarProperty Name="cu_id" ColumnName="cu_id" />
+                <ScalarProperty Name="muni_id" ColumnName="muni_id" />
+                <ScalarProperty Name="acti_id" ColumnName="acti_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MUNICIPIO">
+            <EntityTypeMapping TypeName="FC_CIP_BDModel.MUNICIPIO">
+              <MappingFragment StoreEntitySet="MUNICIPIO">
+                <ScalarProperty Name="muni_name" ColumnName="muni_name" />
+                <ScalarProperty Name="muni_id" ColumnName="muni_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CURSO">
+            <EntityTypeMapping TypeName="FC_CIP_BDModel.CURSO">
+              <MappingFragment StoreEntitySet="CURSO">
+                <ScalarProperty Name="curso_lugar" ColumnName="curso_lugar" />
+                <ScalarProperty Name="soli_id" ColumnName="soli_id" />
+                <ScalarProperty Name="pe_id" ColumnName="pe_id" />
+                <ScalarProperty Name="muni_id" ColumnName="muni_id" />
+                <ScalarProperty Name="curso_days" ColumnName="curso_days" />
+                <ScalarProperty Name="curso_note" ColumnName="curso_note" />
+                <ScalarProperty Name="curso_endDate" ColumnName="curso_endDate" />
+                <ScalarProperty Name="curso_startDate" ColumnName="curso_startDate" />
+                <ScalarProperty Name="curso_duration" ColumnName="curso_duration" />
+                <ScalarProperty Name="curso_programa" ColumnName="curso_programa" />
+                <ScalarProperty Name="curso_version" ColumnName="curso_version" />
+                <ScalarProperty Name="curso_code" ColumnName="curso_code" />
+                <ScalarProperty Name="curso_name" ColumnName="curso_name" />
+                <ScalarProperty Name="curso_id" ColumnName="curso_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="getFormatoSolicitudes" FunctionName="FC_CIP_BDModel.Store.getFormatoSolicitudes">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FC_CIP_BDModel.getFormatoSolicitudes_Result1">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="usua_nid" ColumnName="usua_nid" />
+                <ScalarProperty Name="user_password" ColumnName="user_password" />
+                <ScalarProperty Name="user_type" ColumnName="user_type" />
+                <ScalarProperty Name="userName" ColumnName="userName" />
+                <ScalarProperty Name="user_lastname" ColumnName="user_lastname" />
+                <ScalarProperty Name="user_email" ColumnName="user_email" />
+                <ScalarProperty Name="user_phone" ColumnName="user_phone" />
+                <ScalarProperty Name="user_restore" ColumnName="user_restore" />
+                <ScalarProperty Name="us_date" ColumnName="us_date" />
+                <ScalarProperty Name="userId1" ColumnName="userId1" />
+                <ScalarProperty Name="so_id" ColumnName="so_id" />
+                <ScalarProperty Name="user_InId" ColumnName="user_InId" />
+                <ScalarProperty Name="user_CoId" ColumnName="user_CoId" />
+                <ScalarProperty Name="soli_type" ColumnName="soli_type" />
+                <ScalarProperty Name="soli_empresa" ColumnName="soli_empresa" />
+                <ScalarProperty Name="soli_date" ColumnName="soli_date" />
+                <ScalarProperty Name="soli_status" ColumnName="soli_status" />
+                <ScalarProperty Name="curso_id" ColumnName="curso_id" />
+                <ScalarProperty Name="curso_name" ColumnName="curso_name" />
+                <ScalarProperty Name="curso_code" ColumnName="curso_code" />
+                <ScalarProperty Name="curso_version" ColumnName="curso_version" />
+                <ScalarProperty Name="curso_programa" ColumnName="curso_programa" />
+                <ScalarProperty Name="curso_duration" ColumnName="curso_duration" />
+                <ScalarProperty Name="curso_startDate" ColumnName="curso_startDate" />
+                <ScalarProperty Name="curso_endDate" ColumnName="curso_endDate" />
+                <ScalarProperty Name="curso_note" ColumnName="curso_note" />
+                <ScalarProperty Name="curso_days" ColumnName="curso_days" />
+                <ScalarProperty Name="muni_id" ColumnName="muni_id" />
+                <ScalarProperty Name="pe_id" ColumnName="pe_id" />
+                <ScalarProperty Name="soli_id" ColumnName="soli_id" />
+                <ScalarProperty Name="curso_lugar" ColumnName="curso_lugar" />
+                <ScalarProperty Name="muni_id1" ColumnName="muni_id1" />
+                <ScalarProperty Name="muni_name" ColumnName="muni_name" />
+                <ScalarProperty Name="pe_id1" ColumnName="pe_id1" />
+                <ScalarProperty Name="pe_name" ColumnName="pe_name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
